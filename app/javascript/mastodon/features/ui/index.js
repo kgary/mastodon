@@ -89,7 +89,8 @@ const keyMap = {
   goToHome: 'g h',
   goToNotifications: 'g n',
   goToLocal: 'g l',
-  goToFederated: 'g t',
+  //removing federated keybind
+  //goToFederated: 'g t',
   goToDirect: 'g d',
   goToStart: 'g s',
   goToFavourites: 'g f',
