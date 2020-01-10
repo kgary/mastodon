@@ -57,6 +57,3 @@ yarn-debug.log
 
 # Ignore Docker option files
 docker-compose.override.yml
-
-#Ignore rb schema file
-/db/schema.rb
