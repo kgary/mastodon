@@ -57,3 +57,8 @@ yarn-debug.log
 
 # Ignore Docker option files
 docker-compose.override.yml
+
+# Ignore other .env settings for rails
+.env.nanobox
+.env.production*
+.env.vagrant
