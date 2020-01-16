@@ -16,5 +16,15 @@ def heal_group(con):
 );
 """)
 
-with connection.cursor() as con:
+def mod_user_group(con):
+    con.execute("""
+       ALTER TABLE users
+       ADD COLUMN IF NOT EXISTS invite_end VARCHAR(80) NOT NULL DEFAULT 'No link',
+       ADD COLUMN IF NOT EXISTS heal_group_name VARCHAR(20) NOT NULL DEFAULT 'No Group';
+""")
+
+ with connection.cursor() as con:
     heal_group(con)
+    mod_user_group(con)
+
+con.close()
