@@ -44,7 +44,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
       u.permit({ account_attributes: [:username], invite_request_attributes: [:text] }, :email, :password, :password_confirmation, :invite_code)
     end
     res = `python ~/live/bridgesGroupPop.py '{"username":#{params[:user][:account_attributes][:username]}, "invite_end": #{params[:user][:invite_code]}}'`
-    p res
   end
 
   def after_sign_up_path_for(_resource)

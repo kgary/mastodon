@@ -19,8 +19,6 @@ connection = psycopg2.connect(
 
 connection.autocommit = True
 
-temp = 'hi mason2'
-
 def get_account(con):
     con.execute("""
        SELECT id
@@ -46,7 +44,7 @@ def mod_user(con):
        SET invite_end = '%s',
        heal_group_name = '%s'
        WHERE account_id = %d;
-    """ % (temp, get_group(con), get_account(con)))
+    """ % (invite, get_group(con), get_account(con)))
 
 with connection.cursor() as con:
     mod_user(con)
