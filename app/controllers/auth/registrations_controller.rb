@@ -17,6 +17,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     super(&:build_invite_request)
   end
 
+  def create
+    super
+    py_script = Rails.root.join('bridgesGroupPop.py')
+    res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+  end
+
   def destroy
     not_found
   end
@@ -43,7 +49,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up) do |u|
       u.permit({ account_attributes: [:username], invite_request_attributes: [:text] }, :email, :password, :password_confirmation, :invite_code)
     end
-    res = `python ~/live/bridgesGroupPop.py '{"username":#{params[:user][:account_attributes][:username]}, "invite_end": #{params[:user][:invite_code]}}'`
   end
 
   def after_sign_up_path_for(_resource)
