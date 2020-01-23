@@ -61,7 +61,7 @@ class User < ApplicationRecord
 
   devise :registerable, :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
-
+         
   include Omniauthable
   include PamAuthenticable
   include LdapAuthenticable

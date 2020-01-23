@@ -12,7 +12,6 @@ global group
 global oauth
 global username
 global invite_end
-
 connection = psycopg2.connect(
     host="localhost",
     database="mastodon_development",
@@ -24,27 +23,22 @@ connection.autocommit = True
 
 def get_account(con):
     global id
-    execId = "SELECT id FROM accounts WHERE username = %s"
-    con.execute(execId, (payload['username'], ))
+    execId = "SELECT id FROM users WHERE email = %s"
+    con.execute(execId, (payload['email'], ))
     id = con.fetchone()[0]
     return id
 
 def get_group(con):
     global group
-    execGroup = "SELECT comment FROM invites WHERE code = %s"
-    invite = (payload['invite_end'], )
+    execGroup = "SELECT heal_group_name FROM users WHERE id = %s"
+    invite = (id, )
     con.execute(execGroup, invite)
     group = con.fetchone()[0]
     return group
 
-def mod_user(con):
-    execMod = "UPDATE users SET invite_end = %s, heal_group_name = %s, confirmed_at = now() WHERE account_id = %s;"
-    con.execute(execMod, (payload['invite_end'], get_group(con), get_account(con),))
-    group_follows(con)
-
 def group_follows(con):
-    global group
-    global id
+    get_account(con)
+    get_group(con)
     tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
     con.execute(tokenExec, (id, ))
     oauth = con.fetchone()[0]
@@ -76,6 +70,6 @@ def follow_user(u, f, oauth):
             print("Followed: " + str(user[0]))
 
 with connection.cursor() as con:
-    mod_user(con)
+    group_follows(con)
 
 con.close()
