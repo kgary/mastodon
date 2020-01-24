@@ -147,16 +147,16 @@ class Header extends ImmutablePureComponent {
 
     if (me !== account.get('id')) {
       if (!account.get('relationship')) { // Wait until the relationship is loaded
-        actionBtn = '';
+        //actionBtn = '';
       } else if (account.getIn(['relationship', 'requested'])) {
-        actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.cancel_follow_request)} title={intl.formatMessage(messages.requested)} onClick={this.props.onFollow} />;
+        //actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.cancel_follow_request)} title={intl.formatMessage(messages.requested)} onClick={this.props.onFollow} />;
       } else if (!account.getIn(['relationship', 'blocking'])) {
-        actionBtn = <Button disabled={account.getIn(['relationship', 'blocked_by'])} className={classNames('logo-button', { 'button--destructive': account.getIn(['relationship', 'following']) })} text={intl.formatMessage(account.getIn(['relationship', 'following']) ? messages.unfollow : messages.follow)} onClick={this.props.onFollow} />;
+        //actionBtn = <Button disabled={account.getIn(['relationship', 'blocked_by'])} className={classNames('logo-button', { 'button--destructive': account.getIn(['relationship', 'following']) })} text={intl.formatMessage(account.getIn(['relationship', 'following']) ? messages.unfollow : messages.follow)} onClick={this.props.onFollow} />;
       } else if (account.getIn(['relationship', 'blocking'])) {
-        actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.unblock, { name: account.get('username') })} onClick={this.props.onBlock} />;
+        //actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.unblock, { name: account.get('username') })} onClick={this.props.onBlock} />;
       }
     } else {
-      actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.edit_profile)} onClick={this.openEditProfile} />;
+      //actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.edit_profile)} onClick={this.openEditProfile} />;
     }
 
     if (account.get('moved') && !account.getIn(['relationship', 'following'])) {
@@ -199,7 +199,7 @@ class Header extends ImmutablePureComponent {
         }
 
         menu.push({ text: intl.formatMessage(account.getIn(['relationship', 'endorsed']) ? messages.unendorse : messages.endorse), action: this.props.onEndorseToggle });
-        menu.push({ text: intl.formatMessage(messages.add_or_remove_from_list), action: this.props.onAddToList });
+        //menu.push({ text: intl.formatMessage(messages.add_or_remove_from_list), action: this.props.onAddToList });
         menu.push(null);
       }
 
