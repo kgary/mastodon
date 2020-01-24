@@ -12,6 +12,7 @@ global group
 global oauth
 global username
 global invite_end
+
 connection = psycopg2.connect(
     host="localhost",
     database="mastodon_development",
@@ -21,46 +22,51 @@ connection = psycopg2.connect(
 
 connection.autocommit = True
 
-def get_account(con):
+def get_account():
     global id
     execId = "SELECT id FROM users WHERE email = %s"
-    con.execute(execId, (payload['email'], ))
-    id = con.fetchone()[0]
+    with connection.cursor() as con:
+        con.execute(execId, (payload['email'], ))
+        id = con.fetchone()[0]
+    con.close()
     return id
 
-def get_group(con):
+def get_group():
     global group
     execGroup = "SELECT heal_group_name FROM users WHERE id = %s"
     invite = (id, )
-    con.execute(execGroup, invite)
-    group = con.fetchone()[0]
+    with connection.cursor() as con:
+        con.execute(execGroup, invite)
+        group = con.fetchone()[0]
+    con.close()
     return group
 
-def group_follows(con):
-    get_account(con)
-    get_group(con)
+def group_follows():
+    get_account()
+    get_group()
     tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
-    con.execute(tokenExec, (id, ))
-    oauth = con.fetchone()[0]
-    if len(oauth) < 2:
-        sys.exit('No auth token for user, cannot login/modify')
+    with connection.cursor() as con:
+        con.execute(tokenExec, (id, ))
+        oauth = con.fetchone()[0]
+        if len(oauth) < 2:
+            sys.exit('No auth token for user, cannot login/modify')
 
-    gListExec = "SELECT account_id FROM users WHERE heal_group_name = %s;"
-    con.execute(gListExec, (group, ))
-    groupList = con.fetchall()
+        gListExec = "SELECT account_id FROM users WHERE heal_group_name = %s;"
+        con.execute(gListExec, (group, ))
+        groupList = con.fetchall()
 
-    fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
-    con.execute(fListExec, (id, ))
-    followList = con.fetchall()
+        fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
+        con.execute(fListExec, (id, ))
+        followList = con.fetchall()
 
-    modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
-    con.execute(modExec)
-    modList = con.fetchall()
+        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+        con.execute(modExec)
+        modList = con.fetchall()
+    con.close()
     groupList += modList
     follow_user(groupList, followList, oauth)
 
 def follow_user(u, f, oauth):
-    con.close()
     form = {'authenticity_token': payload['auth_token']}
     headers = {'Authorization': 'Bearer ' + oauth}
     endpoint = '/api/v1/accounts/{id}/follow'
@@ -69,7 +75,4 @@ def follow_user(u, f, oauth):
             r = requests.post('http://localhost:3000' + endpoint.replace('{id}', str(user[0])), headers=headers, data=form)
             print("Followed: " + str(user[0]))
 
-with connection.cursor() as con:
-    group_follows(con)
-
-con.close()
+group_follows()
