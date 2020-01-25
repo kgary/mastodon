@@ -6,6 +6,7 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 import time
 from datetime import datetime
+import functools
 #set x to the parameters being passed to the script then jsonify it
 x = sys.argv[1]
 payload = json.loads(x)
@@ -84,29 +85,41 @@ def group_follows():
         con.execute(modExec)
         modList = con.fetchall()
     con.close()
+
+    followNonTup = []
+    for tup in followList:
+        followNonTup.append(tup[0])
+
     groupList += modList
+    nonTupList = []
+    for tup in groupList:
+        nonTupList.append(tup[0])
+    
     groupLoggedin = []
     for tup in loggedIn:
         if tup[1] in groupList:
             groupLoggedin.append(tup[0])
-    follow_user(groupList, followList, oauth)
+    follow_user(nonTupList, followNonTup, oauth)
     follow_loggedin(groupLoggedin)
 
 def follow_user(u, f, oauth):
+    time.sleep(2)
     form = {'authenticity_token': payload['auth_token']}
     headers = {'Authorization': 'Bearer ' + oauth}
     endpoint = '/api/v1/accounts/{id}/follow'
+    req = requests_retry_session()
     for user in u:
-        if user[0] != id and user[0] not in f:
-            r = requests.post('http://localhost:3000' + endpoint.replace('{id}', str(user[0])), headers=headers, data=form)
-            print("Followed: " + str(user[0]))
+        if user not in f:
+            r = req.post('http://localhost:3000' + endpoint.replace('{id}', str(user)), headers=headers, data=form)
+            print("Followed: " + str(user))
 
 def follow_loggedin(i):
     form = {'authenticity_token': payload['auth_token']}
     endpoint = '/api/v1/accounts/{id}/follow'.replace('{id}', str(id))
+    req = requests_retry_session()
     for token in i:
         headers = {'Authorization': 'Bearer ' + token[0]}
-        r = requests_retry_session.post('http://localhost:3000' + endpoint, headers=headers, data=form, timeout=1)
+        r = req.post('http://localhost:3000' + endpoint, headers=headers, data=form)
 
 def requests_retry_session(
     retries=3,
@@ -121,11 +134,13 @@ def requests_retry_session(
         connect=retries,
         backoff_factor=backoff_factor,
         status_forcelist=status_forcelist,
-        method_whitelist=frozenset(['GET', 'POST'])
+        method_whitelist=frozenset(['GET', 'post'])
     )
     adapter = HTTPAdapter(max_retries=retry)
     session.mount('http://', adapter)
     session.mount('https://', adapter)
+    for method in ('get', 'post'):
+        setattr(session, method, functools.partial(getattr(session, method), timeout=1))
     return session
 
 mod_user()

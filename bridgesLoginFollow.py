@@ -2,8 +2,11 @@ import sys
 import psycopg2
 import json
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 import time
 from datetime import datetime
+import functools
 #set x to the parameters being passed to the script then jsonify it
 x = sys.argv[1]
 payload = json.loads(x)
@@ -63,16 +66,48 @@ def group_follows():
         con.execute(modExec)
         modList = con.fetchall()
     con.close()
+
+    followNonTup = []
+    for tup in followList:
+        followNonTup.append(tup[0])
+
     groupList += modList
-    follow_user(groupList, followList, oauth)
+    nonTupList = []
+    for tup in groupList:
+        nonTupList.append(tup[0])
+
+    follow_user(nonTupList, followNonTup, oauth)
 
 def follow_user(u, f, oauth):
     form = {'authenticity_token': payload['auth_token']}
     headers = {'Authorization': 'Bearer ' + oauth}
     endpoint = '/api/v1/accounts/{id}/follow'
+    req = requests_retry_session()
     for user in u:
-        if user[0] != id and user[0] not in f:
-            r = requests.post('http://localhost:3000' + endpoint.replace('{id}', str(user[0])), headers=headers, data=form)
-            print("Followed: " + str(user[0]))
+        if user not in f:
+            r = req.post('http://localhost:3000' + endpoint.replace('{id}', str(user)), headers=headers, data=form)
+            print("Followed: " + str(user))
+
+def requests_retry_session(
+    retries=3,
+    backoff_factor=0.3,
+    status_forcelist=(500, 502, 504),
+    session=None,
+):
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+        method_whitelist=frozenset(['GET', 'post'])
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    for method in ('get', 'post'):
+        setattr(session, method, functools.partial(getattr(session, method), timeout=1))
+    return session
 
 group_follows()
