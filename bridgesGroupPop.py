@@ -2,6 +2,8 @@ import sys
 import psycopg2
 import json
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 import time
 from datetime import datetime
 #set x to the parameters being passed to the script then jsonify it
@@ -104,6 +106,27 @@ def follow_loggedin(i):
     endpoint = '/api/v1/accounts/{id}/follow'.replace('{id}', str(id))
     for token in i:
         headers = {'Authorization': 'Bearer ' + token[0]}
-        r = request.post('http://localhost:3000' + endpoint, headers=headers, data=form)
+        r = requests_retry_session.post('http://localhost:3000' + endpoint, headers=headers, data=form, timeout=1)
+
+def requests_retry_session(
+    retries=3,
+    backoff_factor=0.3,
+    status_forcelist=(500, 502, 504),
+    session=None,
+):
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+        method_whitelist=frozenset(['GET', 'POST'])
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
 
 mod_user()
+
