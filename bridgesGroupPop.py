@@ -1,4 +1,5 @@
 import sys
+import os
 import psycopg2
 import json
 import requests
@@ -17,12 +18,25 @@ global username
 global invite_end
 global loggedIn
 
-connection = psycopg2.connect(
-    host="localhost",
-    database="mastodon_development",
-    user="mastodon",
-    password="t",
-)
+filepath = 'config.txt'
+
+if not os.path.isfile(filepath):
+    print('File does not exist, setting defaults')
+    connection = psycopg2.connect(
+        host="localhost",
+        database="mastodon_development",
+        user="mastodon",
+        password="t"
+    )
+else:
+    with open(filepath, 'r') as f:
+        configVars = f.readlines()
+        connection = psycopg2.connect(
+            host=configVars[0].strip().split('=')[1],
+            database=configVars[1].strip().split('=')[1],
+            user=configVars[2].strip().split('=')[1],
+            password=configVars[3].strip().split('=')[1]
+        )
 
 connection.autocommit = True
 
@@ -86,24 +100,33 @@ def group_follows():
         modList = con.fetchall()
     con.close()
 
+    #need just the group, no mods for later
+    justGroupList = groupList.copy();
+    #combine group and mod lists
+    groupList += modList
+
+    #strip the tuples list to just a list of values
     followNonTup = []
     for tup in followList:
         followNonTup.append(tup[0])
 
-    groupList += modList
-    nonTupList = []
+    nonTupListAll = []
     for tup in groupList:
-        nonTupList.append(tup[0])
-    
+        nonTupListAll.append(tup[0])
+
+    nonTupListGroup = []
+    for tup in justGroupList:
+        nonTupListGroup.append(tup[0])
+
     groupLoggedin = []
     for tup in loggedIn:
-        if tup[1] in groupList:
+        if tup[1] in nonTupListGroup:
             groupLoggedin.append(tup[0])
-    follow_user(nonTupList, followNonTup, oauth)
+    #initiate follows both ways
+    follow_user(nonTupListAll, followNonTup, oauth)
     follow_loggedin(groupLoggedin)
 
 def follow_user(u, f, oauth):
-    time.sleep(2)
     form = {'authenticity_token': payload['auth_token']}
     headers = {'Authorization': 'Bearer ' + oauth}
     endpoint = '/api/v1/accounts/{id}/follow'
@@ -118,7 +141,7 @@ def follow_loggedin(i):
     endpoint = '/api/v1/accounts/{id}/follow'.replace('{id}', str(id))
     req = requests_retry_session()
     for token in i:
-        headers = {'Authorization': 'Bearer ' + token[0]}
+        headers = {'Authorization': 'Bearer ' + token}
         r = req.post('http://localhost:3000' + endpoint, headers=headers, data=form)
 
 def requests_retry_session(

@@ -1,0 +1,4 @@
+host=localhost
+database=mastodon_development
+user=mastodon
+password=t

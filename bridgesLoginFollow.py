@@ -1,4 +1,5 @@
 import sys
+import os
 import psycopg2
 import json
 import requests
@@ -16,12 +17,25 @@ global oauth
 global username
 global invite_end
 
-connection = psycopg2.connect(
-    host="localhost",
-    database="mastodon_development",
-    user="mastodon",
-    password="t",
-)
+filepath = 'config.txt'
+
+if not os.path.isfile(filepath):
+    print('File does not exist, setting defaults')
+    connection = psycopg2.connect(
+        host="localhost",
+        database="mastodon_development",
+        user="mastodon",
+        password="t"
+    )
+else:
+    with open(filepath, 'r') as f:
+        configVars = f.readlines()
+        connection = psycopg2.connect(
+            host=configVars[0].strip().split('=')[1],
+            database=configVars[1].strip().split('=')[1],
+            user=configVars[2].strip().split('=')[1],
+            password=configVars[3].strip().split('=')[1]
+        )
 
 connection.autocommit = True
 
