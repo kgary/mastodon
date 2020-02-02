@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TextIconButton from '../components/text_icon_button';
+import TextIconButton from '../components/heal_black_text_button';
 import { changeComposeSpoilerness } from '../../../actions/compose';
 import { injectIntl, defineMessages } from 'react-intl';
 
@@ -9,7 +9,7 @@ const messages = defineMessages({
 });
 
 const mapStateToProps = (state, { intl }) => ({
-  label: 'Goals',
+  label: 'Lifestyle',
   title: intl.formatMessage(state.getIn(['compose', 'spoiler']) ? messages.marked : messages.unmarked),
   active: state.getIn(['compose', 'spoiler']),
   ariaControls: 'cw-spoiler-input',

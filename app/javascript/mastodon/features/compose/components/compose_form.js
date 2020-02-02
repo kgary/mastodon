@@ -10,6 +10,12 @@ import PollButtonContainer from '../containers/poll_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
 import { defineMessages, injectIntl } from 'react-intl';
 import SpoilerButtonContainer from '../containers/spoiler_button_container';
+import CareerButtonContainer from '../containers/heal_career_button_container';
+import FamilyButtonContainer from '../containers/heal_family_button_container';
+import CommunityButtonContainer from '../containers/heal_community_button_container';
+import FriendsButtonContainer from '../containers/heal_friends_button_container';
+import HealthButtonContainer from '../containers/heal_health_button_container';
+import LifestyleButtonContainer from '../containers/heal_lifestyle_button_container';
 import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../containers/poll_form_container';
@@ -241,11 +247,29 @@ class ComposeForm extends ImmutablePureComponent {
             <UploadButtonContainer />
             <PollButtonContainer />
             <PrivacyDropdownContainer />
-            <SpoilerButtonContainer />
           </div>
-          <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
+        <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
-
+        <div className='compose-form__buttons-wrapper-bridges'>
+          <div className='compose-form__buttons-family'>
+            <FamilyButtonContainer />
+          </div>
+          <div className='compose-form__buttons-career'>
+            <CareerButtonContainer />
+          </div>
+          <div className='compose-form__buttons-friends'>
+           <FriendsButtonContainer />
+          </div>
+          <div className='compose-form__buttons-health'>
+           <HealthButtonContainer />
+          </div>
+          <div className='compose-form__buttons-lifestyle'>
+           <LifestyleButtonContainer />
+          </div>
+          <div className='compose-form__buttons-community'>
+           <CommunityButtonContainer />
+          </div>
+        </div>
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>

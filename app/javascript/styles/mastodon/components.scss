@@ -693,6 +693,59 @@
   }
 }
 
+  .compose-form__buttons-wrapper-bridges {
+    padding: 10px;
+    background: darken($simple-background-color, 8%);
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    justify-content: space-between;
+    flex: 0 0 auto;
+   
+    .compose-form__buttons {
+      display: flex;
+
+      .compose-form__upload-button-icon {
+        line-height: 27px;
+      }
+
+      .compose-form__sensitive-button {
+        display: none;
+
+        &.compose-form__sensitive-button--visible {
+          display: block;
+        }
+
+        .compose-form__sensitive-button__icon {
+          line-height: 27px;
+        }
+      }
+    }
+
+    .icon-button,
+    .text-icon-button {
+      box-sizing: content-box;
+      padding: 0 3px;
+      display: inline-block;
+    }
+
+    .character-counter__wrapper {
+      align-self: center;
+      margin-right: 4px;
+    }
+  }
+
+  .compose-form__publish {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+    flex: 0 0 auto;
+
+    .compose-form__publish-button-wrapper {
+      overflow: hidden;
+      padding-top: 10px;
+    }
+  }
+
 .character-counter {
   cursor: default;
   font-family: $font-sans-serif, sans-serif;
