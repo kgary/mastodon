@@ -1,0 +1,99 @@
+.compose-form__buttons-family{
+  font-color: black;
+  background: #14bbb0;
+  margin: 0;
+  flex: auto;
+  text-align: center;
+}
+.compose-form__buttons-career{
+  font-color: black;
+  background: #ea088d;
+  margin: 0;
+  flex: auto;
+  text-align: center;
+}
+.compose-form__buttons-friends{
+  font-color: black;
+  background: #ffcb06;
+  margin: 0;
+  flex: auto;
+  text-align: center;
+}
+.compose-form__buttons-lifestyle{
+  font-color: black;
+  background: #00b1d4;
+  margin: 0;
+  flex: auto;
+  text-align: center;
+}
+.compose-form__buttons-health{
+  font-color: black;
+  background: #a4cd39;
+  margin: 0;
+  flex: auto;
+  text-align: center;
+}
+.compose-form__buttons-community{
+  font-color: black;
+  background: #8f4a9b;
+  margin: 0;
+  flex: auto;
+  text-align: center;
+}
+
+.heal-black-text-button {
+  color: $lighter-text-color;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 0 2.5px;
+  line-height: 27px;
+  outline: 0;
+  transition: all 100ms ease-in;
+  transition-property: background-color, color;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken($lighter-text-color, 7%);
+    background-color: rgba($lighter-text-color, 0.15);
+    transition: all 200ms ease-out;
+    transition-property: background-color, color;
+  }
+
+  &:focus {
+    background-color: rgba($lighter-text-color, 0.3);
+  }
+
+  &.disabled {
+    color: lighten($lighter-text-color, 20%);
+    background-color: transparent;
+    cursor: default;
+  }
+
+  &.active {
+    color: $highlight-text-color;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &::-moz-focus-inner,
+  &:focus,
+  &:active {
+    outline: 0 !important;
+ }
+}
+.compose-form__buttons-wrapper-bridges {
+    padding: 0px;
+    background: darken($simple-background-color, 8%);
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 100%;
+}
