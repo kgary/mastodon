@@ -141,7 +141,6 @@ class ComposeForm extends ImmutablePureComponent {
     //maybe add tags here
     this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
 
-    //TODO reset addTag to true for all MastoButtons
     this.resetMastoButton();
     this.setState({ tagString: 'FutureSelf TAGS:' });
 
