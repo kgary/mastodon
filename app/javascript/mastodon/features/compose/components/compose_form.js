@@ -9,13 +9,6 @@ import AutosuggestInput from '../../../components/autosuggest_input';
 import PollButtonContainer from '../containers/poll_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
 import { defineMessages, injectIntl } from 'react-intl';
-import SpoilerButtonContainer from '../containers/spoiler_button_container';
-import CareerButtonContainer from '../containers/heal_career_button_container';
-import FamilyButtonContainer from '../containers/heal_family_button_container';
-import CommunityButtonContainer from '../containers/heal_community_button_container';
-import FriendsButtonContainer from '../containers/heal_friends_button_container';
-import HealthButtonContainer from '../containers/heal_health_button_container';
-import LifestyleButtonContainer from '../containers/heal_lifestyle_button_container';
 import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../containers/poll_form_container';
@@ -28,7 +21,7 @@ import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
 import Maso_button from './maso_button';
 import Textarea from 'react-textarea-autosize';
-import FutureSelfMenu from "./future_self";
+import FutureSelfMenu from './future_self';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -41,6 +34,9 @@ const messages = defineMessages({
 
 export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
+
+  DEFAULT_TAG_STRING = 'FutureSelf TAGS:'
+
   constructor() {
     super();
     this.masoFamily = React.createRef();
@@ -51,7 +47,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoCommunity = React.createRef();
   }
   state = {
-    tagString: 'FutureSelf TAGS:',
+    tagString: this.DEFAULT_TAG_STRING,
     futureSelf: false,
   }
   ;
@@ -101,7 +97,8 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   showFutureSelf = () => {
-    this.setState({futureSelf: !this.state.futureSelf});
+    this.setState({ futureSelf: !this.state.futureSelf });
+    this.resetMastoButton();
   }
 
   updateTootTag = (e, addTag) => {
@@ -121,6 +118,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoHealth.current.reset();
     this.masoLifestyle.current.reset();
     this.masoCommunity.current.reset();
+    this.setState({tagString: this.DEFAULT_TAG_STRING})
   }
 
   handleSubmit = () => {
@@ -142,7 +140,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
 
     this.resetMastoButton();
-    this.setState({ tagString: 'FutureSelf TAGS:' });
+    this.setState({ tagString: this.DEFAULT_TAG_STRING });
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
@@ -291,7 +289,7 @@ class ComposeForm extends ImmutablePureComponent {
           inputRef={this.setTextarea}
           className='tag-textarea__textarea'
           disabled='true'
-          placeholder={'FutureSelf TAGS:'}
+          placeholder={this.DEFAULT_TAG_STRING}
           value={this.state.tagString}
           aria-autocomplete='list'
         />}
