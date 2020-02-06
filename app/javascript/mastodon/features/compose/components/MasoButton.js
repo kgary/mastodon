@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 export default class MasoButton extends React.PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,
     title: PropTypes.string,
+    bgColor: PropTypes.array,
     onClick: PropTypes.func.isRequired,
   };
 
-  state = { addTag:true }
+  state = {
+    addTag: true,
+    bgColor: this.props.bgColor || ['white', 'blue'],
+  }
 
   handleClick = (e) => {
     e.preventDefault();
@@ -20,12 +23,14 @@ export default class MasoButton extends React.PureComponent {
 
   reset = () => {
     this.setState({ addTag:true });
-}
-
+  }
   render () {
-
     return (
-      <button value={'#'+this.props.value} onClick={this.handleClick} active>
+      <button
+        value={'#'+this.props.value}
+        onClick={this.handleClick}
+        style={{ backgroundColor:this.state.bgColor[this.state.addTag ? 0 : 1] }}
+      >
         {this.props.value}
       </button>
     );
