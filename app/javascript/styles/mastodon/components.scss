@@ -456,6 +456,24 @@
     }
   }
 
+  .tag-textarea__textarea {
+    min-height: 20px;
+    border-radius: 0 0 0 0;
+    padding-bottom: 0;
+    padding-right: 10px + 22px;
+    resize: none;
+    scrollbar-color: initial;
+
+    &::-webkit-scrollbar {
+      all: unset;
+    }
+
+    @media screen and (max-width: 600px) {
+      height: 100px !important; // prevent auto-resize textarea
+      resize: vertical;
+    }
+  }
+
   .autosuggest-textarea__suggestions-wrapper {
     position: relative;
     height: 0;

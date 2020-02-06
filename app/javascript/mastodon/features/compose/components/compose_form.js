@@ -26,6 +26,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
+import MasoButton from './MasoButton';
+import Textarea from 'react-textarea-autosize';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -39,10 +41,11 @@ const messages = defineMessages({
 export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
+  state = { tagString: 'TAGS:' }
+
   static contextTypes = {
     router: PropTypes.object,
   };
-
   static propTypes = {
     intl: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired,
@@ -83,6 +86,16 @@ class ComposeForm extends ImmutablePureComponent {
     }
   }
 
+  updateTootTag = (e, addTag) => {
+    if(addTag) {
+      // this.props.onChange(this.props.text + e.target.value);
+      this.setState({ tagString: this.state.tagString + ' ' + e.target.value });
+    } else {
+      // this.props.onChange(this.props.text.replace(e.target.value, ''));
+      this.setState({ tagString: this.state.tagString.replace(' ' + e.target.value, '') });
+    }
+  }
+
   handleSubmit = () => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
@@ -98,6 +111,9 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
+    //maybe add tags here
+    this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('TAGS:', ''));
+    this.setState({tagString: 'TAGS:'})
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
 
@@ -241,6 +257,14 @@ class ComposeForm extends ImmutablePureComponent {
             <PollFormContainer />
           </div>
         </AutosuggestTextarea>
+        <Textarea
+          inputRef={this.setTextarea}
+          className='tag-textarea__textarea'
+          disabled='true'
+          placeholder={'TAGS:'}
+          value={this.state.tagString}
+          aria-autocomplete='list'
+        />
 
         <div className='compose-form__buttons-wrapper'>
           <div className='compose-form__buttons'>
@@ -248,32 +272,22 @@ class ComposeForm extends ImmutablePureComponent {
             <PollButtonContainer />
             <PrivacyDropdownContainer />
           </div>
-        <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
+          <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
-        <div className='compose-form__buttons-wrapper-bridges'>
-          <div className='compose-form__buttons-family'>
-            <FamilyButtonContainer />
-          </div>
-          <div className='compose-form__buttons-career'>
-            <CareerButtonContainer />
-          </div>
-          <div className='compose-form__buttons-friends'>
-           <FriendsButtonContainer />
-          </div>
-          <div className='compose-form__buttons-health'>
-           <HealthButtonContainer />
-          </div>
-          <div className='compose-form__buttons-lifestyle'>
-           <LifestyleButtonContainer />
-          </div>
-          <div className='compose-form__buttons-community'>
-           <CommunityButtonContainer />
-          </div>
+        <div>
+          <MasoButton value={'family'}    onClick={this.updateTootTag}  />
+          <MasoButton value={'career'}    onClick={this.updateTootTag}  />
+          <MasoButton value={'friends'}   onClick={this.updateTootTag}  />
+          <MasoButton value={'health'}    onClick={this.updateTootTag}  />
+          <MasoButton value={'lifestyle'} onClick={this.updateTootTag}  />
+          <MasoButton value={'community'} onClick={this.updateTootTag}  />
         </div>
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>
       </div>
+
+
     );
   }
 
