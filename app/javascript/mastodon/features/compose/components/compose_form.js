@@ -300,12 +300,12 @@ class ComposeForm extends ImmutablePureComponent {
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
         <div>
-          <MasoButton value={'family'}    onClick={this.updateTootTag}  ref={this.masoFamily} />
-          <MasoButton value={'career'}    onClick={this.updateTootTag}  ref={this.masoCareer}/>
-          <MasoButton value={'friends'}   onClick={this.updateTootTag}  ref={this.masoFriends}/>
-          <MasoButton value={'health'}    onClick={this.updateTootTag}  ref={this.masoHealth}/>
-          <MasoButton value={'lifestyle'} onClick={this.updateTootTag}  ref={this.masoLifestyle}/>
-          <MasoButton value={'community'} onClick={this.updateTootTag}  ref={this.masoCommunity}/>
+          <MasoButton value={'family'}    onClick={this.updateTootTag}  ref={this.masoFamily}    bgColor={['white', 'green']}  />
+          <MasoButton value={'career'}    onClick={this.updateTootTag}  ref={this.masoCareer}    bgColor={['white', 'orange']} />
+          <MasoButton value={'friends'}   onClick={this.updateTootTag}  ref={this.masoFriends}   bgColor={['white', 'blue']}   />
+          <MasoButton value={'health'}    onClick={this.updateTootTag}  ref={this.masoHealth}    bgColor={['white', 'pink']}   />
+          <MasoButton value={'lifestyle'} onClick={this.updateTootTag}  ref={this.masoLifestyle} bgColor={['white', 'purple']} />
+          <MasoButton value={'community'} onClick={this.updateTootTag}  ref={this.masoCommunity} bgColor={['white', 'yellow']} />
         </div>
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
