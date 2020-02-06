@@ -51,7 +51,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoCommunity = React.createRef();
   }
   state = {
-    tagString: 'TAGS:',
+    tagString: 'FutureSelf TAGS:',
     futureSelf: false,
   }
   ;
@@ -139,11 +139,11 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     //maybe add tags here
-    this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('TAGS:', ''));
+    this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
 
     //TODO reset addTag to true for all MastoButtons
     this.resetMastoButton();
-    this.setState({ tagString: 'TAGS:' });
+    this.setState({ tagString: 'FutureSelf TAGS:' });
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
@@ -288,14 +288,14 @@ class ComposeForm extends ImmutablePureComponent {
             <PollFormContainer />
           </div>
         </AutosuggestTextarea>
-        <Textarea
+        {this.state.futureSelf && <Textarea
           inputRef={this.setTextarea}
           className='tag-textarea__textarea'
           disabled='true'
-          placeholder={'TAGS:'}
+          placeholder={'FutureSelf TAGS:'}
           value={this.state.tagString}
           aria-autocomplete='list'
-        />
+        />}
 
         <div className='compose-form__buttons-wrapper'>
           <div className='compose-form__buttons'>
