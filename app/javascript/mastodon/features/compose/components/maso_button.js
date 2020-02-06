@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class MasoButton extends React.PureComponent {
+export default class Maso_button extends React.PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,

@@ -26,8 +26,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
-import MasoButton from './MasoButton';
+import Maso_button from './maso_button';
 import Textarea from 'react-textarea-autosize';
+import FutureSelfMenu from "./future_self";
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -51,6 +52,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
   state = {
     tagString: 'TAGS:',
+    futureSelf: false,
   }
   ;
 
@@ -96,6 +98,10 @@ class ComposeForm extends ImmutablePureComponent {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
       this.handleSubmit();
     }
+  }
+
+  showFutureSelf = () => {
+    this.setState({futureSelf: !this.state.futureSelf});
   }
 
   updateTootTag = (e, addTag) => {
@@ -296,17 +302,18 @@ class ComposeForm extends ImmutablePureComponent {
             <UploadButtonContainer />
             <PollButtonContainer />
             <PrivacyDropdownContainer />
+            <FutureSelfMenu onClick={this.showFutureSelf} />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
-        <div>
-          <MasoButton value={'family'}    onClick={this.updateTootTag}  ref={this.masoFamily}    bgColor={['white', 'green']}  />
-          <MasoButton value={'career'}    onClick={this.updateTootTag}  ref={this.masoCareer}    bgColor={['white', 'orange']} />
-          <MasoButton value={'friends'}   onClick={this.updateTootTag}  ref={this.masoFriends}   bgColor={['white', 'blue']}   />
-          <MasoButton value={'health'}    onClick={this.updateTootTag}  ref={this.masoHealth}    bgColor={['white', 'pink']}   />
-          <MasoButton value={'lifestyle'} onClick={this.updateTootTag}  ref={this.masoLifestyle} bgColor={['white', 'purple']} />
-          <MasoButton value={'community'} onClick={this.updateTootTag}  ref={this.masoCommunity} bgColor={['white', 'yellow']} />
-        </div>
+        {this.state.futureSelf && <div>
+          <Maso_button value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['white', '#2DA88F']}  />
+          <Maso_button value={'career'} onClick={this.updateTootTag} ref={this.masoCareer} bgColor={['white', '#CE136E']} />
+          <Maso_button value={'friends'} onClick={this.updateTootTag} ref={this.masoFriends} bgColor={['white', '#D6C33E']}   />
+          <Maso_button value={'health'} onClick={this.updateTootTag} ref={this.masoHealth} bgColor={['white', '#98B54D']}   />
+          <Maso_button value={'lifestyle'} onClick={this.updateTootTag} ref={this.masoLifestyle} bgColor={['white', '#1EA8C2']} />
+          <Maso_button value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['white', '#6D3A70']} />
+        </div> }
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>
