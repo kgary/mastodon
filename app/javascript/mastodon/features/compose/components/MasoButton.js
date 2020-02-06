@@ -18,6 +18,10 @@ export default class MasoButton extends React.PureComponent {
     this.setState({ addTag:!this.state.addTag });
   }
 
+  reset = () => {
+    this.setState({ addTag:true });
+}
+
   render () {
 
     return (

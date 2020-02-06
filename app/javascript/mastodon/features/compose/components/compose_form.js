@@ -40,8 +40,20 @@ const messages = defineMessages({
 
 export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
+  constructor() {
+    super();
+    this.masoFamily = React.createRef();
+    this.masoCareer = React.createRef();
+    this.masoFriends = React.createRef();
+    this.masoHealth = React.createRef();
+    this.masoLifestyle = React.createRef();
+    this.masoCommunity = React.createRef();
+  }
+  state = {
+    tagString: 'TAGS:',
+  }
+  ;
 
-  state = { tagString: 'TAGS:' }
 
   static contextTypes = {
     router: PropTypes.object,
@@ -96,6 +108,15 @@ class ComposeForm extends ImmutablePureComponent {
     }
   }
 
+  resetMastoButton = () => {
+    this.masoFamily.current.reset();
+    this.masoCareer.current.reset();
+    this.masoFriends.current.reset();
+    this.masoHealth.current.reset();
+    this.masoLifestyle.current.reset();
+    this.masoCommunity.current.reset();
+  }
+
   handleSubmit = () => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
@@ -113,7 +134,11 @@ class ComposeForm extends ImmutablePureComponent {
 
     //maybe add tags here
     this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('TAGS:', ''));
-    this.setState({tagString: 'TAGS:'})
+
+    //TODO reset addTag to true for all MastoButtons
+    this.resetMastoButton();
+    this.setState({ tagString: 'TAGS:' });
+
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
 
@@ -275,12 +300,12 @@ class ComposeForm extends ImmutablePureComponent {
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
         <div>
-          <MasoButton value={'family'}    onClick={this.updateTootTag}  />
-          <MasoButton value={'career'}    onClick={this.updateTootTag}  />
-          <MasoButton value={'friends'}   onClick={this.updateTootTag}  />
-          <MasoButton value={'health'}    onClick={this.updateTootTag}  />
-          <MasoButton value={'lifestyle'} onClick={this.updateTootTag}  />
-          <MasoButton value={'community'} onClick={this.updateTootTag}  />
+          <MasoButton value={'family'}    onClick={this.updateTootTag}  ref={this.masoFamily} />
+          <MasoButton value={'career'}    onClick={this.updateTootTag}  ref={this.masoCareer}/>
+          <MasoButton value={'friends'}   onClick={this.updateTootTag}  ref={this.masoFriends}/>
+          <MasoButton value={'health'}    onClick={this.updateTootTag}  ref={this.masoHealth}/>
+          <MasoButton value={'lifestyle'} onClick={this.updateTootTag}  ref={this.masoLifestyle}/>
+          <MasoButton value={'community'} onClick={this.updateTootTag}  ref={this.masoCommunity}/>
         </div>
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
