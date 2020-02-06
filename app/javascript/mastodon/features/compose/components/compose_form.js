@@ -118,7 +118,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoHealth.current.reset();
     this.masoLifestyle.current.reset();
     this.masoCommunity.current.reset();
-    this.setState({tagString: this.DEFAULT_TAG_STRING})
+    this.setState({tagString: this.DEFAULT_TAG_STRING});
   }
 
   handleSubmit = () => {
@@ -137,10 +137,11 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     //maybe add tags here
-    this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
-
-    this.resetMastoButton();
-    this.setState({ tagString: this.DEFAULT_TAG_STRING });
+    if(this.state.futureSelf) {
+      this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
+      this.resetMastoButton();
+      this.setState({ tagString: this.DEFAULT_TAG_STRING });
+    }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
@@ -286,7 +287,6 @@ class ComposeForm extends ImmutablePureComponent {
           </div>
         </AutosuggestTextarea>
         {this.state.futureSelf && <Textarea
-          inputRef={this.setTextarea}
           className='tag-textarea__textarea'
           disabled='true'
           placeholder={this.DEFAULT_TAG_STRING}
