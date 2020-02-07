@@ -28,9 +28,7 @@ export default class FutureSelfMenu extends React.PureComponent {
   componentWillMount () {
     //TODO placeholder need to update with correct images
     this.options = [
-      { icon: 'lock' },
-      { icon: 'unlock' },
-      { icon: 'envelope' },
+      { icon: 'flag' },
     ];
   }
   render () {

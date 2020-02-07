@@ -286,13 +286,7 @@ class ComposeForm extends ImmutablePureComponent {
             <PollFormContainer />
           </div>
         </AutosuggestTextarea>
-        {this.state.futureSelf && <Textarea
-          className='tag-textarea__textarea'
-          disabled='true'
-          placeholder={this.DEFAULT_TAG_STRING}
-          value={this.state.tagString}
-          aria-autocomplete='list'
-        />}
+
 
         <div className='compose-form__buttons-wrapper'>
           <div className='compose-form__buttons'>
@@ -304,13 +298,14 @@ class ComposeForm extends ImmutablePureComponent {
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
         {this.state.futureSelf && <div>
-          <Maso_button value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['white', '#2DA88F']}  />
-          <Maso_button value={'career'} onClick={this.updateTootTag} ref={this.masoCareer} bgColor={['white', '#CE136E']} />
-          <Maso_button value={'friends'} onClick={this.updateTootTag} ref={this.masoFriends} bgColor={['white', '#D6C33E']}   />
-          <Maso_button value={'health'} onClick={this.updateTootTag} ref={this.masoHealth} bgColor={['white', '#98B54D']}   />
-          <Maso_button value={'lifestyle'} onClick={this.updateTootTag} ref={this.masoLifestyle} bgColor={['white', '#1EA8C2']} />
-          <Maso_button value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['white', '#6D3A70']} />
-        </div> }
+          <div class="compose-form__buttons-wrapper-bridges">
+          <Maso_button value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['#A1E4DF', '#14BBB0']}  />
+          <Maso_button value={'career'} onClick={this.updateTootTag} ref={this.masoCareer} bgColor={['#FDE6F4', '#EA088D']} />
+          <Maso_button value={'friends'} onClick={this.updateTootTag} ref={this.masoFriends} bgColor={['#FFFAE6', '#FFCB06']}   />
+          <Maso_button value={'health'} onClick={this.updateTootTag} ref={this.masoHealth} bgColor={['#F6FAEB', '#A4CD39']}   />
+          <Maso_button value={'lifestyle'} onClick={this.updateTootTag} ref={this.masoLifestyle} bgColor={['#E6F7FB', '#00B1D4']} />
+          <Maso_button value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['#F4EDF5', '#8f4A9B']} />
+        </div></div> }
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>
