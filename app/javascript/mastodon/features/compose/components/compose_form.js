@@ -20,7 +20,6 @@ import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
 import MasoButton from './maso_button';
-import Textarea from 'react-textarea-autosize';
 import FutureSelfMenu from './future_self';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
@@ -50,6 +49,7 @@ class ComposeForm extends ImmutablePureComponent {
     tagString: this.DEFAULT_TAG_STRING,
     futureSelf: false,
     futureSelfError: false,
+    needsImage: false,
   }
   ;
 
@@ -137,13 +137,17 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
+    // eslint-disable-next-line no-undef
+    const media = getState().getIn(['compose', 'media_attachments']);
     //maybe add tags here
     if(this.state.futureSelf) {
-      if(this.state.tagString === this.DEFAULT_TAG_STRING){
-        this.setState({ futureSelfError: true })
+      if(this.state.tagString === this.DEFAULT_TAG_STRING || media.size === 0){
+        this.setState({ futureSelfError: this.state.tagString === this.DEFAULT_TAG_STRING })
+        this.setState({ needsImage: media.size === 0 })
         return;
       }
       this.setState({ futureSelfError: false })
+      this.setState({ needsImage: false })
       this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
       this.resetMastoButton();
     }
@@ -312,6 +316,7 @@ class ComposeForm extends ImmutablePureComponent {
             <MasoButton value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['#F4EDF5', '#8f4A9B']} />
           </div>
           {this.state.futureSelfError && <div>ummm...can't do future self without a tag...</div>}
+          {this.state.needsImage && <div>ummm...you didn't attach an image, yo.</div>}
         </div> }
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
