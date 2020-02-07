@@ -37,6 +37,7 @@ class ComposeForm extends ImmutablePureComponent {
 
   DEFAULT_TAG_STRING = 'FutureSelf TAGS:'
   FUTURE_SELF_TEXT_THRESHOLD = 30;
+  CHECKLIST_BG_COLOR = 'rgba(255, 255, 255, 0.05)';
 
   constructor() {
     super();
@@ -335,43 +336,58 @@ class ComposeForm extends ImmutablePureComponent {
             <MasoButton value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['#F4EDF5', '#8f4A9B']} />
           </div>
           {!this.state.hasImage && <div>
-            add an image of your future self.
             <IconButton
               icon=''
               disabled='true'
               color='white'
               size={20}
-            /></div>}
+              bgColor={this.CHECKLIST_BG_COLOR}
+              margin={2}
+            />
+            &#0020;add an image of your future self.
+            </div>}
           {this.state.hasImage && <div>
             <IconButton
               icon='check'
               color='white'
               size={20}
-            /> add an image of your future self. </div>}
-          {!this.state.hasTag && <div> tag your image with categories. <IconButton
-            icon=''
-            disabled='true'
-            color='white'
-            size={20}
-          /></div>}
+              margin={2}
+              bgColor={this.CHECKLIST_BG_COLOR}
+            />&#0020;add an image of your future self. </div>}
+          {!this.state.hasTag && <div>
+            <IconButton
+              icon=''
+              disabled='true'
+              color='white'
+              size={20}
+              bgColor={this.CHECKLIST_BG_COLOR}
+              margin={2}
+            />&#0020;tag your image with categories. </div>}
           {this.state.hasTag && <div>
             <IconButton
               icon='check'
               color='white'
               size={20}
-            /> tag your image with  categories. </div>}
-          {!this.state.hasText && <div>write about why you chose the image. <IconButton
-            icon=''
-            disabled='true'
-            color='white'
-            size={20}
-          /></div>}
+              margin={2}
+              bgColor={this.CHECKLIST_BG_COLOR}
+            />&#0020;tag your image with  categories. </div>}
+          {!this.state.hasText && <div>
+            <IconButton
+              icon=''
+              disabled='true'
+              color='white'
+              size={20}
+              bgColor={this.CHECKLIST_BG_COLOR}
+              margin={2}
+            />&#0020;write about why you chose the image. </div>}
           {this.state.hasText && <div>
             <IconButton
               icon='check'
               color='white'
               size={20}
-            /> write about why you chose the image. </div>}
+              margin={2}
+              bgColor={this.CHECKLIST_BG_COLOR}
+            />&#0020;write about why you chose the image. </div>}
         </div> }
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton || (this.state.futureSelf && (!this.state.hasImage || !this.state.hasTag || !this.state.hasText))} block /></div>

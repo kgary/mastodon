@@ -26,6 +26,8 @@ export default class IconButton extends React.PureComponent {
     animate: PropTypes.bool,
     overlay: PropTypes.bool,
     tabIndex: PropTypes.string,
+    bgColor: PropTypes.string,
+    margin: PropTypes.number,
   };
 
   static defaultProps = {
@@ -35,6 +37,8 @@ export default class IconButton extends React.PureComponent {
     animate: false,
     overlay: false,
     tabIndex: '0',
+    bgColor: '',
+    margin: 0,
   };
 
   handleClick = (e) =>  {
@@ -69,6 +73,9 @@ export default class IconButton extends React.PureComponent {
       width: `${this.props.size * 1.28571429}px`,
       height: `${this.props.size * 1.28571429}px`,
       lineHeight: `${this.props.size}px`,
+      backgroundColor: this.props.bgColor,
+      marginBottom: this.props.margin,
+      marginTop: this.props.margin,
       ...this.props.style,
       ...(this.props.active ? this.props.activeStyle : {}),
     };
