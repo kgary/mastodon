@@ -343,7 +343,7 @@ class ComposeForm extends ImmutablePureComponent {
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={2}
             />
-            &#0020;add an image of your future self.
+            add an image of your future self.
             </div>}
           {this.state.hasImage && <div>
             <IconButton
@@ -352,7 +352,8 @@ class ComposeForm extends ImmutablePureComponent {
               size={20}
               margin={2}
               bgColor={this.CHECKLIST_BG_COLOR}
-            />&#0020;add an image of your future self. </div>}
+            />
+            add an image of your future self. </div>}
           {!this.state.hasTag && <div>
             <IconButton
               icon=''
@@ -360,7 +361,8 @@ class ComposeForm extends ImmutablePureComponent {
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={2}
-            />&#0020;tag your image with categories. </div>}
+            />
+            tag your image with categories. </div>}
           {this.state.hasTag && <div>
             <IconButton
               icon='check'
@@ -368,7 +370,8 @@ class ComposeForm extends ImmutablePureComponent {
               size={20}
               margin={2}
               bgColor={this.CHECKLIST_BG_COLOR}
-            />&#0020;tag your image with  categories. </div>}
+            />
+            tag your image with  categories. </div>}
           {!this.state.hasText && <div>
             <IconButton
               icon=''
@@ -376,7 +379,8 @@ class ComposeForm extends ImmutablePureComponent {
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={2}
-            />&#0020;write about why you chose the image. </div>}
+            />
+            write about why you chose the image. </div>}
           {this.state.hasText && <div>
             <IconButton
               icon='check'
@@ -384,7 +388,8 @@ class ComposeForm extends ImmutablePureComponent {
               size={20}
               margin={2}
               bgColor={this.CHECKLIST_BG_COLOR}
-            />&#0020;write about why you chose the image. </div>}
+            />
+            write about why you chose the image. </div>}
         </div> }
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton || (this.state.futureSelf && (!this.state.hasImage || !this.state.hasTag || !this.state.hasText))} block /></div>
