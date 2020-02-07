@@ -21,6 +21,7 @@ import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
 import MasoButton from './maso_button';
 import FutureSelfMenu from './future_self';
+import IconButton from "../../../components/icon_button";
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -35,6 +36,7 @@ export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
   DEFAULT_TAG_STRING = 'FutureSelf TAGS:'
+  FUTURE_SELF_TEXT_THRESHOLD = 30;
 
   constructor() {
     super();
@@ -48,8 +50,9 @@ class ComposeForm extends ImmutablePureComponent {
   state = {
     tagString: this.DEFAULT_TAG_STRING,
     futureSelf: false,
-    futureSelfError: false,
-    needsImage: false,
+    hasTag: false,
+    hasImage: false,
+    hasText: false,
   }
   ;
 
@@ -89,6 +92,15 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleChange = (e) => {
     this.props.onChange(e.target.value);
+    this.setState({ hasText: this.autosuggestTextarea.textarea.value.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
+  }
+
+  checkFutureSelfReqs = (anyMedia) => {
+    //TODO remove check from handleChange and put here
+    // this.setState({ hasText: this.autosuggestTextarea === null ?
+    //   false : this.autosuggestTextarea.textarea.value.length > this.FUTURE_SELF_TEXT_THRESHOLD });
+    this.setState({ hasImage: anyMedia });
+    this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
   }
 
   handleKeyDown = (e) => {
@@ -106,6 +118,7 @@ class ComposeForm extends ImmutablePureComponent {
     if(addTag) {
       // this.props.onChange(this.props.text + e.target.value);
       this.setState({ tagString: this.state.tagString + ' ' + e.target.value });
+      this.setState({ hasTag: true });
     } else {
       // this.props.onChange(this.props.text.replace(e.target.value, ''));
       this.setState({ tagString: this.state.tagString.replace(' ' + e.target.value, '') });
@@ -140,14 +153,16 @@ class ComposeForm extends ImmutablePureComponent {
     // const media = getState().getIn(['compose', 'media_attachments']);
     //maybe add tags here
     if(this.state.futureSelf) {
-      if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia){
-        this.setState({ futureSelfError: this.state.tagString === this.DEFAULT_TAG_STRING })
-        this.setState({ needsImage: !anyMedia })
+      if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
+        this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
+        this.setState({ hasImage: anyMedia })
+        this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
         return;
       }
-      this.setState({ futureSelfError: false })
-      this.setState({ needsImage: false })
-      this.props.onChange(this.autosuggestTextarea.textarea.value + this.state.tagString.replace('FutureSelf TAGS:', ''));
+      this.setState({ hasTag: true })
+      this.setState({ hasImage: true })
+      this.setState({ hasText: true })
+      this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
       this.resetMastoButton();
     }
 
@@ -249,6 +264,11 @@ class ComposeForm extends ImmutablePureComponent {
       publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
     }
 
+    //update future self checks
+    this.checkFutureSelfReqs(anyMedia);
+    // this.setState({ hasImage: anyMedia });
+    // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
+
     return (
       <div className='compose-form'>
         <WarningContainer />
@@ -314,15 +334,49 @@ class ComposeForm extends ImmutablePureComponent {
             <MasoButton value={'lifestyle'} onClick={this.updateTootTag} ref={this.masoLifestyle} bgColor={['#E6F7FB', '#00B1D4']} />
             <MasoButton value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['#F4EDF5', '#8f4A9B']} />
           </div>
-          {this.state.futureSelfError && <div>ummm...can't do future self without a tag...</div>}
-          {this.state.needsImage && <div>ummm...you didn't attach an image, yo.</div>}
+          {!this.state.hasImage && <div>
+            add an image of your future self.
+            <IconButton
+              icon=''
+              disabled='true'
+              color='white'
+              size={20}
+            /></div>}
+          {this.state.hasImage && <div>
+            <IconButton
+              icon='check'
+              color='white'
+              size={20}
+            /> add an image of your future self. </div>}
+          {!this.state.hasTag && <div> tag your image with categories. <IconButton
+            icon=''
+            disabled='true'
+            color='white'
+            size={20}
+          /></div>}
+          {this.state.hasTag && <div>
+            <IconButton
+              icon='check'
+              color='white'
+              size={20}
+            /> tag your image with  categories. </div>}
+          {!this.state.hasText && <div>write about why you chose the image. <IconButton
+            icon=''
+            disabled='true'
+            color='white'
+            size={20}
+          /></div>}
+          {this.state.hasText && <div>
+            <IconButton
+              icon='check'
+              color='white'
+              size={20}
+            /> write about why you chose the image. </div>}
         </div> }
         <div className='compose-form__publish'>
-          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
+          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton || (this.state.futureSelf && (!this.state.hasImage || !this.state.hasTag || !this.state.hasText))} block /></div>
         </div>
       </div>
-
-
     );
   }
 
