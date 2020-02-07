@@ -1,16 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from '../../../components/icon_button';
-import { defineMessages, injectIntl } from 'react-intl';
 
-const iconStyle = {
-  height: null,
-  lineHeight: '27px',
-};
 
-export default 
-@injectIntl
-class Maso_button extends React.PureComponent {
+export default class MasoButton extends React.PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,
@@ -38,7 +30,7 @@ class Maso_button extends React.PureComponent {
       <button
         value={'#'+this.props.value}
         onClick={this.handleClick}
-        style={iconStyle,{ borderWidth: 1, height: 25, flex: 1, padding: 0, color:"black", backgroundColor:this.state.bgColor[this.state.addTag ? 0 : 1] }}
+        style={{ borderWidth: 1, height: 25, flex: 1, padding: 0, color:"black", backgroundColor:this.state.bgColor[this.state.addTag ? 0 : 1] }}
       >
         {this.props.value}
       </button>
