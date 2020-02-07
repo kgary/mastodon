@@ -37,7 +37,7 @@ class ComposeForm extends ImmutablePureComponent {
 
   DEFAULT_TAG_STRING = 'FutureSelf TAGS:'
   FUTURE_SELF_TEXT_THRESHOLD = 30;
-  CHECKLIST_BG_COLOR = 'rgba(255, 255, 255, 0.05)';
+  CHECKLIST_BG_COLOR = 'rgba(255, 255, 255, 0.1)';
 
   constructor() {
     super();
@@ -339,7 +339,6 @@ class ComposeForm extends ImmutablePureComponent {
             <IconButton
               icon=''
               disabled='true'
-              color='white'
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={2}
@@ -349,7 +348,7 @@ class ComposeForm extends ImmutablePureComponent {
           {this.state.hasImage && <div>
             <IconButton
               icon='check'
-              color='white'
+              iconColor='#FAB'
               size={20}
               margin={2}
               bgColor={this.CHECKLIST_BG_COLOR}
@@ -358,7 +357,6 @@ class ComposeForm extends ImmutablePureComponent {
             <IconButton
               icon=''
               disabled='true'
-              color='white'
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={2}
@@ -366,7 +364,7 @@ class ComposeForm extends ImmutablePureComponent {
           {this.state.hasTag && <div>
             <IconButton
               icon='check'
-              color='white'
+              iconColor='#FAB'
               size={20}
               margin={2}
               bgColor={this.CHECKLIST_BG_COLOR}
@@ -375,7 +373,6 @@ class ComposeForm extends ImmutablePureComponent {
             <IconButton
               icon=''
               disabled='true'
-              color='white'
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={2}
@@ -383,7 +380,7 @@ class ComposeForm extends ImmutablePureComponent {
           {this.state.hasText && <div>
             <IconButton
               icon='check'
-              color='white'
+              iconColor='#FAB'
               size={20}
               margin={2}
               bgColor={this.CHECKLIST_BG_COLOR}

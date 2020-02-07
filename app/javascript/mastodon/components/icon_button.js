@@ -28,6 +28,7 @@ export default class IconButton extends React.PureComponent {
     tabIndex: PropTypes.string,
     bgColor: PropTypes.string,
     margin: PropTypes.number,
+    iconColor: PropTypes.string,
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ export default class IconButton extends React.PureComponent {
     tabIndex: '0',
     bgColor: '',
     margin: 0,
+    // iconColor: '',
   };
 
   handleClick = (e) =>  {
@@ -92,6 +94,7 @@ export default class IconButton extends React.PureComponent {
       pressed,
       tabIndex,
       title,
+      iconColor,
     } = this.props;
 
     const classes = classNames(className, 'icon-button', {
@@ -119,7 +122,7 @@ export default class IconButton extends React.PureComponent {
           tabIndex={tabIndex}
           disabled={disabled}
         >
-          <Icon id={icon} fixedWidth aria-hidden='true' />
+          <Icon id={icon} fixedWidth aria-hidden='true' color={iconColor} />
         </button>
       );
     }
@@ -141,7 +144,7 @@ export default class IconButton extends React.PureComponent {
             tabIndex={tabIndex}
             disabled={disabled}
           >
-            <Icon id={icon} style={{ transform: `rotate(${rotate}deg)` }} fixedWidth aria-hidden='true' />
+            <Icon id={icon} color={iconColor} style={{ transform: `rotate(${rotate}deg)` }} fixedWidth aria-hidden='true' />
           </button>
         )}
       </Motion>
