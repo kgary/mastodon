@@ -137,13 +137,12 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
-    // eslint-disable-next-line no-undef
-    const media = getState().getIn(['compose', 'media_attachments']);
+    // const media = getState().getIn(['compose', 'media_attachments']);
     //maybe add tags here
     if(this.state.futureSelf) {
-      if(this.state.tagString === this.DEFAULT_TAG_STRING || media.size === 0){
+      if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia){
         this.setState({ futureSelfError: this.state.tagString === this.DEFAULT_TAG_STRING })
-        this.setState({ needsImage: media.size === 0 })
+        this.setState({ needsImage: !anyMedia })
         return;
       }
       this.setState({ futureSelfError: false })
