@@ -76,9 +76,8 @@ export default class IconButton extends React.PureComponent {
       height: `${this.props.size * 1.28571429}px`,
       lineHeight: `${this.props.size}px`,
       backgroundColor: this.props.bgColor,
-      marginBottom: this.props.margin,
       marginTop: this.props.margin,
-      marginRight: this.props.margin + this.props.margin,
+      marginRight: this.props.margin,
       ...this.props.style,
       ...(this.props.active ? this.props.activeStyle : {}),
     };

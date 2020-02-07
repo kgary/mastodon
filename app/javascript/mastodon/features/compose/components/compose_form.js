@@ -341,7 +341,7 @@ class ComposeForm extends ImmutablePureComponent {
               disabled='true'
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
-              margin={2}
+              margin={4}
             />
             add an image of your future self.
             </div>}
@@ -350,7 +350,7 @@ class ComposeForm extends ImmutablePureComponent {
               icon='check'
               iconColor='#FAB'
               size={20}
-              margin={2}
+              margin={4}
               bgColor={this.CHECKLIST_BG_COLOR}
             />
             add an image of your future self. </div>}
@@ -360,7 +360,7 @@ class ComposeForm extends ImmutablePureComponent {
               disabled='true'
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
-              margin={2}
+              margin={4}
             />
             tag your image with categories. </div>}
           {this.state.hasTag && <div>
@@ -368,7 +368,7 @@ class ComposeForm extends ImmutablePureComponent {
               icon='check'
               iconColor='#FAB'
               size={20}
-              margin={2}
+              margin={4}
               bgColor={this.CHECKLIST_BG_COLOR}
             />
             tag your image with  categories. </div>}
@@ -378,7 +378,7 @@ class ComposeForm extends ImmutablePureComponent {
               disabled='true'
               size={20}
               bgColor={this.CHECKLIST_BG_COLOR}
-              margin={2}
+              margin={4}
             />
             write about why you chose the image. </div>}
           {this.state.hasText && <div>
@@ -386,7 +386,7 @@ class ComposeForm extends ImmutablePureComponent {
               icon='check'
               iconColor='#FAB'
               size={20}
-              margin={2}
+              margin={4}
               bgColor={this.CHECKLIST_BG_COLOR}
             />
             write about why you chose the image. </div>}
