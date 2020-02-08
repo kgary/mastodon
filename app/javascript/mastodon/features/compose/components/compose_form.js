@@ -36,7 +36,7 @@ export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
   DEFAULT_TAG_STRING = 'FutureSelf TAGS:'
-  FUTURE_SELF_TEXT_THRESHOLD = 30;
+  FUTURE_SELF_TEXT_THRESHOLD = 10;
   CHECKLIST_BG_COLOR = 'rgba(255, 255, 255, 0.1)';
 
   constructor() {
@@ -380,7 +380,14 @@ class ComposeForm extends ImmutablePureComponent {
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={4}
             />
-            write about why you chose the image. (At least 30 characters) </div>}
+            write about why you chose the image.
+            <IconButton
+              icon=''
+              disabled='true'
+              size={20}
+              margin={4}
+            />
+            req char count: {this.FUTURE_SELF_TEXT_THRESHOLD - (this.props.text.length || 0)} </div>}
           {this.state.hasText && <div>
             <IconButton
               icon='check'
