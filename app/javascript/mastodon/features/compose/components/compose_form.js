@@ -328,7 +328,7 @@ class ComposeForm extends ImmutablePureComponent {
         </div>
         {this.state.futureSelf && <div>
           <div class='compose-form__buttons-wrapper-bridges'>
-            <MasoButton value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['#A1E4DF', '#14BBB0']}  />
+            <MasoButton value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['#E8F8F7', '#14BBB0']}  />
             <MasoButton value={'career'} onClick={this.updateTootTag} ref={this.masoCareer} bgColor={['#FDE6F4', '#EA088D']} />
             <MasoButton value={'friends'} onClick={this.updateTootTag} ref={this.masoFriends} bgColor={['#FFFAE6', '#FFCB06']}   />
             <MasoButton value={'health'} onClick={this.updateTootTag} ref={this.masoHealth} bgColor={['#F6FAEB', '#A4CD39']}   />
@@ -348,7 +348,7 @@ class ComposeForm extends ImmutablePureComponent {
           {this.state.hasImage && <div>
             <IconButton
               icon='check'
-              iconColor='#FAB'
+              iconColor='#3778FF'
               size={20}
               margin={4}
               bgColor={this.CHECKLIST_BG_COLOR}
@@ -366,7 +366,7 @@ class ComposeForm extends ImmutablePureComponent {
           {this.state.hasTag && <div>
             <IconButton
               icon='check'
-              iconColor='#FAB'
+              iconColor='#3778FF'
               size={20}
               margin={4}
               bgColor={this.CHECKLIST_BG_COLOR}
@@ -380,11 +380,11 @@ class ComposeForm extends ImmutablePureComponent {
               bgColor={this.CHECKLIST_BG_COLOR}
               margin={4}
             />
-            write about why you chose the image. </div>}
+            write about why you chose the image. (At least 30 characters) </div>}
           {this.state.hasText && <div>
             <IconButton
               icon='check'
-              iconColor='#FAB'
+              iconColor='#3778FF'
               size={20}
               margin={4}
               bgColor={this.CHECKLIST_BG_COLOR}
