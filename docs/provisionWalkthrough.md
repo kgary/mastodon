@@ -42,7 +42,8 @@ example: ![generate_link](./img/generate_link.png)
 ### Verify success
 
 - Once the link has been created and all users have registered, go to `Preferences > Follows and follwers`.
-- From there, under `Relationship` click on `Followers`, you should see all the new users are following you.
+- From there, under `Relationship` click on `Followers`
+- Verify all the new users are following you.
 - Verify that each users has the same amount of followers.  
  _Note: if any user logged out while other users registered the numbers may not perfectly match, however, when they log back in it will automatically update_ 
 
