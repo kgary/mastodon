@@ -9,16 +9,18 @@ _If you experience any issues contact your admin and direct them to [Managing Mo
 In order to create invite links you must have at least Moderator role. Follow the below to verify you have the the correct privileges. 
 
 * Login to [heal3.poly.asu.edu](https://heal3.poly.asu.edu) 
-* Go to `Preferences` ![preferences](./img/preferences_walkthrough.png)
+* Go to [`Preferences`](https://heal3.poly.asu.edu/admin/invites) ![preferences](./img/preferences_walkthrough.png)
 * In the sidebar verify you have `Moderation`\
   ![moderation_tab](./img/moderation_provisioning.png)
   
-  
+* If you don't you probably see this ![baby_rage](./img/provision_priv_oops.gif)
+
+  If you do not have access to Moderation, contact your admin or technical support contact provided above.    
 ### Provisioning 
 
 Provisioning is intended to follow this work flow:
 
-- Go to `Preferences > Moderation > Invites` 
+- Go to [`Preferences > Moderation > Invites` ](https://heal3.poly.asu.edu/admin/invites)
 - Set the values for:
 
 | Name  | Description  |   
