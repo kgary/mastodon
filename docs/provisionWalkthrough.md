@@ -13,7 +13,8 @@ In order to create invite links you must have at least Moderator role. Follow th
 * In the sidebar verify you have `Moderation`\
   ![moderation_tab](./img/moderation_provisioning.png)
   
-* If you don't you probably see this ![baby_rage](./img/provision_priv_oops.gif)
+* If you don't you probably see this\
+![baby_rage](./img/provision_priv_oops.gif)
 
   If you do not have access to Moderation, contact your admin or technical support contact provided above.    
 ### Provisioning 
