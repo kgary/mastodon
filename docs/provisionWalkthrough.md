@@ -2,7 +2,7 @@
 
 _Follow this guide to create invite links and get groups set up for the Bridges Pilot._
 
-_If you experience any issues contact [kgary@asu.edu](mailto:kgary@asu.edu)_ 😇
+_If you experience any issues contact your admin and direct them to [Managing Moderators](./manageModerators.md) or send and angry email to [kgary@asu.edu](mailto:kgary@asu.edu)_ 😇
 
 ### Precheck
 
@@ -19,7 +19,7 @@ In order to create invite links you must have at least Moderator role. Follow th
 Provisioning is intended to follow this work flow:
 
 - Go to `Preferences > Moderation > Invites` 
-- def the values for:
+- Set the values for:
 
 | Name  | Description  |   
 |---|---|
@@ -28,7 +28,7 @@ Provisioning is intended to follow this work flow:
 | Select group | the group that all users of the link will automatically join | 
 
 - Click `Generate Invite Link`.
-- Immediately copy the link and note which `Group` it belongs to. 
+- Verify the link is correct and copy it. 
 - Share the link with group members and assist them with filling out the registration form online.
 
 example: ![generate_link](./img/generate_link.png)
@@ -41,3 +41,4 @@ example: ![generate_link](./img/generate_link.png)
  _Note: if any user logged out while other users registered the numbers may not perfectly match, however, when they log back in it will automatically update_ 
 
 example: ![verify_success](./img/verify_provision.png) 
+
