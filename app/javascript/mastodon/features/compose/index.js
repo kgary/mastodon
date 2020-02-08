@@ -20,10 +20,10 @@ import { logOut } from 'mastodon/utils/log_out';
 
 const messages = defineMessages({
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
-  home_timeline: { id: 'tabs_bar.home', defaultMessage: 'Home' },
+  home_timeline: { id: 'tabs_bar.home', defaultMessage: 'Everybody' },
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
-  public: { id: 'navigation_bar.public_timeline', defaultMessage: 'Federated timeline' },
-  community: { id: 'navigation_bar.community_timeline', defaultMessage: 'Local timeline' },
+  //public: { id: 'navigation_bar.public_timeline', defaultMessage: 'Federated timeline' },
+  community: { id: 'navigation_bar.community_timeline', defaultMessage: 'My Group' },
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
   compose: { id: 'navigation_bar.compose', defaultMessage: 'Compose new toot' },

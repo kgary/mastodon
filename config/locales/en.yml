@@ -11,7 +11,6 @@ en:
     apps: Mobile apps
     apps_platforms: Use Mastodon from iOS, Android and other platforms
     browse_directory: Browse a profile directory and filter by interests
-    browse_local_posts: Browse a live stream of public posts from this server
     browse_public_posts: Browse a live stream of public posts on Mastodon
     contact: Contact
     contact_missing: Not set
@@ -78,7 +77,6 @@ en:
     roles:
       admin: Admin
       bot: Bot
-      group: Group
       moderator: Mod
     unavailable: Profile unavailable
     unfollow: Unfollow
@@ -119,7 +117,9 @@ en:
       email_status: Email status
       enable: Enable
       enabled: Enabled
+      feed_url: Feed URL
       followers: Followers
+      followers_url: Followers URL
       follows: Follows
       header: Header
       inbox_url: Inbox URL
@@ -147,8 +147,10 @@ en:
       no_account_selected: No accounts were changed as none were selected
       no_limits_imposed: No limits imposed
       not_subscribed: Not subscribed
+      outbox_url: Outbox URL
       pending: Pending review
       perform_full_suspension: Suspend
+      profile_url: Profile URL
       promote: Promote
       protocol: Protocol
       public: Public
@@ -171,8 +173,8 @@ en:
         moderator: Moderator
         staff: Staff
         user: User
+      salmon_url: Salmon URL
       search: Search
-      search_same_ip: Other users with the same IP
       shared_inbox_url: Shared inbox URL
       show:
         created_reports: Made reports
@@ -199,12 +201,10 @@ en:
         confirm_user: "%{name} confirmed e-mail address of user %{target}"
         create_account_warning: "%{name} sent a warning to %{target}"
         create_custom_emoji: "%{name} uploaded new emoji %{target}"
-        create_domain_allow: "%{name} whitelisted domain %{target}"
         create_domain_block: "%{name} blocked domain %{target}"
         create_email_domain_block: "%{name} blacklisted e-mail domain %{target}"
         demote_user: "%{name} demoted user %{target}"
         destroy_custom_emoji: "%{name} destroyed emoji %{target}"
-        destroy_domain_allow: "%{name} removed domain %{target} from whitelist"
         destroy_domain_block: "%{name} unblocked domain %{target}"
         destroy_email_domain_block: "%{name} whitelisted e-mail domain %{target}"
         destroy_status: "%{name} removed status by %{target}"
@@ -395,17 +395,12 @@ en:
       destroyed_msg: Report note successfully deleted!
     reports:
       account:
-        notes:
-          one: "%{count} note"
-          other: "%{count} notes"
-        reports:
-          one: "%{count} report"
-          other: "%{count} reports"
+        note: note
+        report: report
       action_taken_by: Action taken by
       are_you_sure: Are you sure?
       assign_to_self: Assign to me
       assigned: Assigned moderator
-      by_target_domain: Domain of reported account
       comment:
         none: None
       created_at: Reported
@@ -451,8 +446,6 @@ en:
         users: To logged-in local users
       domain_blocks_rationale:
         title: Show rationale
-      enable_bootstrap_timeline_accounts:
-        title: Enable default follows for new users
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to server thumbnail
         title: Hero image
@@ -582,7 +575,6 @@ en:
     confirmation_dialogs: Confirmation dialogs
     discovery: Discovery
     sensitive_content: Sensitive content
-    toot_layout: Toot layout
   application_mailer:
     notification_preferences: Change e-mail preferences
     salutation: "%{name},"
@@ -719,6 +711,7 @@ en:
     blocks: You block
     csv: CSV
     domain_blocks: Domain blocks
+    follows: You follow
     lists: Lists
     mutes: You mute
     storage: Media storage
@@ -888,10 +881,6 @@ en:
       body: 'Your status was boosted by %{name}:'
       subject: "%{name} boosted your status"
       title: New boost
-  notifications:
-    email_events: Events for e-mail notifications
-    email_events_hint: 'Select events that you want to receive notifications for:'
-    other_settings: Other notifications settings
   number:
     human:
       decimal_units:
@@ -926,8 +915,6 @@ en:
   relationships:
     activity: Account activity
     dormant: Dormant
-    followers: Followers
-    following: Following
     last_active: Last active
     most_recent: Most recent
     moved: Moved

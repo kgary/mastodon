@@ -17,6 +17,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     super(&:build_invite_request)
   end
 
+  def create
+    super
+    py_script = Rails.root.join('bridgesGroupPop.py')
+    res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+  end
+
   def destroy
     not_found
   end
