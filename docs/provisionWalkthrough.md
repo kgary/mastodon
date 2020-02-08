@@ -13,7 +13,7 @@ In order to create invite links you must have at least Moderator role. Follow th
 * In the sidebar verify you have `Moderation`\
   ![moderation_tab](./img/moderation_provisioning.png)
   
-If you don't see your preferences page you are: 
+If you don't see your preferences page or don't see `Moderation` you are: 
 <details open>
   <summary>Not a Moderator</summary>
   <img src="./img/provision_priv_oops.gif" alt="baby_rage"/>
