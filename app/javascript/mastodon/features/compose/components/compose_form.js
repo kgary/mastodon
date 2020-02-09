@@ -150,9 +150,7 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
-    // const media = getState().getIn(['compose', 'media_attachments']);
-    //maybe add tags here
-    if(this.state.futureSelf) {
+    if (this.state.futureSelf) {
       this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
       this.setState({ hasImage: anyMedia })
       this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
