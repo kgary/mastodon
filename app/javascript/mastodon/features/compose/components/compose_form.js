@@ -96,10 +96,9 @@ class ComposeForm extends ImmutablePureComponent {
     this.setState({ hasText: this.autosuggestTextarea.textarea.value.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
   }
 
-  checkFutureSelfReqs = (anyMedia) => {
-    //TODO remove check from handleChange and put here
-    // this.setState({ hasText: this.autosuggestTextarea === null ?
-    //   false : this.autosuggestTextarea.textarea.value.length > this.FUTURE_SELF_TEXT_THRESHOLD });
+  checkFutureSelfReqs = (anyMedia, text) => {
+    this.setState({ hasText: text === null ?
+      false : text.length > this.FUTURE_SELF_TEXT_THRESHOLD });
     this.setState({ hasImage: anyMedia });
     this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
   }
@@ -154,15 +153,12 @@ class ComposeForm extends ImmutablePureComponent {
     // const media = getState().getIn(['compose', 'media_attachments']);
     //maybe add tags here
     if(this.state.futureSelf) {
+      this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
+      this.setState({ hasImage: anyMedia })
+      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
       if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
-        this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
-        this.setState({ hasImage: anyMedia })
-        this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
         return;
       }
-      this.setState({ hasTag: true })
-      this.setState({ hasImage: true })
-      this.setState({ hasText: true })
       this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
       this.resetMastoButton();
     }
@@ -266,7 +262,7 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     //update future self checks
-    this.checkFutureSelfReqs(anyMedia);
+    this.checkFutureSelfReqs(anyMedia, text);
     // this.setState({ hasImage: anyMedia });
     // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
 
