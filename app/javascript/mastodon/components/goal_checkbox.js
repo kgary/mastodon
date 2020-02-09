@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
 
-export default class IconButton extends React.PureComponent {
+export default class CheckButton extends React.PureComponent {
 
   static propTypes = {
     className: PropTypes.string,
