@@ -98,7 +98,7 @@ class ComposeForm extends ImmutablePureComponent {
 
   checkFutureSelfReqs = (anyMedia, text) => {
     this.setState({ hasText: text === null ?
-      false : text.length > this.FUTURE_SELF_TEXT_THRESHOLD });
+      false : text.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
     this.setState({ hasImage: anyMedia });
     this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
   }
