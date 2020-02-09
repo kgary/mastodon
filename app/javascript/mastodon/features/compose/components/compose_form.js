@@ -9,7 +9,6 @@ import AutosuggestInput from '../../../components/autosuggest_input';
 import PollButtonContainer from '../containers/poll_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
 import { defineMessages, injectIntl } from 'react-intl';
-import SpoilerButtonContainer from '../containers/spoiler_button_container';
 import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../containers/poll_form_container';
@@ -20,6 +19,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
+import MasoButton from './maso_button';
+import FutureSelfMenu from './future_self';
+import CheckButton from '../../../components/goal_checkbox';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 
@@ -33,10 +35,32 @@ const messages = defineMessages({
 export default @injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
+  DEFAULT_TAG_STRING = 'FutureSelf TAGS:'
+  FUTURE_SELF_TEXT_THRESHOLD = 10;
+  CHECKLIST_BG_COLOR = 'rgba(255, 255, 255, 0.1)';
+
+  constructor() {
+    super();
+    this.masoFamily = React.createRef();
+    this.masoCareer = React.createRef();
+    this.masoFriends = React.createRef();
+    this.masoHealth = React.createRef();
+    this.masoLifestyle = React.createRef();
+    this.masoCommunity = React.createRef();
+  }
+  state = {
+    tagString: this.DEFAULT_TAG_STRING,
+    futureSelf: false,
+    hasTag: false,
+    hasImage: false,
+    hasText: false,
+  }
+  ;
+
+
   static contextTypes = {
     router: PropTypes.object,
   };
-
   static propTypes = {
     intl: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired,
@@ -69,12 +93,46 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleChange = (e) => {
     this.props.onChange(e.target.value);
+    this.setState({ hasText: this.autosuggestTextarea.textarea.value.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
+  }
+
+  checkFutureSelfReqs = (anyMedia, text) => {
+    this.setState({ hasText: text === null ?
+      false : text.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
+    this.setState({ hasImage: anyMedia });
+    this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
   }
 
   handleKeyDown = (e) => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
       this.handleSubmit();
     }
+  }
+
+  showFutureSelf = () => {
+    this.setState({ futureSelf: !this.state.futureSelf });
+    this.resetMastoButton();
+  }
+
+  updateTootTag = (e, addTag) => {
+    if(addTag) {
+      // this.props.onChange(this.props.text + e.target.value);
+      this.setState({ tagString: this.state.tagString + ' ' + e.target.value });
+      this.setState({ hasTag: true });
+    } else {
+      // this.props.onChange(this.props.text.replace(e.target.value, ''));
+      this.setState({ tagString: this.state.tagString.replace(' ' + e.target.value, '') });
+    }
+  }
+
+  resetMastoButton = () => {
+    this.masoFamily.current.reset();
+    this.masoCareer.current.reset();
+    this.masoFriends.current.reset();
+    this.masoHealth.current.reset();
+    this.masoLifestyle.current.reset();
+    this.masoCommunity.current.reset();
+    this.setState({ tagString: this.DEFAULT_TAG_STRING });
   }
 
   handleSubmit = () => {
@@ -90,6 +148,17 @@ class ComposeForm extends ImmutablePureComponent {
 
     if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return;
+    }
+
+    if (this.state.futureSelf) {
+      this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
+      this.setState({ hasImage: anyMedia })
+      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
+      if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
+        return;
+      }
+      this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
+      this.resetMastoButton();
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
@@ -190,6 +259,11 @@ class ComposeForm extends ImmutablePureComponent {
       publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
     }
 
+    //update future self checks
+    this.checkFutureSelfReqs(anyMedia, text);
+    // this.setState({ hasImage: anyMedia });
+    // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
+
     return (
       <div className='compose-form'>
         <WarningContainer />
@@ -236,18 +310,49 @@ class ComposeForm extends ImmutablePureComponent {
           </div>
         </AutosuggestTextarea>
 
+
         <div className='compose-form__buttons-wrapper'>
           <div className='compose-form__buttons'>
             <UploadButtonContainer />
             <PollButtonContainer />
             <PrivacyDropdownContainer />
-            <SpoilerButtonContainer />
+            <FutureSelfMenu onClick={this.showFutureSelf} />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
-
+        {this.state.futureSelf && <div>
+          <div class='compose-form__buttons-wrapper-bridges'>
+            <MasoButton value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['#E8F8F7', '#14BBB0']}  />
+            <MasoButton value={'career'} onClick={this.updateTootTag} ref={this.masoCareer} bgColor={['#FDE6F4', '#EA088D']} />
+            <MasoButton value={'friends'} onClick={this.updateTootTag} ref={this.masoFriends} bgColor={['#FFFAE6', '#FFCB06']}   />
+            <MasoButton value={'health'} onClick={this.updateTootTag} ref={this.masoHealth} bgColor={['#F6FAEB', '#A4CD39']}   />
+            <MasoButton value={'lifestyle'} onClick={this.updateTootTag} ref={this.masoLifestyle} bgColor={['#E6F7FB', '#00B1D4']} />
+            <MasoButton value={'community'} onClick={this.updateTootTag} ref={this.masoCommunity} bgColor={['#F4EDF5', '#8f4A9B']} />
+          </div>
+          {!this.state.hasImage && <div>
+            <CheckButton />
+            add an image of your future self.
+            </div>}
+          {this.state.hasImage && <div>
+            <CheckButton icon='check' />
+            add an image of your future self. </div>}
+          {!this.state.hasTag && <div>
+            <CheckButton />
+            tag your image with categories. </div>}
+          {this.state.hasTag && <div>
+            <CheckButton icon='check' />
+            tag your image with  categories. </div>}
+          {!this.state.hasText && <div>
+            <CheckButton />
+            write about why you chose the image.
+            <CheckButton bgColor='' />
+            req char count: {this.FUTURE_SELF_TEXT_THRESHOLD - (this.props.text.length || 0)} </div>}
+          {this.state.hasText && <div>
+            <CheckButton icon='check' />
+            write about why you chose the image. </div>}
+        </div> }
         <div className='compose-form__publish'>
-          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
+          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton || (this.state.futureSelf && (!this.state.hasImage || !this.state.hasTag || !this.state.hasText))} block /></div>
         </div>
       </div>
     );

@@ -5,16 +5,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
 
-export default class IconButton extends React.PureComponent {
+export default class CheckButton extends React.PureComponent {
 
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
-    onMouseDown: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onKeyPress: PropTypes.func,
     size: PropTypes.number,
     active: PropTypes.bool,
     pressed: PropTypes.bool,
@@ -32,42 +28,18 @@ export default class IconButton extends React.PureComponent {
   };
 
   static defaultProps = {
-    size: 18,
+    size: 20,
     active: false,
-    disabled: false,
+    icon: '',
+    bgCOlor: '',
+    disabled: true,
     animate: false,
     overlay: false,
     tabIndex: '0',
-    bgColor: '',
-    margin: 0,
-    // iconColor: '',
+    bgColor: 'rgba(255, 255, 255, 0.1)',
+    margin: 4,
+    iconColor: '#3778FF',
   };
-
-  handleClick = (e) =>  {
-    e.preventDefault();
-
-    if (!this.props.disabled) {
-      this.props.onClick(e);
-    }
-  }
-
-  handleKeyPress = (e) => {
-    if (this.props.onKeyPress && !this.props.disabled) {
-      this.props.onKeyPress(e);
-    }
-  }
-
-  handleMouseDown = (e) => {
-    if (!this.props.disabled && this.props.onMouseDown) {
-      this.props.onMouseDown(e);
-    }
-  }
-
-  handleKeyDown = (e) => {
-    if (!this.props.disabled && this.props.onKeyDown) {
-      this.props.onKeyDown(e);
-    }
-  }
 
   render () {
     const style = {
@@ -114,10 +86,6 @@ export default class IconButton extends React.PureComponent {
           aria-expanded={expanded}
           title={title}
           className={classes}
-          onClick={this.handleClick}
-          onMouseDown={this.handleMouseDown}
-          onKeyDown={this.handleKeyDown}
-          onKeyPress={this.handleKeyPress}
           style={style}
           tabIndex={tabIndex}
           disabled={disabled}
@@ -136,10 +104,6 @@ export default class IconButton extends React.PureComponent {
             aria-expanded={expanded}
             title={title}
             className={classes}
-            onClick={this.handleClick}
-            onMouseDown={this.handleMouseDown}
-            onKeyDown={this.handleKeyDown}
-            onKeyPress={this.handleKeyPress}
             style={style}
             tabIndex={tabIndex}
             disabled={disabled}

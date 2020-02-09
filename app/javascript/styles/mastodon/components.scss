@@ -456,6 +456,24 @@
     }
   }
 
+  .tag-textarea__textarea {
+    min-height: 20px;
+    border-radius: 0 0 0 0;
+    padding-bottom: 0;
+    padding-right: 10px + 22px;
+    resize: none;
+    scrollbar-color: initial;
+
+    &::-webkit-scrollbar {
+      all: unset;
+    }
+
+    @media screen and (max-width: 600px) {
+      height: 100px !important; // prevent auto-resize textarea
+      resize: vertical;
+    }
+  }
+
   .autosuggest-textarea__suggestions-wrapper {
     position: relative;
     height: 0;
@@ -692,6 +710,61 @@
     }
   }
 }
+
+  .compose-form__buttons-wrapper-bridges {
+    padding: 0px;
+    background: darken($simple-background-color, 8%);
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 100%;
+
+   
+    .compose-form__buttons {
+      display: flex;
+
+      .compose-form__upload-button-icon {
+        line-height: 27px;
+      }
+
+      .compose-form__sensitive-button {
+        display: none;
+
+        &.compose-form__sensitive-button--visible {
+          display: block;
+        }
+
+        .compose-form__sensitive-button__icon {
+          line-height: 27px;
+        }
+      }
+    }
+
+    .icon-button,
+    .text-icon-button {
+      box-sizing: content-box;
+      padding: 0 3px;
+      display: inline-block;
+    }
+
+    .character-counter__wrapper {
+      align-self: center;
+      margin-right: 4px;
+    }
+  }
+
+  .compose-form__publish {
+    display: flex;
+    justify-content: flex-end;
+    min-width: 0;
+    flex: 0 0 auto;
+
+    .compose-form__publish-button-wrapper {
+      overflow: hidden;
+      padding-top: 10px;
+    }
+  }
 
 .character-counter {
   cursor: default;
