@@ -32,7 +32,6 @@ connection.autocommit = True
 def get_account():
     global id
     execId = "SELECT id FROM users WHERE email = %s"
-    print("python payload", payload)
     with connection.cursor() as con:
         con.execute(execId, (payload['email'], ))
         id = con.fetchone()[0]
