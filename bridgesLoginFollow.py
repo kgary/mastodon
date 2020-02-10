@@ -32,11 +32,25 @@ connection.autocommit = True
 def get_account():
     global id
     execId = "SELECT id FROM users WHERE email = %s"
+    print("python payload", payload)
     with connection.cursor() as con:
         con.execute(execId, (payload['email'], ))
         id = con.fetchone()[0]
     con.close()
     return id
+
+def is_modOrAdmin():
+    execMod = "SELECT admin, moderator FROM users WHERE id = %s"
+    with connection.cursor() as con:
+        con.execute(execMod, (id, ))
+        modFlags = con.fetchone()
+    print(modFlags)
+    if modFlags[0] == True or modFlags[1] == True:
+        return True
+        con.close()
+    else:
+        return False
+        con.close()
 
 def get_group():
     global group
@@ -49,13 +63,15 @@ def get_group():
     return group
 
 def group_follows():
-    get_account()
     get_group()
     tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
     with connection.cursor() as con:
         con.execute(tokenExec, (id, ))
-        oauth = con.fetchone()[0]
-        if len(oauth) < 2:
+        try:
+            oauthPayload = con.fetchone()
+            oauth = oauthPayload[0]
+        except TypeError:
+            con.close()
             sys.exit('No auth token for user, cannot login/modify')
 
         gListExec = "SELECT account_id FROM users WHERE heal_group_name = %s;"
@@ -92,6 +108,45 @@ def follow_user(u, f, oauth):
             r = req.post('http://localhost:3000' + endpoint.replace('{id}', str(user)), headers=headers, data=form)
             print("Followed: " + str(user))
 
+def mod_follows():
+    tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
+    with connection.cursor() as con:
+        con.execute(tokenExec, (id, ))
+        try:
+            oauthPayload = con.fetchone()
+            oauth = oauthPayload[0]
+        except TypeError:
+            con.close()
+            sys.exit('No auth token for user, cannot login/modify')
+
+        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+        con.execute(modExec)
+        modList = con.fetchall()
+
+        userListExec = "SELECT id FROM users;" 
+        con.execute(userListExec)
+        userList = con.fetchall()
+
+        fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
+        con.execute(fListExec, (id, ))
+        followList = con.fetchall()
+
+        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+        con.execute(modExec)
+        modList = con.fetchall()
+        con.close()
+
+    followNonTup = []
+    for tup in followList:
+        followNonTup.append(tup[0])
+
+    userList += modList
+    nonTupList = []
+    for tup in userList:
+        nonTupList.append(tup[0])
+
+    follow_user(nonTupList, followNonTup, oauth)
+
 def requests_retry_session(
     retries=3,
     backoff_factor=0.3,
@@ -114,4 +169,9 @@ def requests_retry_session(
         setattr(session, method, functools.partial(getattr(session, method), timeout=1))
     return session
 
-group_follows()
+get_account()
+
+if is_modOrAdmin():
+    mod_follows()
+else:
+    group_follows()

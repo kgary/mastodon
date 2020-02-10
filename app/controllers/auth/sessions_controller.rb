@@ -28,6 +28,7 @@ class Auth::SessionsController < Devise::SessionsController
     end
     py_script = Rails.root.join('bridgesLoginFollow.py')
     p "params #{params}"
+    p '{"email": "#{params[:user][:email]}", "auth_token": "#{params[:authenticity_token]}"}'
     res = `python3 #{py_script} '{"email": "#{params[:user][:email]}", "auth_token": "#{params[:authenticity_token]}"}'`
   end
 
