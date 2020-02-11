@@ -30,6 +30,7 @@ connection = psycopg2.connect(
 connection.autocommit = True
 
 def get_account():
+    print(payload)
     global id
     execId = "SELECT id FROM users WHERE email = %s"
     with connection.cursor() as con:
@@ -43,7 +44,6 @@ def is_modOrAdmin():
     with connection.cursor() as con:
         con.execute(execMod, (id, ))
         modFlags = con.fetchone()
-    print(modFlags)
     if modFlags[0] == True or modFlags[1] == True:
         return True
         con.close()
@@ -73,9 +73,13 @@ def group_follows():
             con.close()
             sys.exit('No auth token for user, cannot login/modify')
 
-        gListExec = "SELECT account_id FROM users WHERE heal_group_name = %s;"
-        con.execute(gListExec, (group, ))
-        groupList = con.fetchall()
+        if "Group" in group:
+            gListExec = "SELECT account_id from users where heal_group_name = %s;"
+            con.execute(gListExec, (group, ))
+            groupList = con.fetchall()
+        else:
+            con.close()
+            sys.exit('User is not part of a group for study, no follows will be performed')
 
         fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
         con.execute(fListExec, (id, ))
@@ -84,6 +88,7 @@ def group_follows():
         modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
         con.execute(modExec)
         modList = con.fetchall()
+
     con.close()
 
     followNonTup = []

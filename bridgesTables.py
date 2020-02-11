@@ -1,11 +1,16 @@
 import psycopg2
+import configparser
 
+config = configparser.ConfigParser()
+config.read('config.ini')
 connection = psycopg2.connect(
-    host="localhost",
-    database="mastodon_development",
-    user="mastodon",
-    password="t",
+    host=config['database']['host'],
+    database=config['database']['database'],
+    user=config['database']['user'],
+    password=config['database']['password']
+
 )
+
 connection.autocommit = True
 
 def heal_group(con):
@@ -20,7 +25,7 @@ def mod_user_group(con):
     con.execute("""
        ALTER TABLE users
        ADD COLUMN IF NOT EXISTS invite_end VARCHAR(80) NOT NULL DEFAULT 'No link',
-       ADD COLUMN IF NOT EXISTS heal_group_name VARCHAR(20) NOT NULL DEFAULT 'No Group';
+       ADD COLUMN IF NOT EXISTS heal_group_name VARCHAR(20) NOT NULL DEFAULT 'Global';
 """)
 
 with connection.cursor() as con:

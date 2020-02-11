@@ -90,21 +90,25 @@ def group_follows():
         modList = con.fetchall()
     con.close()
 
-    #need just the group, no mods for later
-    justGroupList = groupList.copy();
     #combine group and mod lists
-    groupList += modList
-
     #strip the tuples list to just a list of values
     followNonTup = []
+    nonTupListAll = []
+    nonTupListGroup = []
+    if "Group" in group:
+        groupList += modList
+    else: #follow only mods/admins
+        groupList = modList
+
+    #need just the group, no mods, for later
+    justGroupList = groupList.copy();
+
     for tup in followList:
         followNonTup.append(tup[0])
 
-    nonTupListAll = []
     for tup in groupList:
         nonTupListAll.append(tup[0])
 
-    nonTupListGroup = []
     for tup in justGroupList:
         nonTupListGroup.append(tup[0])
 

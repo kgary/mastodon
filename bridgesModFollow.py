@@ -15,6 +15,7 @@ payload = json.loads(x)
 global id
 global oauth
 global auth_token
+global groupName
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -27,6 +28,8 @@ connection = psycopg2.connect(
 
 connection.autocommit = True
 
+
+
 def get_users():
     tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
     with connection.cursor() as con:
@@ -37,6 +40,10 @@ def get_users():
         except TypeError:
             con.close()
             sys.exit('unable to get user auth token')
+
+        groupExec = "SELECT heal_group_name FROM users where id = %s;"
+        con.execute(groupExec, (id, ))
+        groupName = con.fetchone()[0]
 
         userListExec = "SELECT account_id FROM users;"
         con.execute(userListExec)
@@ -94,4 +101,7 @@ def requests_retry_session(
         setattr(session, method, functools.partial(getattr(session, method), timeout=1))
     return session
 
-get_users()
+if "Group" in groupName:
+    get_users()
+else:
+    prompt("User is only group leader, not following everyone")
