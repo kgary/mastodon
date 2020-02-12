@@ -30,10 +30,11 @@ connection.autocommit = True
 
 
 
-def get_users():
+def get_users(payload):
     tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
+    id = int(payload['id'])
     with connection.cursor() as con:
-        con.execute(tokenExec, (payload['id'], ))
+        con.execute(tokenExec, (id, ))
         try:
             oauthPayload = con.fetchone()
             oauth = oauthPayload[0]
@@ -45,15 +46,20 @@ def get_users():
         con.execute(groupExec, (id, ))
         groupName = con.fetchone()[0]
 
-        userListExec = "SELECT account_id FROM users;"
-        con.execute(userListExec)
-        userList = con.fetchall()
+        if 'Global' in groupName:
+          userListExec = "SELECT account_id FROM users;"
+          con.execute(userListExec)
+          userList = con.fetchall()
+        else:
+          userListExec = "SELECT account_id from users where heal_group_name = %s;"
+          con.execute(gListExec, (group, ))
+          userList = con.fetchall()
 
         fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
         con.execute(fListExec, (payload['id'], ))
         followList = con.fetchall()
 
-        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+        modExec = "SELECT account_id FROM users where admin = 't' or (moderator = 't' and heal_group_name = 'Global');"
         con.execute(modExec)
         modList = con.fetchall()
     con.close()
@@ -101,7 +107,8 @@ def requests_retry_session(
         setattr(session, method, functools.partial(getattr(session, method), timeout=1))
     return session
 
-if "Group" in groupName:
-    get_users()
-else:
-    prompt("User is only group leader, not following everyone")
+# if "Group" in groupName:
+#     get_users()
+# else:
+#     prompt("User is only group leader, not following everyone")
+get_users(payload)

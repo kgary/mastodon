@@ -8,7 +8,7 @@ module Admin
       authorize @user, :promote?
       @user.promote!
       py_script = Rails.root.join('bridgesModFollow.py')
-      res = `python3 #{py_script} '{"id": "#{@user.account_id}", "auth_token": "#{params[:authenticity_token]}"}'`
+      res = `python3 #{py_script} '{"id": "#{params[:account_id]}", "auth_token": "#{params[:authenticity_token]}"}'`
       log_action :promote, @user
       redirect_to admin_account_path(@user.account_id)
     end

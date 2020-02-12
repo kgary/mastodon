@@ -39,8 +39,8 @@ def get_account():
     con.close()
     return id
 
-def is_modOrAdmin():
-    execMod = "SELECT admin, moderator FROM users WHERE id = %s"
+def is_globalModOrAdmin():
+    execMod = "SELECT admin, moderator FROM users WHERE id = %s and heal_group_name = 'Global';"
     with connection.cursor() as con:
         con.execute(execMod, (id, ))
         modFlags = con.fetchone()
@@ -85,7 +85,7 @@ def group_follows():
         con.execute(fListExec, (id, ))
         followList = con.fetchall()
 
-        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+        modExec = "SELECT account_id FROM users where admin = 't' or (moderator = 't' and heal_group_name = 'Global');"
         con.execute(modExec)
         modList = con.fetchall()
 
@@ -123,28 +123,32 @@ def mod_follows():
             con.close()
             sys.exit('No auth token for user, cannot login/modify')
 
-        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
-        con.execute(modExec)
-        modList = con.fetchall()
+        # duplicate code?
+#         modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+#         con.execute(modExec)
+#         modList = con.fetchall()
 
+        # get all user ids
         userListExec = "SELECT id FROM users;" 
         con.execute(userListExec)
         userList = con.fetchall()
 
+        # get all ids user is already following
         fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
         con.execute(fListExec, (id, ))
         followList = con.fetchall()
 
-        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
-        con.execute(modExec)
-        modList = con.fetchall()
-        con.close()
+        # get all ids for admins and Global moderators is not needed if we are already getting all user ids
+#         modExec = "SELECT account_id FROM users where admin = 't' or (moderator = 't' and heal_group_name = 'Global');"
+#         con.execute(modExec)
+#         modList = con.fetchall()
+#         con.close()
 
     followNonTup = []
     for tup in followList:
         followNonTup.append(tup[0])
 
-    userList += modList
+#     userList # redundant?
     nonTupList = []
     for tup in userList:
         nonTupList.append(tup[0])
@@ -175,7 +179,7 @@ def requests_retry_session(
 
 get_account()
 
-if is_modOrAdmin():
+if is_globalModOrAdmin():
     mod_follows()
 else:
     group_follows()

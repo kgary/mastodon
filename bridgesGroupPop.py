@@ -71,21 +71,25 @@ def group_follows():
     global loggedIn
     get_logged_in()
     with connection.cursor() as con:
+        # get this users oauth token
         tokenExec = "SELECT token FROM oauth_access_tokens WHERE resource_owner_id = %s;"
         con.execute(tokenExec, (id, ))
         oauth = con.fetchone()[0]
         if len(oauth) < 2:
             sys.exit('No auth token for user, cannot login/modify')
 
+        # get all ids for users in same heal_group
         gListExec = "SELECT account_id FROM users WHERE heal_group_name = %s;"
         con.execute(gListExec, (group, ))
         groupList = con.fetchall()
 
+        # get all ids user is already following
         fListExec = "SELECT target_account_id FROM follows WHERE account_id = %s;"
         con.execute(fListExec, (id, ))
         followList = con.fetchall()
 
-        modExec = "SELECT account_id FROM users where admin = 't' or moderator = 't';"
+        # get all ids for admins and Global moderators
+        modExec = "SELECT account_id FROM users where admin = 't' or (moderator = 't' and heal_group_name = 'Global');"
         con.execute(modExec)
         modList = con.fetchall()
     con.close()
@@ -101,7 +105,7 @@ def group_follows():
         groupList = modList
 
     #need just the group, no mods, for later
-    justGroupList = groupList.copy();
+    justGroupList = groupList.copy()
 
     for tup in followList:
         followNonTup.append(tup[0])
