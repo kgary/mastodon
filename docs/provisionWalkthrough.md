@@ -31,7 +31,7 @@ Provisioning is intended to follow this work flow:
 |---|---|
 | Max number of users  | the max number of people who can use the invite link  |
 | Expire after | the amount of time before the link expires  |
-| Select group | the group that all users of the link will automatically join | 
+| Select group | the group that all users of the link will automatically join (if you are a group leader, make sure you are creating a link for your group). | 
 
 - Click `Generate Invite Link`.
 - Verify the link is correct and copy it. 
