@@ -11,7 +11,6 @@ describe Admin::RolesController do
 
   describe 'POST #promote' do
     subject { post :promote, params: { account_id: user.account_id } }
-
     let(:user) { Fabricate(:user, moderator: false, admin: false) }
 
     it 'promotes user' do
