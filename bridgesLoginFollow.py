@@ -44,11 +44,15 @@ def is_globalModOrAdmin():
     with connection.cursor() as con:
         con.execute(execMod, (id, ))
         modFlags = con.fetchone()
-    if modFlags[0] == True or modFlags[1] == True:
-        return True
-        con.close()
-    else:
-        return False
+    try:
+        if modFlags[0] == True or modFlags[1] == True:
+            return True
+            con.close()
+        else:
+            return False
+            con.close()
+    except TypeError:
+        return False;
         con.close()
 
 def get_group():
