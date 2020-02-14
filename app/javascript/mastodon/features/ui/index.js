@@ -165,7 +165,9 @@ class SwitchingColumnsArea extends React.PureComponent {
   }
 
   setRef = c => {
-    this.node = c.getWrappedInstance();
+    if (c) {
+      this.node = c.getWrappedInstance();
+    }
   }
 
   render () {
@@ -387,7 +389,9 @@ class UI extends React.PureComponent {
   }
 
   setRef = c => {
-    this.node = c;
+    if (c) {
+      this.node = c;
+    }
   }
 
   handleHotkeyNew = e => {
