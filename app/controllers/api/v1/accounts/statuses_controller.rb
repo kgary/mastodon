@@ -32,6 +32,7 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
 
     statuses.merge!(only_media_scope) if truthy_param?(:only_media)
     statuses.merge!(no_replies_scope) if truthy_param?(:exclude_replies)
+    statuses.merge!(homework_scope) if truthy_param?(:homework) # this is where we set scope of query if homework is in query
     statuses.merge!(no_reblogs_scope) if truthy_param?(:exclude_reblogs)
     statuses.merge!(hashtag_scope)    if params[:tagged].present?
 
@@ -64,6 +65,10 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
 
   def no_replies_scope
     Status.without_replies
+  end
+
+  def homework_scope
+    Status.homework
   end
 
   def no_reblogs_scope

@@ -28,7 +28,7 @@ const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u20
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: 'What is on your mind?' },
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
-  publish: { id: 'compose_form.publish', defaultMessage: 'Toot' },
+  publish: { id: 'compose_form.publish', defaultMessage: 'Post' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
 });
 
@@ -352,7 +352,18 @@ class ComposeForm extends ImmutablePureComponent {
             write about why you chose the image. </div>}
         </div> }
         <div className='compose-form__publish'>
-          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton || (this.state.futureSelf && (!this.state.hasImage || !this.state.hasTag || !this.state.hasText))} block /></div>
+          <div className='compose-form__publish-button-wrapper'>
+            <Button
+              text='🍑💨💩'
+              style={{ fontSize:'100' }}
+              onClick={this.handleSubmit}
+              disabled={disabledButton
+              || (this.state.futureSelf
+                && (!this.state.hasImage
+                  || !this.state.hasTag
+                  || !this.state.hasText))}
+              block />
+          </div>
         </div>
       </div>
     );

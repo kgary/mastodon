@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { fetchAccount } from '../../actions/accounts';
-import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../../actions/timelines';
+import { expandAccountFeaturedTimeline, expandAccountTimeline, expandAccountTimelineHW } from '../../actions/timelines'; // import hw timeline
 import StatusList from '../../components/status_list';
 import LoadingIndicator from '../../components/loading_indicator';
 import Column from '../ui/components/column';
@@ -42,16 +42,23 @@ class AccountTimeline extends ImmutablePureComponent {
     isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
     withReplies: PropTypes.bool,
+    homework: PropTypes.bool, // add prop for homework
     blockedBy: PropTypes.bool,
     isAccount: PropTypes.bool,
     multiColumn: PropTypes.bool,
   };
 
+  // TODO somewhere below here is where we can pass the timeline to get HW
+
   componentWillMount () {
-    const { params: { accountId }, withReplies } = this.props;
+    const { params: { accountId }, withReplies, homework } = this.props;
 
     this.props.dispatch(fetchAccount(accountId));
     this.props.dispatch(fetchAccountIdentityProofs(accountId));
+
+    if(homework) { // this is where we do all our fun homework timeline work
+      this.props.dispatch(expandAccountTimelineHW(accountId, { withReplies }));
+    }
 
     if (!withReplies) {
       this.props.dispatch(expandAccountFeaturedTimeline(accountId));

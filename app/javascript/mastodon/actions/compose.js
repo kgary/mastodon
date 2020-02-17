@@ -134,6 +134,7 @@ export function submitCompose(routerHistory) {
 
     dispatch(submitComposeRequest());
 
+    // this is where we build and sent the post to post a status
     api(getState).post('/api/v1/statuses', {
       status,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
@@ -142,6 +143,8 @@ export function submitCompose(routerHistory) {
       spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
+      futureself: status.includes('#futureSelf'), // TODO UPDATE TO USE getState like poll does
+      goal: status.includes('#goal'), // TODO UPDATE TO USE getState like poll does
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
