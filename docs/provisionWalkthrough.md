@@ -2,7 +2,7 @@
 
 _Follow this guide to create invite links and get groups set up for the Bridges Pilot._
 
-_If you experience any issues contact your admin and direct them to [Managing Moderators](./manageModerators.md) or send an angry email to [kgary@asu.edu](mailto:kgary@asu.edu)_ 😇
+_If you experience any issues contact your admin and direct them to [Managing Moderators](./manageModerators.md).
 
 ### Precheck
 
@@ -19,7 +19,7 @@ If you don't see your preferences page or don't see `Moderation` you are:
   <img src="./img/provision_priv_oops.gif" alt="baby_rage"/>
 </details>
 
-  If you do not have access to Moderation, contact your admin or technical support for assistance.    
+  If you do not have access to Moderation, contact your admin for assistance.    
 ### Provisioning 
 
 Provisioning is intended to follow this work flow:
