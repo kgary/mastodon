@@ -2,7 +2,7 @@
 
 _Follow this guide to create invite links and get groups set up for the Bridges Pilot._
 
-_If you experience any issues contact your admin and direct them to [Managing Moderators](./manageModerators.md).
+_If you experience any issues contact your admin and direct them to [Managing Moderators](./manageModerators.md)._
 
 ### Precheck
 
