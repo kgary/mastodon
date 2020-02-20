@@ -134,7 +134,6 @@ export function submitCompose(routerHistory) {
     }
 
     dispatch(submitComposeRequest());
-    alert(getState().getIn(['compose', 'futureSelf']));
     // this is where we build and sent the post to post a status
     api(getState).post('/api/v1/statuses', {
       status,

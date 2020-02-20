@@ -276,12 +276,10 @@ export default function compose(state = initialState, action) {
       .set('spoiler_text', action.text)
       .set('idempotencyKey', uuid());
   case COMPOSE_VISIBILITY_CHANGE:
-    // alert(action.value)
     return state
       .set('privacy', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_FUTURE_SELF_CHANGE:
-    // alert(action.value)
     return state
       .set('futureSelf', action.value)
       .set('idempotencyKey', uuid());
@@ -411,7 +409,6 @@ export default function compose(state = initialState, action) {
       }
     });
   case COMPOSE_POLL_ADD:
-    alert(initialPoll)
     return state.set('poll', initialPoll);
   case COMPOSE_POLL_REMOVE:
     return state.set('poll', null);
