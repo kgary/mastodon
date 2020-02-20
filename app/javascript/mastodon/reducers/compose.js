@@ -23,6 +23,7 @@ import {
   COMPOSE_SPOILERNESS_CHANGE,
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
+  COMPOSE_FUTURE_SELF_CHANGE,
   COMPOSE_COMPOSING_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
@@ -50,6 +51,7 @@ const initialState = ImmutableMap({
   spoiler: false,
   spoiler_text: '',
   privacy: null,
+  futureSelf: false,
   text: '',
   focusDate: null,
   caretPosition: null,
@@ -96,6 +98,7 @@ function clearAll(state) {
     map.set('is_changing_upload', false);
     map.set('in_reply_to', null);
     map.set('privacy', state.get('default_privacy'));
+    map.set('futureSelf', false);
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
@@ -273,8 +276,14 @@ export default function compose(state = initialState, action) {
       .set('spoiler_text', action.text)
       .set('idempotencyKey', uuid());
   case COMPOSE_VISIBILITY_CHANGE:
+    // alert(action.value)
     return state
       .set('privacy', action.value)
+      .set('idempotencyKey', uuid());
+  case COMPOSE_FUTURE_SELF_CHANGE:
+    // alert(action.value)
+    return state
+      .set('futureSelf', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_CHANGE:
     return state
@@ -402,6 +411,7 @@ export default function compose(state = initialState, action) {
       }
     });
   case COMPOSE_POLL_ADD:
+    alert(initialPoll)
     return state.set('poll', initialPoll);
   case COMPOSE_POLL_REMOVE:
     return state.set('poll', null);

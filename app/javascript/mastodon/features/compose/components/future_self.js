@@ -6,12 +6,14 @@ export default class FutureSelfMenu extends React.PureComponent {
 
   static propTypes = {
     onClick: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
 
   state = { i: 0, active: false }
 
   handleClick = (e) => {
     e.preventDefault();
+    this.props.onChange(this.state.active);
     this.props.onClick();
     this.setState({ i: this.state.i + 1 });
   }
@@ -21,7 +23,6 @@ export default class FutureSelfMenu extends React.PureComponent {
   }
 
   reset = () => {
-    this.setState({ addTag:true });
     this.setState({ active: false });
   }
 
@@ -33,8 +34,6 @@ export default class FutureSelfMenu extends React.PureComponent {
   }
   render () {
     return (
-      //this makes it a button with an image, but doesn't match look and feel of others
-      // <button><img src={require('../../../../images/future_self.png')} alt='future_self' style={{width: 23, height: 23}} onClick={this.handleClick} /></button>
       <IconButton
         icon={this.options[this.state.i % this.options.length].icon} //need to figure out where to put our images so this works.
         title={'future_self'}
