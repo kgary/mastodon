@@ -57,14 +57,15 @@ class AccountTimeline extends ImmutablePureComponent {
     this.props.dispatch(fetchAccountIdentityProofs(accountId));
 
     if(homework) { // this is where we do all our fun homework timeline work
-      this.props.dispatch(expandAccountTimelineHW(accountId, { withReplies, homework }));
+      this.props.dispatch(expandAccountTimelineHW(accountId, { homework }));
     }
 
-    if (!withReplies) {
+    if (!withReplies && !homework) {
       this.props.dispatch(expandAccountFeaturedTimeline(accountId));
     }
-
-    this.props.dispatch(expandAccountTimeline(accountId, { withReplies }));
+    if(!homework){
+       this.props.dispatch(expandAccountTimeline(accountId, { withReplies }));
+    }
   }
 
   componentWillReceiveProps (nextProps) {
