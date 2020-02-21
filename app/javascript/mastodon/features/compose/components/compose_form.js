@@ -361,7 +361,7 @@ class ComposeForm extends ImmutablePureComponent {
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'>
             <Button
-              text='🍑💨💩'
+              text='Post'
               style={{ fontSize:'100' }}
               onClick={this.handleSubmit}
               disabled={disabledButton
