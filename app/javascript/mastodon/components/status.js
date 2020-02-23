@@ -457,7 +457,6 @@ class Status extends ImmutablePureComponent {
                 <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
               </button>
             )}
-
             <StatusActionBar status={status} account={account} {...other} />
           </div>
         </div>

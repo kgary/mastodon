@@ -67,7 +67,6 @@ class Header extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     domain: PropTypes.string.isRequired,
   };
-
   openEditProfile = () => {
     window.open('/settings/profile', '_blank');
   }
@@ -127,7 +126,7 @@ class Header extends ImmutablePureComponent {
     if (!account) {
       return null;
     }
-
+    console.log('hi mom ', account);
     let info        = [];
     let actionBtn   = '';
     let lockedIcon  = '';
@@ -169,7 +168,9 @@ class Header extends ImmutablePureComponent {
 
     if (account.get('id') !== me) {
       menu.push({ text: intl.formatMessage(messages.mention, { name: account.get('username') }), action: this.props.onMention });
-      menu.push({ text: intl.formatMessage(messages.direct, { name: account.get('username') }), action: this.props.onDirect });
+      if (account.getIn(['relationship', 'following'])){
+        menu.push({ text: intl.formatMessage(messages.direct, { name: account.get('username') }), action: this.props.onDirect });
+      }
       menu.push(null);
     }
 
