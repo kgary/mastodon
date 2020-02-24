@@ -126,7 +126,7 @@ class Header extends ImmutablePureComponent {
     if (!account) {
       return null;
     }
-    console.log('hi mom ', account);
+
     let info        = [];
     let actionBtn   = '';
     let lockedIcon  = '';
