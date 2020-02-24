@@ -45,7 +45,7 @@ export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
 export const COMPOSE_FUTURE_SELF_CHANGE  = 'COMPOSE_FUTURE_SELF_CHANGE';
 export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
 export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
-
+export const COMPOSE_GOAL_CHANGE = 'COMPOSE_GOAL_CHANGE';
 export const COMPOSE_EMOJI_INSERT = 'COMPOSE_EMOJI_INSERT';
 
 export const COMPOSE_UPLOAD_CHANGE_REQUEST     = 'COMPOSE_UPLOAD_UPDATE_REQUEST';
@@ -144,7 +144,7 @@ export function submitCompose(routerHistory) {
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
       futureSelf: getState().getIn(['compose', 'futureSelf']),
-      goal: status.includes('#goal'), // TODO UPDATE TO USE getState like poll does
+      goal: getState().getIn(['compose', 'goal']), // TODO UPDATE TO USE getState like poll does
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
@@ -531,6 +531,13 @@ export function changeComposeVisibility(value) {
 export function changeComposeFutureSelf(value) {
   return {
     type: COMPOSE_FUTURE_SELF_CHANGE,
+    value,
+  };
+};
+
+export function changeComposeGoal(value){
+  return {
+    type: COMPOSE_GOAL_CHANGE,
     value,
   };
 };

@@ -21,6 +21,7 @@ import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
 import MasoButton from './maso_button';
 import FutureSelfContainer from '../containers/future_self_container';
+import GoalContainer from '../containers/goal_container';
 // import FutureSelfMenu from './future_self';
 import CheckButton from '../../../components/goal_checkbox';
 
@@ -49,6 +50,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoLifestyle = React.createRef();
     this.masoCommunity = React.createRef();
     this.futureSelfContainer = React.createRef();
+    this.goalContainer = React.createRef();
   }
   state = {
     tagString: this.DEFAULT_TAG_STRING,
@@ -56,8 +58,8 @@ class ComposeForm extends ImmutablePureComponent {
     hasTag: false,
     hasImage: false,
     hasText: false,
-  }
-  ;
+    goal: false,
+  };
 
 
   static contextTypes = {
@@ -71,6 +73,7 @@ class ComposeForm extends ImmutablePureComponent {
     privacy: PropTypes.string,
     spoilerText: PropTypes.string,
     futureSelf: PropTypes.bool,
+    goal: PropTypes.bool,
     focusDate: PropTypes.instanceOf(Date),
     caretPosition: PropTypes.number,
     preselectDate: PropTypes.instanceOf(Date),
@@ -99,6 +102,11 @@ class ComposeForm extends ImmutablePureComponent {
     this.setState({ hasText: this.autosuggestTextarea.textarea.value.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
   }
 
+  checkGoalReqs = (text) => {
+     this.setState({ hasText: text === null ?
+      false : text.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
+  }
+
   checkFutureSelfReqs = (anyMedia, text) => {
     this.setState({ hasText: text === null ?
       false : text.length >= this.FUTURE_SELF_TEXT_THRESHOLD });
@@ -115,6 +123,11 @@ class ComposeForm extends ImmutablePureComponent {
   showFutureSelf = () => {
     this.setState({ futureSelf: !this.state.futureSelf });
     this.resetMastoButton();
+  }
+
+  showGoal = () => {
+    this.setState({ goal: !this.state.goal });
+    this.resetGoal();
   }
 
   updateTootTag = (e, addTag) => {
@@ -137,6 +150,12 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoCommunity.current.reset();
     this.futureSelfContainer.current.reset();
     this.setState({ futureSelf: false });
+    this.setState({ tagString: this.DEFAULT_TAG_STRING });
+  }
+
+  resetGoal = () => {
+    this.goalContainer.current.reset();
+    this.setState({ goal: false });
     this.setState({ tagString: this.DEFAULT_TAG_STRING });
   }
 
@@ -164,6 +183,14 @@ class ComposeForm extends ImmutablePureComponent {
       }
       this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
       this.resetMastoButton();
+    }
+    if (this.state.goal) {
+      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
+      if(this.state.tagString === this.DEFAULT_TAG_STRING || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
+        return;
+      }
+      this.props.onChange(this.autosuggestTextarea.textarea.value + ' #goal');
+      this.resetGoal();
     }
     // this.setState({futureSelf: false});
     // this.props.futureSelf = false;
@@ -269,7 +296,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.checkFutureSelfReqs(anyMedia, text);
     // this.setState({ hasImage: anyMedia });
     // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
-
+    this.checkGoalReqs(text);
     return (
       <div className='compose-form'>
         <WarningContainer />
@@ -324,6 +351,7 @@ class ComposeForm extends ImmutablePureComponent {
             <PrivacyDropdownContainer />
             {/*<FutureSelfMenu onClick={this.showFutureSelf} />*/}
             <FutureSelfContainer onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
+            <GoalContainer onclick={this.showGoal} ref={this.goalContainer} />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
@@ -358,6 +386,18 @@ class ComposeForm extends ImmutablePureComponent {
             <CheckButton icon='check' />
             write about why you chose the image. </div>}
         </div> }
+
+        {this.state.goal && <div>
+          {!this.state.hasText && <div>
+            <CheckButton />
+            write about your goal.
+            <CheckButton bgColor='' />
+            req char count: {this.FUTURE_SELF_TEXT_THRESHOLD - (this.props.text.length || 0)} </div>}
+         {this.state.hasText && <div>
+            <CheckButton icon='check' />
+            write about your goal. </div>}
+         </div> }
+
         <div className='compose-form__publish'>
           <div className='compose-form__publish-button-wrapper'>
             <Button
