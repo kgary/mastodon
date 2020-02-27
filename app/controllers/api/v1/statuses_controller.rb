@@ -38,6 +38,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          text: status_params[:status],
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
                                          futureself: status_params[:futureSelf] || false, # this passes the endpoint property to the service
+                                         goals: status_params[:goals] || false,
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],
@@ -78,6 +79,7 @@ class Api::V1::StatusesController < Api::BaseController
       :visibility,
       :scheduled_at,
       :futureSelf, # this adds futureself as a param in the payload
+      :goals,
       media_ids: [],
       poll: [
         :multiple,
