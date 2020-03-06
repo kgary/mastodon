@@ -53,6 +53,7 @@ class StatusActionBar extends ImmutablePureComponent {
   };
 
   static propTypes = {
+    account: ImmutablePropTypes.map,
     status: ImmutablePropTypes.map.isRequired,
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
@@ -178,7 +179,7 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   render () {
-    const { status, intl, withDismiss } = this.props;
+    const { account, status, intl, withDismiss } = this.props;
 
     const mutingConversation = status.get('muted');
     const anonymousAccess    = !me;
@@ -216,7 +217,8 @@ class StatusActionBar extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick });
     } else {
       menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
-      menu.push({ text: intl.formatMessage(messages.direct, { name: status.getIn(['account', 'username']) }), action: this.handleDirectClick });
+      //mastodon does not push an object here to check relationship status
+      //menu.push({ text: intl.formatMessage(messages.direct, { name: status.getIn(['account', 'username']) }), action: this.handleDirectClick });
       menu.push(null);
       menu.push({ text: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick });
       menu.push({ text: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick });

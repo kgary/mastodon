@@ -5,7 +5,8 @@
     %div{ style: 'margin: -2px 0' }= account_badge(account, all: true)
   %td
     - if account.user
-      = account.user.heal_group_name
+      - if account.user.heal_group_name
+        = account.user.heal_group_name
     - else
       \-
   %td
