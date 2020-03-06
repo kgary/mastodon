@@ -165,7 +165,9 @@ class SwitchingColumnsArea extends React.PureComponent {
   }
 
   setRef = c => {
-    this.node = c.getWrappedInstance();
+    if (c) {
+      this.node = c.getWrappedInstance();
+    }
   }
 
   render () {
@@ -200,6 +202,8 @@ class SwitchingColumnsArea extends React.PureComponent {
           <WrappedRoute path='/statuses/:statusId/favourites' component={Favourites} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
 
           <WrappedRoute path='/accounts/:accountId' exact component={AccountTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
+          {/*this add the path /homework to view homework posts*/}
+          <WrappedRoute path='/accounts/:accountId/homework' exact component={AccountTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll, homework: true }} />
           <WrappedRoute path='/accounts/:accountId/with_replies' component={AccountTimeline} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll, withReplies: true }} />
           <WrappedRoute path='/accounts/:accountId/followers' component={Followers} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
           <WrappedRoute path='/accounts/:accountId/following' component={Following} content={children} componentParams={{ shouldUpdateScroll: this.shouldUpdateScroll }} />
@@ -387,7 +391,9 @@ class UI extends React.PureComponent {
   }
 
   setRef = c => {
-    this.node = c;
+    if (c) {
+      this.node = c;
+    }
   }
 
   handleHotkeyNew = e => {

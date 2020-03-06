@@ -20,7 +20,8 @@ import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
 import MasoButton from './maso_button';
-import FutureSelfMenu from './future_self';
+import FutureSelfContainer from '../containers/future_self_container';
+// import FutureSelfMenu from './future_self';
 import CheckButton from '../../../components/goal_checkbox';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
@@ -28,7 +29,7 @@ const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u20
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: 'What is on your mind?' },
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
-  publish: { id: 'compose_form.publish', defaultMessage: 'Toot' },
+  publish: { id: 'compose_form.publish', defaultMessage: 'Post' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
 });
 
@@ -47,6 +48,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoHealth = React.createRef();
     this.masoLifestyle = React.createRef();
     this.masoCommunity = React.createRef();
+    this.futureSelfContainer = React.createRef();
   }
   state = {
     tagString: this.DEFAULT_TAG_STRING,
@@ -68,6 +70,7 @@ class ComposeForm extends ImmutablePureComponent {
     spoiler: PropTypes.bool,
     privacy: PropTypes.string,
     spoilerText: PropTypes.string,
+    futureSelf: PropTypes.bool,
     focusDate: PropTypes.instanceOf(Date),
     caretPosition: PropTypes.number,
     preselectDate: PropTypes.instanceOf(Date),
@@ -132,6 +135,8 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoHealth.current.reset();
     this.masoLifestyle.current.reset();
     this.masoCommunity.current.reset();
+    this.futureSelfContainer.current.reset();
+    this.setState({ futureSelf: false });
     this.setState({ tagString: this.DEFAULT_TAG_STRING });
   }
 
@@ -160,7 +165,8 @@ class ComposeForm extends ImmutablePureComponent {
       this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
       this.resetMastoButton();
     }
-
+    // this.setState({futureSelf: false});
+    // this.props.futureSelf = false;
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
 
@@ -316,7 +322,8 @@ class ComposeForm extends ImmutablePureComponent {
             <UploadButtonContainer />
             <PollButtonContainer />
             <PrivacyDropdownContainer />
-            <FutureSelfMenu onClick={this.showFutureSelf} />
+            {/*<FutureSelfMenu onClick={this.showFutureSelf} />*/}
+            <FutureSelfContainer onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>
@@ -352,7 +359,18 @@ class ComposeForm extends ImmutablePureComponent {
             write about why you chose the image. </div>}
         </div> }
         <div className='compose-form__publish'>
-          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton || (this.state.futureSelf && (!this.state.hasImage || !this.state.hasTag || !this.state.hasText))} block /></div>
+          <div className='compose-form__publish-button-wrapper'>
+            <Button
+              text='Post'
+              style={{ fontSize:'100' }}
+              onClick={this.handleSubmit}
+              disabled={disabledButton
+              || (this.state.futureSelf
+                && (!this.state.hasImage //TODO
+                  || !this.state.hasTag
+                  || !this.state.hasText))}
+              block />
+          </div>
         </div>
       </div>
     );

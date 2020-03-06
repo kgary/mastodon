@@ -83,7 +83,7 @@ export default class StatusList extends ImmutablePureComponent {
     if (isPartial) {
       return <RegenerationIndicator />;
     }
-
+    // if(!isLoading)alert(statusIds); TODO TG-70
     let scrollableContent = (isLoading || statusIds.size > 0) ? (
       statusIds.map((statusId, index) => statusId === null ? (
         <LoadGap
