@@ -158,8 +158,8 @@ class ComposeForm extends ImmutablePureComponent {
     if (this.state.futureSelf) {
       this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
       this.setState({ hasImage: anyMedia })
-      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 }) //TODO
-      if(this.state.tagString === this.DEFAULT_TAG_STRING || anyMedia || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
+      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
+      if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
         return;
       }
       this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
@@ -366,7 +366,7 @@ class ComposeForm extends ImmutablePureComponent {
               onClick={this.handleSubmit}
               disabled={disabledButton
               || (this.state.futureSelf
-                && (this.state.hasImage //TODO
+                && (!this.state.hasImage //TODO
                   || !this.state.hasTag
                   || !this.state.hasText))}
               block />
