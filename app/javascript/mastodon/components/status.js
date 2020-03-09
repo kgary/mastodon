@@ -64,6 +64,7 @@ class Status extends ImmutablePureComponent {
     otherAccounts: ImmutablePropTypes.list,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
+    onGoal: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
     onDelete: PropTypes.func,
@@ -219,6 +220,11 @@ class Status extends ImmutablePureComponent {
     this.props.onReply(this._properStatus(), this.context.router.history);
   }
 
+  handleHotkeyGoal = e => {
+    e.preventDefault();
+    this.props.onGoal(this._properStatus(), this.context.router.history);
+  }
+
   handleHotkeyFavourite = () => {
     this.props.onFavourite(this._properStatus());
   }
@@ -284,6 +290,7 @@ class Status extends ImmutablePureComponent {
 
     const handlers = this.props.muted ? {} : {
       reply: this.handleHotkeyReply,
+      goal: this.handleHotkeyGoal,
       favourite: this.handleHotkeyFavourite,
       boost: this.handleHotkeyBoost,
       mention: this.handleHotkeyMention,

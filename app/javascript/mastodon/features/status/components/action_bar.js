@@ -41,6 +41,7 @@ class ActionBar extends React.PureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     onReply: PropTypes.func.isRequired,
+    onGoal: PropTypes.func.isRequired,
     onReblog: PropTypes.func.isRequired,
     onFavourite: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -61,7 +62,7 @@ class ActionBar extends React.PureComponent {
 
   handleGoalClick = () => {
     if (me) {
-      this.props.onReply(this.props.status, this.context.router.history);
+      this.props.onGoal(this.props.status);
     } else {
       throw new Error('unable to create a goal for a post that is not recognized as your own.');
     }
@@ -203,13 +204,14 @@ class ActionBar extends React.PureComponent {
 
     let goalIcon = 'flag';
     let goalTitle = 'create goal';
-
+    console.log(JSON.stringify(status, null, 2));
+    console.log(JSON.stringify(intl, null, 2));
     return (
       <div className='detailed-status__action-bar'>
         <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /></div>
         <div className='detailed-status__button'><IconButton disabled={reblog_disabled} active={status.get('reblogged')} title={reblog_disabled ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} /></div>
         <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
-        {status.get('futureself') && <div className='detailed-status__button'><IconButton className='status__action-bar-button' title={goalTitle} icon={goalIcon} onClick={this.handleGoalClick} /></div>}
+        {status.get('futureself') && status.getIn(['account', 'id']) === `${me}` && <div className='detailed-status__button'><IconButton className='status__action-bar-button' title={goalTitle} icon={goalIcon} onClick={this.handleGoalClick} /></div>}
         {shareButton}
 
         <div className='detailed-status__action-bar-dropdown'>

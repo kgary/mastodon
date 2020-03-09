@@ -24,7 +24,7 @@ import {
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
   COMPOSE_FUTURE_SELF_CHANGE,
-  COMPOSE_GOAL_CHANGE,
+  COMPOSE_GOAL,
   COMPOSE_COMPOSING_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
@@ -286,10 +286,17 @@ export default function compose(state = initialState, action) {
     return state
       .set('futureSelf', action.value)
       .set('idempotencyKey', uuid());
-  case COMPOSE_GOAL_CHANGE:
-    return state
-      .set('goal', action.value)
-      .set('idempotencyKey', uuid());
+  case COMPOSE_GOAL: // map.set('goal', action.value)
+    return state.withMutations(map => {
+      map.set('goal', true);
+      map.set('in_reply_to', action.status.get('id'));
+      map.set('text', statusToTextMentions(state, action.status));
+      map.set('privacy', privacyPreference('unlisted', state.get('default_privacy')));
+      map.set('focusDate', new Date());
+      map.set('caretPosition', null);
+      map.set('preselectDate', new Date());
+      map.set('idempotencyKey', uuid());
+    });
   case COMPOSE_CHANGE:
     return state
       .set('text', action.text)
@@ -317,6 +324,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_REPLY_CANCEL:
   case COMPOSE_RESET:
     return state.withMutations(map => {
+      map.set('goal', false);
       map.set('in_reply_to', null);
       map.set('text', '');
       map.set('spoiler', false);
