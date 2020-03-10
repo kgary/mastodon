@@ -162,10 +162,11 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     // Submit disabled:
-    const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
+    const { isSubmitting, isChangingUpload, isUploading, anyMedia, goal} = this.props;
     const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
-
-    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
+    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)
+      || (goal && length(fulltext) + (500 - 423) > 500) || (goal && (length(this.autosuggestTextarea.textarea.value) === 0
+      || length(this.state.goalImportance) === 0 || length(this.state.goalPlan) === 0))) {
       return;
     }
 
@@ -180,7 +181,7 @@ class ComposeForm extends ImmutablePureComponent {
       this.resetMastoButton();
     }
 
-    if (this.props.goal) {
+    if (goal) {
       this.props.onChange(
         'My Goal:\n'
         + this.autosuggestTextarea.textarea.value
@@ -189,8 +190,7 @@ class ComposeForm extends ImmutablePureComponent {
         + '\n\nTo achieve this goal I will:'
         + '\n'+this.state.goalPlan);
     }
-    // this.setState({futureSelf: false});
-    // this.props.futureSelf = false;
+
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
 
@@ -377,7 +377,7 @@ class ComposeForm extends ImmutablePureComponent {
             {/*<FutureSelfMenu onClick={this.showFutureSelf} />*/}
             <FutureSelfContainer disabled={goal} onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
           </div>
-          <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
+          <div className='character-counter__wrapper'><CharacterCounter max={goal ? 400 : 500} text={text} /></div>
         </div>
         {this.state.futureSelf && <div>
           <div class='compose-form__buttons-wrapper-bridges'>
