@@ -156,9 +156,9 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     if (this.state.futureSelf) {
-      this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING })
-      this.setState({ hasImage: anyMedia })
-      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 })
+      this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
+      this.setState({ hasImage: anyMedia });
+      this.setState({ hasText: this.autosuggestTextarea.textarea.value.length > 100 });
       if(this.state.tagString === this.DEFAULT_TAG_STRING || !anyMedia || this.autosuggestTextarea.textarea.value.length < this.FUTURE_SELF_TEXT_THRESHOLD){
         return;
       }
@@ -269,7 +269,7 @@ class ComposeForm extends ImmutablePureComponent {
     this.checkFutureSelfReqs(anyMedia, text);
     // this.setState({ hasImage: anyMedia });
     // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
-
+    // console.log(JSON.stringify(intl, null, 2));
     return (
       <div className='compose-form'>
         <WarningContainer />
@@ -293,8 +293,33 @@ class ComposeForm extends ImmutablePureComponent {
             className='spoiler-input__input'
           />
         </div>
-
+        {/*if we are drafting a goal show goal form*/}
+        {this.props.goal && //TODO update this to be the goal form
         <AutosuggestTextarea
+          ref={this.setAutosuggestTextarea}
+          placeholder="what's your goal?"
+          disabled={disabled}
+          value={this.props.text}
+          onChange={this.handleChange}
+          suggestions={this.props.suggestions}
+          onFocus={this.handleFocus}
+          onKeyDown={this.handleKeyDown}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          onPaste={onPaste}
+          autoFocus={!showSearch && !isMobile(window.innerWidth)}
+          goal
+        >
+          <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
+          <div className='compose-form__modifiers'>
+            <UploadFormContainer />
+            <PollFormContainer />
+          </div>
+        </AutosuggestTextarea>
+        }
+        {/*otherwise be a normal text area*/}
+        {!this.props.goal && <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
           disabled={disabled}
@@ -314,7 +339,7 @@ class ComposeForm extends ImmutablePureComponent {
             <UploadFormContainer />
             <PollFormContainer />
           </div>
-        </AutosuggestTextarea>
+        </AutosuggestTextarea> }
 
 
         <div className='compose-form__buttons-wrapper'>
@@ -339,7 +364,7 @@ class ComposeForm extends ImmutablePureComponent {
           {!this.state.hasImage && <div>
             <CheckButton />
             add an image of your future self.
-            </div>}
+          </div>}
           {this.state.hasImage && <div>
             <CheckButton icon='check' />
             add an image of your future self. </div>}
@@ -369,7 +394,8 @@ class ComposeForm extends ImmutablePureComponent {
                 && (!this.state.hasImage //TODO
                   || !this.state.hasTag
                   || !this.state.hasText))}
-              block />
+              block
+            />
           </div>
         </div>
       </div>
