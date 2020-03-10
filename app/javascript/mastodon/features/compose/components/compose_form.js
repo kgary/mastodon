@@ -21,6 +21,7 @@ import { countableText } from '../util/counter';
 import Icon from 'mastodon/components/icon';
 import MasoButton from './maso_button';
 import FutureSelfContainer from '../containers/future_self_container';
+import GoalForm from './goal_form';
 // import FutureSelfMenu from './future_self';
 import CheckButton from '../../../components/goal_checkbox';
 
@@ -56,9 +57,9 @@ class ComposeForm extends ImmutablePureComponent {
     hasTag: false,
     hasImage: false,
     hasText: false,
-  }
-  ;
-
+    goalImportance: '',
+    goalPlan: '',
+  };
 
   static contextTypes = {
     router: PropTypes.object,
@@ -113,6 +114,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   showFutureSelf = () => {
+
     this.setState({ futureSelf: !this.state.futureSelf });
     this.resetMastoButton();
   }
@@ -129,16 +131,28 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   resetMastoButton = () => {
-    this.masoFamily.current.reset();
-    this.masoCareer.current.reset();
-    this.masoFriends.current.reset();
-    this.masoHealth.current.reset();
-    this.masoLifestyle.current.reset();
-    this.masoCommunity.current.reset();
-    this.futureSelfContainer.current.reset();
-    this.setState({ futureSelf: false });
-    this.setState({ tagString: this.DEFAULT_TAG_STRING });
+    try {
+      this.masoFamily.current.reset();
+      this.masoCareer.current.reset();
+      this.masoFriends.current.reset();
+      this.masoHealth.current.reset();
+      this.masoLifestyle.current.reset();
+      this.masoCommunity.current.reset();
+      this.futureSelfContainer.current.reset();
+      this.setState({ futureSelf: false });
+      this.setState({ tagString: this.DEFAULT_TAG_STRING });
+    } catch (e) {
+      console.log('futureSelf is already reset');
+    }
   }
+
+  handleGoalImportanceChange = e => {
+    this.setState({ goalImportance: e.target.value });
+  };
+
+  handleGoalPlanChange = e => {
+    this.setState({ goalPlan: e.target.value });
+  };
 
   handleSubmit = () => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
@@ -164,6 +178,16 @@ class ComposeForm extends ImmutablePureComponent {
       }
       this.props.onChange(this.autosuggestTextarea.textarea.value + ' #futureSelf' + this.state.tagString.replace('FutureSelf TAGS:', ''));
       this.resetMastoButton();
+    }
+
+    if (this.props.goal) {
+      this.props.onChange(
+        'My Goal:\n'
+        + this.autosuggestTextarea.textarea.value
+        + '\n\nThe goal is important to me because:'
+        + '\n'+this.state.goalImportance
+        + '\n\nTo achieve this goal I will:'
+        + '\n'+this.state.goalPlan);
     }
     // this.setState({futureSelf: false});
     // this.props.futureSelf = false;
@@ -253,7 +277,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   render () {
-    const { intl, onPaste, showSearch, anyMedia } = this.props;
+    const { intl, onPaste, showSearch, anyMedia, goal } = this.props;
     const disabled = this.props.isSubmitting;
     const text     = [this.props.spoilerText, countableText(this.props.text)].join('');
     const disabledButton = disabled || this.props.isUploading || this.props.isChangingUpload || length(text) > 500 || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
@@ -267,6 +291,8 @@ class ComposeForm extends ImmutablePureComponent {
 
     //update future self checks
     this.checkFutureSelfReqs(anyMedia, text);
+    if(goal)
+      this.resetMastoButton();
     // this.setState({ hasImage: anyMedia });
     // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
     // console.log(JSON.stringify(intl, null, 2));
@@ -294,10 +320,10 @@ class ComposeForm extends ImmutablePureComponent {
           />
         </div>
         {/*if we are drafting a goal show goal form*/}
-        {this.props.goal && //TODO update this to be the goal form
+        {goal &&  //TODO update this to be the goal form
         <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
-          placeholder="what's your goal?"
+          placeholder='my goal is...'
           disabled={disabled}
           value={this.props.text}
           onChange={this.handleChange}
@@ -309,17 +335,18 @@ class ComposeForm extends ImmutablePureComponent {
           onSuggestionSelected={this.onSuggestionSelected}
           onPaste={onPaste}
           autoFocus={!showSearch && !isMobile(window.innerWidth)}
-          goal
+          goal={goal}
         >
           <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
           <div className='compose-form__modifiers'>
+            <GoalForm handleGoalImportanceChange={this.handleGoalImportanceChange} handleGoalPlanChange={this.handleGoalPlanChange}/>
             <UploadFormContainer />
             <PollFormContainer />
           </div>
         </AutosuggestTextarea>
         }
         {/*otherwise be a normal text area*/}
-        {!this.props.goal && <AutosuggestTextarea
+        {!goal && <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
           disabled={disabled}
@@ -348,7 +375,7 @@ class ComposeForm extends ImmutablePureComponent {
             <PollButtonContainer />
             <PrivacyDropdownContainer />
             {/*<FutureSelfMenu onClick={this.showFutureSelf} />*/}
-            <FutureSelfContainer onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
+            <FutureSelfContainer disabled={goal} onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text} /></div>
         </div>

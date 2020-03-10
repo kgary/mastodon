@@ -291,9 +291,12 @@ export default function compose(state = initialState, action) {
       map.set('goal', true);
       map.set('in_reply_to', action.status.get('id'));
       map.set('text', statusToTextMentions(state, action.status));
+      // TODO add goalForm
       map.set('privacy', privacyPreference('unlisted', state.get('default_privacy')));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
+      map.set('poll', null);
+      map.set('futureself', false);
       map.set('preselectDate', new Date());
       map.set('idempotencyKey', uuid());
     });
@@ -331,6 +334,7 @@ export default function compose(state = initialState, action) {
       map.set('spoiler_text', '');
       map.set('privacy', state.get('default_privacy'));
       map.set('poll', null);
+      // TODO add goalForm null
       map.set('idempotencyKey', uuid());
     });
   case COMPOSE_SUBMIT_REQUEST:
@@ -422,6 +426,9 @@ export default function compose(state = initialState, action) {
           expires_in: expiresInFromExpiresAt(action.status.getIn(['poll', 'expires_at'])),
         }));
       }
+
+      // TODO handle reforming GOAL
+      if (action.status.get('goal')) {}
     });
   case COMPOSE_POLL_ADD:
     return state.set('poll', initialPoll);

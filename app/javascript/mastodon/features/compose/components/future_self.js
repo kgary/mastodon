@@ -7,6 +7,7 @@ export default class FutureSelfMenu extends React.PureComponent {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
   };
 
   state = { i: 0, active: false }
@@ -35,6 +36,7 @@ export default class FutureSelfMenu extends React.PureComponent {
   render () {
     return (
       <IconButton
+        disabled={this.props.disabled}
         icon={this.options[this.state.i % this.options.length].icon} //need to figure out where to put our images so this works.
         title={'future_self'}
         size={18}

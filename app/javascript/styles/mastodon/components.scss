@@ -470,7 +470,7 @@
     }
 
     @media screen and (max-width: 600px) {
-      height: 100px !important; // prevent auto-resize textarea
+      height: 30px !important; // prevent auto-resize textarea
       resize: vertical;
     }
   }
