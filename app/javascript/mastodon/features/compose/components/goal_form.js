@@ -84,7 +84,7 @@ class GoalForm extends ImmutablePureComponent {
             <div className='input with_label'>
               <div className='label_input'>
                 <label style={{ color:'#272b37' }}>
-                  The achieve this goal I will:
+                  To achieve this goal I will:
                 </label>
                 <div className='label_input__wrapper'>
                   <Textarea
