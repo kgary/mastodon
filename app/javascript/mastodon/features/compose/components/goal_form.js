@@ -54,7 +54,7 @@ class GoalForm extends ImmutablePureComponent {
   render () {
     const { value, suggestions, disabled, placeholder, onKeyUp, autoFocus, className, id, maxLength } = this.props;
     const styleA = { direction: 'ltr', backgroundColor:'rgba(0,0,0,0)', marginBottom: 10, color:'#272b37', fontSize: 14 };
-    const styleB = { direction: 'ltr', fontSize: 14, resize: 'none'};
+    const styleB = { direction: 'ltr', fontSize: 14, resize: 'none', backgroundColor: 'rgba(0,0,0,.2)', /*border: 'none', outlineColor: 'rgba(0,0,0,.25)'*/};
 
     if(!this.props.display || null) {
       return (
