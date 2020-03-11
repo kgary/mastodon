@@ -402,7 +402,8 @@ export default function compose(state = initialState, action) {
       }));
   case REDRAFT:
     return state.withMutations(map => {
-      map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status)));
+      //TODO RESOLVE THIS WORK AROUND SO GOALFORM GETS FILLED IN
+      if(!action.status.get('goal')) map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status)));
       map.set('futureSelf', action.status.get('futureSelf'));
       map.set('goal', action.status.get('goal'));
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
