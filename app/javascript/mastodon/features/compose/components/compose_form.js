@@ -57,6 +57,7 @@ class ComposeForm extends ImmutablePureComponent {
     hasTag: false,
     hasImage: false,
     hasText: false,
+    goal: '',
     goalImportance: '',
     goalPlan: '',
   };
@@ -146,6 +147,10 @@ class ComposeForm extends ImmutablePureComponent {
     }
   }
 
+  handleGoalChange = e => {
+    this.setState({ goal: e.target.value });
+  };
+
   handleGoalImportanceChange = e => {
     this.setState({ goalImportance: e.target.value });
   };
@@ -183,12 +188,13 @@ class ComposeForm extends ImmutablePureComponent {
 
     if (goal) {
       this.props.onChange(
-        'My Goal:\n'
-        + this.autosuggestTextarea.textarea.value
-        + '\n\nThe goal is important to me because:'
-        + '\n'+this.state.goalImportance
-        + '\n\nTo achieve this goal I will:'
-        + '\n'+this.state.goalPlan);
+        // 'My Goal is:\n'
+        // + this.autosuggestTextarea.textarea.value
+        // + '\n\nThe goal is important to me because:'
+        // + '\n'+this.state.goalImportance
+        // + '\n\nTo achieve this goal I will:'
+        // + '\n'+this.state.goalPlan);
+        this.state.goal+','+this.state.goalImportance+','+this.state.goalPlan);
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
@@ -323,9 +329,9 @@ class ComposeForm extends ImmutablePureComponent {
         {goal &&  //TODO update this to be the goal form
         <AutosuggestTextarea
           ref={this.setAutosuggestTextarea}
-          placeholder='my goal is...'
-          disabled={disabled}
-          value={this.props.text}
+          placeholder='My goal is...'
+          disabled
+          value={'Create Your Goal'}
           onChange={this.handleChange}
           suggestions={this.props.suggestions}
           onFocus={this.handleFocus}
@@ -339,7 +345,7 @@ class ComposeForm extends ImmutablePureComponent {
         >
           <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
           <div className='compose-form__modifiers'>
-            <GoalForm handleGoalImportanceChange={this.handleGoalImportanceChange} handleGoalPlanChange={this.handleGoalPlanChange}/>
+            <GoalForm handleGoalChange={this.handleGoalChange} handleGoalImportanceChange={this.handleGoalImportanceChange} handleGoalPlanChange={this.handleGoalPlanChange}/>
             <UploadFormContainer />
             <PollFormContainer />
           </div>
