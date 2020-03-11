@@ -108,6 +108,8 @@ export default class StatusContent extends React.PureComponent {
   componentDidUpdate () {
     this._updateStatusLinks();
     this._updateStatusEmojis();
+    if(this.props.status.get('goal'))
+      this.parseGoal(this.props.status.get('content'));
   }
 
   /**
