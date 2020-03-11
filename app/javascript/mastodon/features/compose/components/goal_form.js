@@ -45,9 +45,9 @@ class GoalForm extends ImmutablePureComponent {
   };
 
   state = {
-    goal: '',
-    goalImportance: '',
-    goalPlan: '',
+    goal: this.props.goal || '',
+    goalImportance: this.props.goalImportance || '',
+    goalPlan: this.props.goalPlan || '',
   }
 
 
@@ -80,7 +80,7 @@ class GoalForm extends ImmutablePureComponent {
                       onBlur={this.onBlur}
                       style={styleA}
                       aria-autocomplete='list'
-                      id={'goal'}
+                      id={'goalInput'}
                       // className='input-copy'
                       // maxLength={25}
                     />
@@ -108,7 +108,7 @@ class GoalForm extends ImmutablePureComponent {
                       onBlur={this.onBlur}
                       style={styleA}
                       aria-autocomplete='list'
-                      id={'goalImportance'}
+                      id={'goalImportanceInput'}
                       // className='input-copy'
                       // maxLength={25}
                     />
@@ -136,7 +136,7 @@ class GoalForm extends ImmutablePureComponent {
                       onBlur={this.onBlur}
                       style={styleA}
                       aria-autocomplete='list'
-                      id={'goalPlan'}
+                      id={'goalPlanInput'}
                       // className='input-copy'
                       // maxLength={25}
                     />

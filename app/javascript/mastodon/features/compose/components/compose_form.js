@@ -147,6 +147,13 @@ class ComposeForm extends ImmutablePureComponent {
     }
   }
 
+
+  resetGoal = () => {
+    this.setState({ goal: '' });
+    this.setState({ goalImportance: '' });
+    this.setState({ goalPlan: '' });
+  }
+
   handleGoalChange = e => {
     this.setState({ goal: e.target.value });
   };
@@ -159,6 +166,12 @@ class ComposeForm extends ImmutablePureComponent {
     this.setState({ goalPlan: e.target.value });
   };
 
+  goalText = () => {
+    if(this.props.goal)
+      return this.state.goal+','+this.state.goalImportance+','+this.state.goalPlan;
+    return '';
+  }
+
   handleSubmit = () => {
     if (this.props.text !== this.autosuggestTextarea.textarea.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
@@ -170,7 +183,7 @@ class ComposeForm extends ImmutablePureComponent {
     const { isSubmitting, isChangingUpload, isUploading, anyMedia, goal} = this.props;
     const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
     if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > 500 || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)
-      || (goal && length(fulltext) + (500 - 423) > 500) || (goal && (length(this.autosuggestTextarea.textarea.value) === 0
+      || (goal && (length(this.autosuggestTextarea.textarea.value) === 0 || length(this.state.goal) === 0
       || length(this.state.goalImportance) === 0 || length(this.state.goalPlan) === 0))) {
       return;
     }
@@ -194,7 +207,8 @@ class ComposeForm extends ImmutablePureComponent {
         // + '\n'+this.state.goalImportance
         // + '\n\nTo achieve this goal I will:'
         // + '\n'+this.state.goalPlan);
-        this.state.goal+','+this.state.goalImportance+','+this.state.goalPlan);
+        this.goalText());
+      this.resetGoal();
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
@@ -260,7 +274,35 @@ class ComposeForm extends ImmutablePureComponent {
         this.autosuggestTextarea.textarea.focus();
       }
     }
+
+    // if(this.state.goal === '' && this.props.goal && this.props.text.value !== '')
+    //   this.parseGoal(this.props.text.value);
   }
+
+  // /**
+  //  * 'My Goal is:\n'
+  //  + this.autosuggestTextarea.textarea.value
+  //  + '\n\nThe goal is important to me because:'
+  //  + '\n'+this.state.goalImportance
+  //  + '\n\nTo achieve this goal I will:'
+  //  + '\n'+this.state.goalPlan);
+  //  * @param text
+  //  */
+  // parseGoal = (text) => {
+  //   try {
+  //     // alert(text);
+  //     // text = text.slice(3,-4); //remove the <p></p>
+  //     let goalStrings = text.split(',');
+  //     alert(goalStrings);
+  //     this.setState({ goal: goalStrings[0] });
+  //     this.setState({ goalImportance: goalStrings[1] });
+  //     this.setState({ goalPlan: goalStrings[2] });
+  //   } catch (e) {
+  //     this.setState({ goal: 'oops there' });
+  //     this.setState({ goalImportance: 'was an error' });
+  //     this.setState({ goalPlan: e });
+  //   }
+  // }
 
   setAutosuggestTextarea = (c) => {
     this.autosuggestTextarea = c;
@@ -299,9 +341,14 @@ class ComposeForm extends ImmutablePureComponent {
     this.checkFutureSelfReqs(anyMedia, text);
     if(goal)
       this.resetMastoButton();
+    else
+      this.resetGoal()
     // this.setState({ hasImage: anyMedia });
     // this.setState({ hasTag: this.state.tagString !== this.DEFAULT_TAG_STRING });
     // console.log(JSON.stringify(intl, null, 2));
+    // if(this.state.goal === '' && goal && this.props.text !== '')
+    //   this.parseGoal(this.props.text); // TODO
+
     return (
       <div className='compose-form'>
         <WarningContainer />
@@ -345,7 +392,14 @@ class ComposeForm extends ImmutablePureComponent {
         >
           <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
           <div className='compose-form__modifiers'>
-            <GoalForm handleGoalChange={this.handleGoalChange} handleGoalImportanceChange={this.handleGoalImportanceChange} handleGoalPlanChange={this.handleGoalPlanChange}/>
+            <GoalForm
+              goal={this.state.goal}
+              goalImportance={this.state.goalImportance}
+              goalPlan={this.state.goalPlan}
+              handleGoalChange={this.handleGoalChange}
+              handleGoalImportanceChange={this.handleGoalImportanceChange}
+              handleGoalPlanChange={this.handleGoalPlanChange}
+            />
             <UploadFormContainer />
             <PollFormContainer />
           </div>
@@ -383,7 +437,7 @@ class ComposeForm extends ImmutablePureComponent {
             {/*<FutureSelfMenu onClick={this.showFutureSelf} />*/}
             <FutureSelfContainer disabled={goal} onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
           </div>
-          <div className='character-counter__wrapper'><CharacterCounter max={goal ? 400 : 500} text={text} /></div>
+          <div className='character-counter__wrapper'><CharacterCounter max={500} text={text + this.goalText()} /></div>
         </div>
         {this.state.futureSelf && <div>
           <div class='compose-form__buttons-wrapper-bridges'>
