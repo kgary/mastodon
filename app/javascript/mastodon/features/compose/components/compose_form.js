@@ -51,16 +51,6 @@ class ComposeForm extends ImmutablePureComponent {
     this.masoCommunity = React.createRef();
     this.futureSelfContainer = React.createRef();
   }
-  state = {
-    tagString: this.DEFAULT_TAG_STRING,
-    futureSelf: false,
-    hasTag: false,
-    hasImage: false,
-    hasText: false,
-    goal: '',
-    goalImportance: '',
-    goalPlan: '',
-  };
 
   static contextTypes = {
     router: PropTypes.object,
@@ -94,6 +84,17 @@ class ComposeForm extends ImmutablePureComponent {
 
   static defaultProps = {
     showSearch: false,
+  };
+
+  state = {
+    tagString: this.DEFAULT_TAG_STRING,
+    futureSelf: false,
+    hasTag: false,
+    hasImage: false,
+    hasText: false,
+    goal: '',
+    goalImportance: '',
+    goalPlan: '',
   };
 
   handleChange = (e) => {
@@ -325,6 +326,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   render () {
+    // alert(this.props.futureSelf);
     const { intl, onPaste, showSearch, anyMedia, goal } = this.props;
     const disabled = this.props.isSubmitting;
     const text     = [this.props.spoilerText, countableText(this.props.text)].join('');
@@ -435,11 +437,11 @@ class ComposeForm extends ImmutablePureComponent {
             <PollButtonContainer />
             <PrivacyDropdownContainer />
             {/*<FutureSelfMenu onClick={this.showFutureSelf} />*/}
-            <FutureSelfContainer disabled={goal} onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
+            <FutureSelfContainer disabled={goal} active={this.props.futureSelf} onClick={this.showFutureSelf} ref={this.futureSelfContainer} />
           </div>
           <div className='character-counter__wrapper'><CharacterCounter max={500} text={text + this.goalText()} /></div>
         </div>
-        {this.state.futureSelf && <div>
+        {(this.state.futureSelf || this.props.futureSelf) && <div>
           <div class='compose-form__buttons-wrapper-bridges'>
             <MasoButton value={'family'} onClick={this.updateTootTag} ref={this.masoFamily} bgColor={['#E8F8F7', '#14BBB0']}  />
             <MasoButton value={'career'} onClick={this.updateTootTag} ref={this.masoCareer} bgColor={['#FDE6F4', '#EA088D']} />

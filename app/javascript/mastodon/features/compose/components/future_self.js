@@ -10,7 +10,7 @@ export default class FutureSelfMenu extends React.PureComponent {
     disabled: PropTypes.bool.isRequired,
   };
 
-  state = { i: 0, active: false }
+  state = { i: 0, active: this.props.active || false }
 
   handleClick = (e) => {
     e.preventDefault();

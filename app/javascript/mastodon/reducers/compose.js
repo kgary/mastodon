@@ -404,7 +404,9 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       //TODO RESOLVE THIS WORK AROUND SO GOALFORM GETS FILLED IN
       if(!action.status.get('goal')) map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status)));
-      map.set('futureSelf', action.status.get('futureSelf'));
+      //TODO fix this for mobile!
+      if(action.status.get('futureself')) map.set('text', action.raw_text.substring(0,action.raw_text.lastIndexOf('#futureSelf')-1) || unescapeHTML(expandMentions(action.status)).substring(0,unescapeHTML(expandMentions(action.status)).lastIndexOf('#futureSelf')-1));
+      map.set('futureSelf', action.status.get('futureself'));
       map.set('goal', action.status.get('goal'));
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('privacy', action.status.get('visibility'));

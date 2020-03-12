@@ -14,17 +14,14 @@ class GoalForm extends ImmutablePureComponent {
     suggestions: ImmutablePropTypes.list,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    onSuggestionSelected: PropTypes.func.isRequired,
-    onSuggestionsClearRequested: PropTypes.func.isRequired,
-    onSuggestionsFetchRequested: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     onKeyUp: PropTypes.func,
     onKeyDown: PropTypes.func,
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
     id: PropTypes.string,
-    searchTokens: PropTypes.arrayOf(PropTypes.string),
     maxLength: PropTypes.number,
+    handleGoalChange: PropTypes.func.isRequired,
     handleGoalImportanceChange: PropTypes.func.isRequired,
     handleGoalPlanChange: PropTypes.func.isRequired,
   };
@@ -201,7 +198,7 @@ class GoalForm extends ImmutablePureComponent {
                         style={styleB}
                         aria-autocomplete='list'
                         id={'goalImportance'}
-                        resize
+                        // resize
                         // className='input-copy'
                         // maxLength={25}
                       />
