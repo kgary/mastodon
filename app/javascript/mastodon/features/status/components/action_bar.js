@@ -204,8 +204,8 @@ class ActionBar extends React.PureComponent {
 
     let goalIcon = 'flag';
     let goalTitle = 'create goal';
-    console.log(JSON.stringify(status, null, 2));
-    console.log(JSON.stringify(intl, null, 2));
+    // console.log(JSON.stringify(status, null, 2));
+    // console.log(JSON.stringify(intl, null, 2));
     return (
       <div className='detailed-status__action-bar'>
         <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /></div>

@@ -21,9 +21,9 @@ class GoalForm extends ImmutablePureComponent {
     className: PropTypes.string,
     id: PropTypes.string,
     maxLength: PropTypes.number,
-    handleGoalChange: PropTypes.func.isRequired,
-    handleGoalImportanceChange: PropTypes.func.isRequired,
-    handleGoalPlanChange: PropTypes.func.isRequired,
+    handleGoalChange: PropTypes.func,
+    handleGoalImportanceChange: PropTypes.func,
+    handleGoalPlanChange: PropTypes.func,
   };
 
   handleGoalImportanceChange = e => {
