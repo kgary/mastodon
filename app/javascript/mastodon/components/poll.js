@@ -38,7 +38,7 @@ class Poll extends ImmutablePureComponent {
   };
 
   static defaultProps = {
-    disabled: true,
+    disabled: false,
   };
 
   static getDerivedStateFromProps (props, state) {
@@ -57,6 +57,15 @@ class Poll extends ImmutablePureComponent {
 
   componentWillUnmount () {
     clearTimeout(this._timer);
+  }
+
+  checkEntries() {
+    try {
+      return Object.entries(this.state.selected).every(item => !item);
+    } catch (e) {
+      console.log(e + ' no selected entries, returning false');
+      return false;
+    }
   }
 
   _setupTimer () {
@@ -160,7 +169,7 @@ class Poll extends ImmutablePureComponent {
 
     const timeRemaining = expired ? intl.formatMessage(messages.closed) : <RelativeTimestamp timestamp={poll.get('expires_at')} futureDate />;
     const showResults   = poll.get('voted') || expired;
-    const disabled      = this.props.disabled || Object.entries(this.state.selected).every(item => !item);
+    const disabled      = this.props.disabled || this.checkEntries();
 
     let votesCount = null;
 
