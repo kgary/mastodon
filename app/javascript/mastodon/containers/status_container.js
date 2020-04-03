@@ -5,6 +5,7 @@ import {
   replyCompose,
   mentionCompose,
   directCompose,
+  goalCompose,
 } from '../actions/compose';
 import {
   reblog,
@@ -62,6 +63,22 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
         }));
       } else {
         dispatch(replyCompose(status, router));
+      }
+    });
+  },
+
+  onGoal (status, router) {
+    dispatch((_, getState) => {
+      let state = getState();
+
+      if (state.getIn(['compose', 'text']).trim().length !== 0) {
+        dispatch(openModal('CONFIRM', {
+          message: intl.formatMessage(messages.replyMessage),
+          confirm: intl.formatMessage(messages.replyConfirm),
+          onConfirm: () => dispatch(goalCompose(status, router)),
+        }));
+      } else {
+        dispatch(goalCompose(status, router));
       }
     });
   },

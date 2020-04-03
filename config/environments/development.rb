@@ -89,6 +89,9 @@ end
 
 ActiveRecordQueryTrace.enabled = ENV['QUERY_TRACE_ENABLED'] == 'true'
 
+# if on macOS this sets path to /convert **required imagemagick (brew install imagemagick)
+# Paperclip.options[:command_path] = "/usr/local/bin/"
+
 module PrivateAddressCheck
   def self.private_address?(*)
     false

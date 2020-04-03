@@ -14,6 +14,7 @@ import Audio from '../../audio';
 import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
+import IconButton from "../../../components/icon_button";
 
 export default class DetailedStatus extends ImmutablePureComponent {
 
@@ -206,6 +207,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
         </a>
       );
     }
+
 
     return (
       <div style={outerStyle}>

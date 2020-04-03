@@ -406,6 +406,7 @@
     }
   }
 
+  .goal-textarea__textarea,
   .autosuggest-textarea__textarea,
   .spoiler-input__input {
     display: block;
@@ -452,6 +453,24 @@
 
     @media screen and (max-width: 600px) {
       height: 100px !important; // prevent auto-resize textarea
+      resize: vertical;
+    }
+  }
+
+  .goal-textarea__textarea {
+    min-height: 10px;
+    border-radius: 4px 4px 0 0;
+    padding-bottom: 0;
+    padding-right: 10px + 22px;
+    resize: none;
+    scrollbar-color: initial;
+
+    &::-webkit-scrollbar {
+      all: unset;
+    }
+
+    @media screen and (max-width: 600px) {
+      height: 30px !important; // prevent auto-resize textarea
       resize: vertical;
     }
   }

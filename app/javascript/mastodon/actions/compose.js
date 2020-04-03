@@ -43,6 +43,7 @@ export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE';
 export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE';
 export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
 export const COMPOSE_FUTURE_SELF_CHANGE  = 'COMPOSE_FUTURE_SELF_CHANGE';
+export const COMPOSE_GOAL  = 'COMPOSE_GOAL';
 export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
 export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
 
@@ -89,6 +90,7 @@ export function replyCompose(status, routerHistory) {
     ensureComposeIsVisible(getState, routerHistory);
   };
 };
+
 
 export function cancelReplyCompose() {
   return {
@@ -144,7 +146,7 @@ export function submitCompose(routerHistory) {
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
       futureSelf: getState().getIn(['compose', 'futureSelf']),
-      goal: status.includes('#goal'), // TODO UPDATE TO USE getState like poll does
+      goal: getState().getIn(['compose', 'goal']),
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
@@ -532,6 +534,18 @@ export function changeComposeFutureSelf(value) {
   return {
     type: COMPOSE_FUTURE_SELF_CHANGE,
     value,
+  };
+};
+
+export function goalCompose(status, routerHistory) {
+  return (dispatch, getState) => {
+    // dispatch(addPoll()); // TODO modify this to show the Goal Form not a poll.
+    dispatch({
+      type: COMPOSE_GOAL,
+      status: status,
+    });
+
+    ensureComposeIsVisible(getState, routerHistory);
   };
 };
 

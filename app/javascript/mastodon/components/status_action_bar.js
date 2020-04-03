@@ -56,6 +56,7 @@ class StatusActionBar extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     status: ImmutablePropTypes.map.isRequired,
     onReply: PropTypes.func,
+    onGoal: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
     onDelete: PropTypes.func,
@@ -83,6 +84,15 @@ class StatusActionBar extends ImmutablePureComponent {
       this.props.onReply(this.props.status, this.context.router.history);
     } else {
       this._openInteractionDialog('reply');
+    }
+  }
+
+  handleGoalClick = () => {
+    // alert(me);
+    if (me) {
+      this.props.onGoal(this.props.status, this.context.router.history);
+    } else {
+      alert(me);
     }
   }
 
@@ -179,7 +189,7 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   render () {
-    const { account, status, intl, withDismiss } = this.props;
+    const { status, intl, withDismiss } = this.props;
 
     const mutingConversation = status.get('muted');
     const anonymousAccess    = !me;
@@ -187,6 +197,8 @@ class StatusActionBar extends ImmutablePureComponent {
 
     let menu = [];
     let reblogIcon = 'retweet';
+    let goalIcon = 'flag';
+    let goalTitle = 'create goal';
     let replyIcon;
     let replyTitle;
 
@@ -248,12 +260,12 @@ class StatusActionBar extends ImmutablePureComponent {
     const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
       <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
     );
-
     return (
       <div className='status__action-bar'>
         <div className='status__action-bar__counter'><IconButton className='status__action-bar-button' title={replyTitle} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /><span className='status__action-bar__counter__label' >{obfuscatedCount(status.get('replies_count'))}</span></div>
         <IconButton className='status__action-bar-button' disabled={!publicStatus} active={status.get('reblogged')} pressed={status.get('reblogged')} title={!publicStatus ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} />
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
+        {status.get('futureself') && status.getIn(['account', 'id']) === `${me}` && <IconButton className='status__action-bar-button' title={goalTitle} icon={goalIcon} onClick={this.handleGoalClick} />}
         {shareButton}
 
         <div className='status__action-bar-dropdown'>

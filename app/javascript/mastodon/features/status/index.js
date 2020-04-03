@@ -22,6 +22,7 @@ import {
   replyCompose,
   mentionCompose,
   directCompose,
+  goalCompose,
 } from '../../actions/compose';
 import {
   muteStatus,
@@ -216,6 +217,19 @@ class Status extends ImmutablePureComponent {
     }
   }
 
+  handleGoalClick = (status) => {
+    let { askReplyConfirmation, dispatch, intl } = this.props;
+    if (askReplyConfirmation) {
+      dispatch(openModal('CONFIRM', {
+        message: intl.formatMessage(messages.replyMessage),
+        confirm: intl.formatMessage(messages.replyConfirm),
+        onConfirm: () => dispatch(goalCompose(status, this.context.router.history)),
+      }));
+    } else {
+      dispatch(goalCompose(status, this.context.router.history));
+    }
+  }
+
   handleModalReblog = (status) => {
     this.props.dispatch(reblog(status));
   }
@@ -305,6 +319,14 @@ class Status extends ImmutablePureComponent {
 
   handleEmbed = (status) => {
     this.props.dispatch(openModal('EMBED', { url: status.get('url') }));
+  }
+
+  onModalReblog (status) {
+    if (status.get('reblogged')) {
+      dispatch(unreblog(status));
+    } else {
+      dispatch(reblog(status));
+    }
   }
 
   handleHotkeyMoveUp = () => {
@@ -508,6 +530,7 @@ class Status extends ImmutablePureComponent {
                   onReport={this.handleReport}
                   onPin={this.handlePin}
                   onEmbed={this.handleEmbed}
+                  onGoal={this.handleGoalClick}
                 />
               </div>
             </HotKeys>

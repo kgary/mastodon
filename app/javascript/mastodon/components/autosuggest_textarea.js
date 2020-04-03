@@ -201,39 +201,71 @@ export default class AutosuggestTextarea extends ImmutablePureComponent {
       style.direction = 'rtl';
     }
 
-    return [
-      <div className='compose-form__autosuggest-wrapper' key='autosuggest-wrapper'>
-        <div className='autosuggest-textarea'>
-          <label>
-            <span style={{ display: 'none' }}>{placeholder}</span>
+    if(this.props.goal) {
+      return (
+        <div className='compose-form__autosuggest-wrapper' key='autosuggest-wrapper'>
+          <div className='autosuggest-textarea'>
+            <label>
+              <span style={{ display: 'none' }}>{placeholder}</span>
 
-            <Textarea
-              inputRef={this.setTextarea}
-              className='autosuggest-textarea__textarea'
-              disabled={disabled}
-              placeholder={placeholder}
-              autoFocus={autoFocus}
-              value={value}
-              onChange={this.onChange}
-              onKeyDown={this.onKeyDown}
-              onKeyUp={onKeyUp}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              onPaste={this.onPaste}
-              style={style}
-              aria-autocomplete='list'
-            />
-          </label>
+              <Textarea
+                inputRef={this.setTextarea}
+                className='goal-textarea__textarea'
+                disabled={disabled}
+                placeholder={placeholder}
+                autoFocus={autoFocus}
+                value={value}
+                onChange={this.onChange}
+                onKeyDown={this.onKeyDown}
+                onKeyUp={onKeyUp}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onPaste={this.onPaste}
+                style={{ direction: 'ltr', height:10 }}
+                aria-autocomplete='list'
+              />
+            </label>
+          </div>
+          {children}
         </div>
-        {children}
-      </div>,
+      );
+    } else {
+      return [
+        <div className='compose-form__autosuggest-wrapper' key='autosuggest-wrapper'>
+          <div className='autosuggest-textarea'>
+            <label>
+              <span style={{ display: 'none' }}>{placeholder}</span>
 
-      <div className='autosuggest-textarea__suggestions-wrapper' key='suggestions-wrapper'>
-        <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
-          {suggestions.map(this.renderSuggestion)}
-        </div>
-      </div>,
-    ];
+              <Textarea
+                inputRef={this.setTextarea}
+                className={'autosuggest-textarea__textarea'}
+                disabled={disabled}
+                placeholder={placeholder}
+                autoFocus={autoFocus}
+                value={value}
+                onChange={this.onChange}
+                onKeyDown={this.onKeyDown}
+                onKeyUp={onKeyUp}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onPaste={this.onPaste}
+                style={style}
+                aria-autocomplete='list'
+              />
+            </label>
+          </div>
+          {children}
+        </div>,
+
+        <div className='autosuggest-textarea__suggestions-wrapper' key='suggestions-wrapper'>
+          <div
+            className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}
+          >
+            {suggestions.map(this.renderSuggestion)}
+          </div>
+        </div>,
+      ];
+    }
   }
 
 }

@@ -38,7 +38,8 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
-#
+#  heal_group_name           :string           default("Global"), not null
+#  invite_end                :string           default("No link"), not null
 
 class User < ApplicationRecord
   include Settings::Extend
