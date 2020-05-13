@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>ActivityPub - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/spec/activitypub/">
+
+  
+    <meta name="description" content="A decentralized social networking protocol based upon the ActivityStreams 2.0 data format and JSON-LD.">
+    <meta property="og:description" content="A decentralized social networking protocol based upon the ActivityStreams 2.0 data format and JSON-LD.">
+    <meta name="twitter:description" content="A decentralized social networking protocol based upon the ActivityStreams 2.0 data format and JSON-LD.">
+  
+
+  <meta name="twitter:title" content="ActivityPub">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/spec/activitypub/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="active">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>ActivityPub</h1>
+
+  
+    <p>A decentralized social networking protocol based upon the ActivityStreams 2.0 data format and JSON-LD.</p>
+  
+
+  <div class="e-content">
+    <div class="hint hint-warning">
+  <div class="hint-icon"><i class="fa fa-exclamation-circle"></i></div>
+
+  Sample payloads will be added at a future date.
+</div>
+
+<h2 id="status">Status federation</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/app/lib/activitypub/activity.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  app/lib/activitypub/activity.rb
+</a>
+
+<h3 id="supported-activities-for-statuses">Supported activities for statuses</h3>
+<ul>
+<li>Create = transformed into a status and saved into database</li>
+<li>Delete = removes a status from the database</li>
+<li>Like = transformed into a favourite on a status</li>
+<li>Announce = transformed into a boost on a status</li>
+<li>Flag = transformed into a report to the moderation team.</li>
+<li>Update = only supported on polls. Used to refresh vote count.</li>
+<li>Undo = undo a previous Like or Announce.</li>
+</ul>
+<h3 id="payloads">Payloads</h3>
+<p>The first-class Object types supported by Mastodon are <code>Note</code> and <code>Question</code>.</p>
+<ul>
+<li>Notes are transformed into regular statuses.</li>
+<li>Questions are transformed into a poll status.</li>
+</ul>
+<p>Some other Object types are converted as best as possible. The transformer uses <code>content</code> if available, or <code>name</code> if not, in order to generate status text. The <code>url</code> will be appended. The <code>summary</code> property will be used as the CW text.</p>
+<ul>
+<li>Article</li>
+<li>Page</li>
+<li>Image</li>
+<li>Audio</li>
+<li>Video</li>
+<li>Event</li>
+</ul>
+<h2 id="profile">Profile federation</h2>
+<h3 id="supported-activities-for-profiles">Supported activities for profiles</h3>
+<ul>
+<li>Follow = Indicate interest in receiving status updates from a profile.</li>
+<li>Accept/Reject = used to approve or deny Follow activities. Unlocked accounts will automatically reply with an Accept, while locked accounts can manually choose whether to approve or deny a follow request.</li>
+<li>Add/Remove = manage pinned posts and featured collections.</li>
+<li>Block = Signal to a remote server that they should hide your profile from that user. Not guaranteed.</li>
+<li>Flag = report user</li>
+<li>Update = refresh account details</li>
+<li>Move = migrate followers from one account to another. Requires alsoKnownAs to be set in both directions.</li>
+<li>Delete = remove an account from the database, as well as all of their statuses.</li>
+<li>Undo = undo a previous Follow, Accept Follow, or Block.</li>
+</ul>
+<h3 id="properties-used">Properties used</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="left">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">preferredUsername</td>
+<td align="left">Used for Webfinger lookup. Must be unique on the domain, and must correspond to a Webfinger <code>acct:</code> URI.</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left">Used as profile display name.</td>
+</tr>
+<tr>
+<td align="left">summary</td>
+<td align="left">Used as profile bio.</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">Assumed to be Person. If type is Application or Service, it will be interpreted as a bot flag.</td>
+</tr>
+<tr>
+<td align="left">url</td>
+<td align="left">Used as profile link.</td>
+</tr>
+<tr>
+<td align="left">icon</td>
+<td align="left">Used as profile avatar.</td>
+</tr>
+<tr>
+<td align="left">image</td>
+<td align="left">Used as profile header.</td>
+</tr>
+<tr>
+<td align="left">manuallyApprovesFollowers</td>
+<td align="left">Will be shown as a locked account.</td>
+</tr>
+<tr>
+<td align="left">discoverable</td>
+<td align="left">Will be shown in the profile directory. See <a href="activitypub.md#discoverable">Discoverability flag</a>.</td>
+</tr>
+<tr>
+<td align="left">publicKey</td>
+<td align="left">Required for signatures. See <a href="activitypub.md#public-key">Public key</a>.</td>
+</tr>
+<tr>
+<td align="left">featured</td>
+<td align="left">Pinned posts. See <a href="activitypub.md#featured">Featured collection</a>.</td>
+</tr>
+<tr>
+<td align="left">attachment</td>
+<td align="left">Used for profile fields. See <a href="activitypub.md#profile-metadata">Profile metadata</a> and <a href="activitypub.md#identityproof">Identity proofs</a>.</td>
+</tr>
+<tr>
+<td align="left">alsoKnownAs</td>
+<td align="left">Required for Move activity.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sanitization">HTML sanitization</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/app/lib/sanitize_config.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  app/lib/sanitize_config.rb
+</a>
+
+<p>Mastodon sanitizes incoming HTML in order to not break assumptions for API client developers. Supported elements include <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;br&gt;</code>, and <code>&lt;a&gt;</code>. Unsupported elements will be converted to <code>&lt;p&gt;</code>.The sanitizer will keep classes if they begin with microformats prefixes or are semantic classes:</p>
+<ul>
+<li>h-*</li>
+<li>p-*</li>
+<li>u-*</li>
+<li>dt-*</li>
+<li>e-*</li>
+<li>mention</li>
+<li>hashtag</li>
+<li>ellipsis</li>
+<li>invisible</li>
+</ul>
+<h2 id="namespaces">JSON-LD Namespacing</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/app/lib/activitypub/adapter.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  app/lib/activitypub/adapter.rb
+</a>
+
+<h3 id="toot">Mastodon extensions (<code>toot:</code>)</h3>
+<p>Contains definitions for Mastodon features.</p>
+<ul>
+<li>toot:Emoji</li>
+<li>toot:IdentityProof</li>
+<li>toot:blurhash</li>
+<li>toot:focalPoint</li>
+<li>toot:featured</li>
+<li>toot:discoverable</li>
+<li>toot:votersCount</li>
+</ul>
+<h3 id="as">ActivityStreams extensions (<code>as:</code>)</h3>
+<p>Contains ActivityStreams extended properties that have been proposed but not officially adopted yet.</p>
+<ul>
+<li>as:Hashtag</li>
+<li>as:alsoKnownAs</li>
+<li>as:manuallyApprovesFollowers</li>
+<li>as:movedTo</li>
+<li>as:sensitive</li>
+</ul>
+<h3 id="sec">W3ID Security Vocabulary (<code>sec:</code>)</h3>
+<p>Contains properties used for HTTPS Signatures and Linked Data Signatures. Also used for identity proofs. See <a href="security.md">Security</a> for more information.</p>
+<ul>
+<li>sec:publicKey</li>
+<li>sec:publicKeyPem</li>
+<li>sec:owner</li>
+<li>sec:signature</li>
+<li>sec:signatureValue</li>
+</ul>
+<h4 id="w3id-identity">W3ID Identity</h4>
+<p>Contains a collection of terms from various namespaces, used for Linked Data Signatures.</p>
+<ul>
+<li>dc:creator</li>
+<li>dc:created</li>
+<li>sec:signature</li>
+<li>sec:signatureValue</li>
+</ul>
+<h3 id="schema">schema.org extensions (<code>schema:</code>)</h3>
+<p>Contains properties used for profile metadata.</p>
+<ul>
+<li>schema:PropertyValue</li>
+<li>schema:value</li>
+</ul>
+<h2 id="extensions">Extensions</h2>
+<h3 id="publicKey">Public key</h3>
+<p>Public keys are used for HTTPS Signatures and Linked Data Signatures. This is implemented using an extra property <code>publicKey</code> on actor objects. See <a href="security.md">Security</a> for more information. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    <span style="color:#f1fa8c">&#34;https://w3id.org/security/v1&#34;</span>
+  ],
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Person&#34;</span>,
+  <span style="color:#f1fa8c">&#34;publicKey&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron#main-key&#34;</span>,
+    <span style="color:#f1fa8c">&#34;owner&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron&#34;</span>,
+    <span style="color:#f1fa8c">&#34;publicKeyPem&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvXc4vkECU2/CeuSo1wtn\nFoim94Ne1jBMYxTZ9wm2YTdJq1oiZKif06I2fOqDzY/4q/S9uccrE9Bkajv1dnkO\nVm31QjWlhVpSKynVxEWjVBO5Ienue8gND0xvHIuXf87o61poqjEoepvsQFElA5ym\novljWGSA/jpj7ozygUZhCXtaS2W5AD5tnBQUpcO0lhItYPYTjnmzcc4y2NbJV8hz\n2s2G8qKv8fyimE23gY1XrPJg+cRF+g4PqFXujjlJ7MihD9oqtLGxbu7o1cifTn3x\nBfIdPythWu5b4cujNsB3m3awJjVmx+MHQ9SugkSIYXV0Ina77cTNS0M2PYiH1PFR\nTwIDAQAB\n-----END PUBLIC KEY-----\n&#34;</span>
+  }
+}
+</code></pre></div><h3 id="featured">Featured collection</h3>
+<p>What is known in Mastodon as “pinned toots”, or statuses that are always featured at the top of people’s profiles, is implemented using an extra property <code>featured</code> on the actor object that points to a <code>Collection</code> of objects. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;toot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;http://joinmastodon.org/ns#&#34;</span>,
+      <span style="color:#f1fa8c">&#34;featured&#34;</span><span style="color:#ff79c6">:</span> {
+        <span style="color:#f1fa8c">&#34;@id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;toot:featured&#34;</span>,
+        <span style="color:#f1fa8c">&#34;@type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;@id&#34;</span>
+      }
+    }
+  ],
+
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/@alice&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Person&#34;</span>,
+  <span style="color:#f1fa8c">&#34;featured&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/@alice/collections/featured&#34;</span>
+}
+</code></pre></div><h3 id="emoji">Custom emojis</h3>
+<p>Mastodon supports arbitrary emojis, that is, small images uploaded by admins and invokable via shortcodes. For this, an <code>Emoji</code> type is used. These emojis are listed in the <code>tag</code> property just like <code>Mention</code> and <code>Hashtag</code> objects, since they are entities that affect how the text is rendered. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;toot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;http://joinmastodon.org/ns#&#34;</span>,
+      <span style="color:#f1fa8c">&#34;Emoji&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;toot:Emoji&#34;</span>
+    }
+  ],
+
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/@alice/hello-world&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Note&#34;</span>,
+  <span style="color:#f1fa8c">&#34;content&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Hello world :kappa:&#34;</span>,
+  <span style="color:#f1fa8c">&#34;tag&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/emoji/123&#34;</span>,
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Emoji&#34;</span>,
+      <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;:kappa:&#34;</span>,
+      <span style="color:#f1fa8c">&#34;icon&#34;</span><span style="color:#ff79c6">:</span> {
+        <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Image&#34;</span>,
+        <span style="color:#f1fa8c">&#34;mediaType&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;image/png&#34;</span>,
+        <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/files/kappa.png&#34;</span>
+      }
+    }
+  ]
+}
+</code></pre></div><h3 id="focalPoint">Focal points</h3>
+<p>Mastodon supports setting a focal point on uploaded images, so that wherever that image is displayed, the focal point stays in view. This is implemented using an extra property <code>focalPoint</code> on <code>Image</code> objects. The property is simply an array of two floating points between -1.0 and 1.0, with 0,0 being the center of the image, the first value being x (-1.0 is the left edge, +1.0 is the right edge) and the second value being y (-1.0 is the bottom edge, +1.0 is the top edge). See <a href="../methods/statuses/media.md#focal-points">Focal points</a> for more information. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;toot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;http://joinmastodon.org/ns#&#34;</span>,
+      <span style="color:#f1fa8c">&#34;focalPoint&#34;</span><span style="color:#ff79c6">:</span> {
+        <span style="color:#f1fa8c">&#34;@container&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;@list&#34;</span>,
+        <span style="color:#f1fa8c">&#34;@id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;toot:focalPoint&#34;</span>
+      }
+    }
+  ],
+
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/@alice/hello-world&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Note&#34;</span>,
+  <span style="color:#f1fa8c">&#34;content&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;A picture attached!&#34;</span>,
+  <span style="color:#f1fa8c">&#34;attachment&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Image&#34;</span>,
+      <span style="color:#f1fa8c">&#34;mediaType&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;image/png&#34;</span>,
+      <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/files/cats.png&#34;</span>,
+      <span style="color:#f1fa8c">&#34;focalPoint&#34;</span><span style="color:#ff79c6">:</span> [
+        <span style="color:#ff79c6">-</span><span style="color:#bd93f9">0.55</span>,
+        <span style="color:#bd93f9">0.43</span>
+      ]
+    }
+  ]
+}
+</code></pre></div><h3 id="blurhash">Blurhash</h3>
+<p>Mastodon generates colorful preview thumbnails for attachments. This is implemented using an extra property <code>blurhash</code> on <code>Image</code> objects. The property is a string generated by the <a href="https://blurha.sh">BlurHash algorithm</a>. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;toot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;http://joinmastodon.org/ns#&#34;</span>,
+      <span style="color:#f1fa8c">&#34;blurhash&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;toot:blurhash&#34;</span>
+    }
+  ],
+
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/@alice/hello-world&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Note&#34;</span>,
+  <span style="color:#f1fa8c">&#34;content&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;A picture attached!&#34;</span>,
+  <span style="color:#f1fa8c">&#34;attachment&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Image&#34;</span>,
+      <span style="color:#f1fa8c">&#34;mediaType&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;image/png&#34;</span>,
+      <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://example.com/files/cats.png&#34;</span>,
+      <span style="color:#f1fa8c">&#34;blurhash&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;UBL_:rOpGG-oBUNG,qRj2so|=eE1w^n4S5NH&#34;</span>
+    }
+  ]
+}
+</code></pre></div><h3 id="PropertyValue">Profile metadata</h3>
+<p>Mastodon supports arbitrary profile fields containing name-value pairs. This is implemented using the <code>attachment</code> property on actor objects, with objects in the array having a type of <code>PropertyValue</code> and a <code>value</code> property, both from the schema.org namespace. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;PropertyValue&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;schema:PropertyValue&#34;</span>,
+      <span style="color:#f1fa8c">&#34;value&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;schema:value&#34;</span>
+    }
+  ],
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Person&#34;</span>,
+  <span style="color:#f1fa8c">&#34;attachment&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;PropertyValue&#34;</span>,
+      <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Patreon&#34;</span>,
+      <span style="color:#f1fa8c">&#34;value&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;a href=\&#34;https://www.patreon.com/mastodon\&#34; rel=\&#34;me nofollow noopener noreferrer\&#34; target=\&#34;_blank\&#34;&gt;&lt;span class=\&#34;invisible\&#34;&gt;https://www.&lt;/span&gt;&lt;span class=\&#34;\&#34;&gt;patreon.com/mastodon&lt;/span&gt;&lt;span class=\&#34;invisible\&#34;&gt;&lt;/span}&#34;</span>
+    },
+    {
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;PropertyValue&#34;</span>,
+      <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Homepage&#34;</span>,
+      <span style="color:#f1fa8c">&#34;value&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;a href=\&#34;https://zeonfederated.com\&#34; rel=\&#34;me nofollow noopener noreferrer\&#34; target=\&#34;_blank\&#34;&gt;&lt;span class=\&#34;invisible\&#34;&gt;https://&lt;/span&gt;&lt;span class=\&#34;\&#34;&gt;zeonfederated.com&lt;/span&gt;&lt;span class=\&#34;invisible\&#34;&gt;&lt;/span}&#34;</span>
+    }
+  ]
+}
+</code></pre></div><h3 id="IdentityProof">Identity proofs</h3>
+<p>Mastodon supports integration with identity providers to prove that a profile is linked to a certain identity. This is implemented using the <code>attachment</code> property on actor objects, with objects in the array having a type of <code>IdentityProof</code> from the Mastodon namespace. The object also includes <code>signatureAlgorithm</code> and <code>signatureValue</code> from the W3ID Security Vocabulary namespace. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    <span style="color:#f1fa8c">&#34;https://w3id.org/security/v1&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;toot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;http://joinmastodon.org/ns#&#34;</span>,
+      <span style="color:#f1fa8c">&#34;IdentityProof&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;toot:IdentityProof&#34;</span>
+    }
+  ],
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Person&#34;</span>,
+  <span style="color:#f1fa8c">&#34;attachment&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;IdentityProof&#34;</span>,
+      <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;gargron&#34;</span>,
+      <span style="color:#f1fa8c">&#34;signatureAlgorithm&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;keybase&#34;</span>,
+      <span style="color:#f1fa8c">&#34;signatureValue&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;5cfc20c7018f2beefb42a68836da59a792e55daa4d118498c9b1898de7e845690f&#34;</span>
+    }
+  ]
+}
+</code></pre></div><h3 id="discoverable">Discoverability flag</h3>
+<p>Mastodon allows users to opt-in or opt-out of discoverability features like the profile directory. This flag may also be used as an indicator of the user&rsquo;s preferences toward being included in external discovery services, such as search engines or other indexing tools. If you are implementing such a tool, it is recommended that you respect this property if it is present. This is implemented using an extra property <code>discoverable</code> on objects. Example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;@context&#34;</span><span style="color:#ff79c6">:</span> [
+    <span style="color:#f1fa8c">&#34;https://www.w3.org/ns/activitystreams&#34;</span>,
+    {
+      <span style="color:#f1fa8c">&#34;toot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;http://joinmastodon.org/ns#&#34;</span>,
+      <span style="color:#f1fa8c">&#34;discoverable&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;toot:discoverable&#34;</span>
+    }
+  ],
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Person&#34;</span>,
+  <span style="color:#f1fa8c">&#34;discoverable&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>
+}
+</code></pre></div>
+
+    <p style="color: #687590;">
+      Last updated January 1, 0001 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/spec/activitypub.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/spec/activitypub.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>Using the admin CLI - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/admin/tootctl/">
+
+  
+    <meta name="description" content="tootctl commands that can be run from the CLI.">
+    <meta property="og:description" content="tootctl commands that can be run from the CLI.">
+    <meta name="twitter:description" content="tootctl commands that can be run from the CLI.">
+  
+
+  <meta name="twitter:title" content="Using the admin CLI">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/admin/tootctl/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="active">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>Using the admin CLI</h1>
+
+  
+    <p>tootctl commands that can be run from the CLI.</p>
+  
+
+  <div class="e-content">
+    <hr>
+<p>The command-line interface of Mastodon is an executable file called <code>tootctl</code> residing in the <code>bin</code> directory within the Mastodon root directory. You must specify which environment you intend to use whenever you execute it by specifying the <code>RAILS_ENV</code> environment variable. Unless you are a developer working on a local machine, you need to use <code>RAILS_ENV=production</code>. If you are sure that you will never need another environment (for development, testing, or staging), you can add it to your <code>.bashrc</code> file for convenience, e.g.:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;export RAILS_ENV=production&#34;</span> &gt;&gt; ~/.bashrc
+</code></pre></div><p>If so, you won’t need to specify it each time inline. Otherwise, calls to <code>tootctl</code> will usually go like this, assuming that the Mastodon code is checked out in <code>/home/mastodon/live</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">cd</span> /home/mastodon/live
+<span style="color:#8be9fd;font-style:italic">RAILS_ENV</span><span style="color:#ff79c6">=</span>production bin/tootctl <span style="color:#8be9fd;font-style:italic">help</span>
+</code></pre></div><h2 id="base-cli">Base CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/cli.rb
+</a>
+
+<h3 id="self-destruct"><code>tootctl self-destruct</code></h3>
+<p>Erase this server from the federation by broadcasting account Delete activities to all known other servers. This allows a &ldquo;clean exit&rdquo; from running a Mastodon server, as it leaves next to no cache behind on other servers. This command is always interactive and requires confirmation twice.</p>
+<p>No local data is actually deleted, because emptying the database or deleting the entire VPS is faster. If you run this command then continue to operate the instance anyway, then there will be a state mismatch that might lead to glitches and issues with federation.</p>
+<div class="hint hint-danger">
+  <div class="hint-icon"><i class="fa fa-exclamation-triangle"></i></div>
+
+  <strong>Make sure you know exactly what you are doing before running this command.</strong> This operation is NOT reversible, and it can take a long time. The server will be in a BROKEN STATE after this command finishes. A running Sidekiq process is required, so do not shut down the server until the queues are fully cleared.
+</div>
+
+<p><strong>Version history:</strong>
+2.8.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="version"><code>tootctl --version</code></h3>
+<p>Show the version of the currently running Mastodon instance.</p>
+<p><strong>Version history:</strong>
+2.7.0 - added</p>
+<h2 id="accounts">Accounts CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/accounts_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/accounts_cli.rb
+</a>
+
+<h3 id="accounts-rotate"><code>tootctl accounts rotate</code></h3>
+<p>Generate and broadcast new RSA keys, as part of security maintenance.</p>
+<p><strong>Version history:</strong>
+2.5.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username for an account.</td>
+</tr>
+<tr>
+<td align="left"><code>--all</code></td>
+<td align="left">Can be provided instead of USERNAME to rotate keys for all local accounts.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-create"><code>tootctl accounts create</code></h3>
+<p>Create a new user account with given USERNAME and provided &ndash;email.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username for the new account. Required.</td>
+</tr>
+<tr>
+<td align="left"><code>--email EMAIL</code></td>
+<td align="left">Email address to be attached to the user. Required.</td>
+</tr>
+<tr>
+<td align="left"><code>--confirmed</code></td>
+<td align="left">Skip sending the confirmation email and activate the account immediately.</td>
+</tr>
+<tr>
+<td align="left"><code>--role ROLE</code></td>
+<td align="left">Define the new account as a <code>user</code>, <code>moderator</code>, or <code>admin</code>. Defaults to <code>user</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>--reattach</code></td>
+<td align="left">Reuse an old USERNAME after its account has been deleted.</td>
+</tr>
+<tr>
+<td align="left"><code>--force</code></td>
+<td align="left">Forcefully delete any existing account with this USERNAME and reattach the new account in place of the (just-deleted) account.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-modify"><code>tootctl accounts modify</code></h3>
+<p>Modify a user account&rsquo;s role, email, active status, approval mode, or 2FA requirement.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username for the new account. Required.</td>
+</tr>
+<tr>
+<td align="left"><code>--role ROLE</code></td>
+<td align="left">Define the account as a <code>user</code>, <code>moderator</code>, or <code>admin</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>--email EMAIL</code></td>
+<td align="left">Update the user&rsquo;s email address to EMAIL.</td>
+</tr>
+<tr>
+<td align="left"><code>--confirm</code></td>
+<td align="left">Skip confirmation email, when used with &ndash;email.</td>
+</tr>
+<tr>
+<td align="left"><code>--disable</code></td>
+<td align="left">Lock USERNAME out of their account.</td>
+</tr>
+<tr>
+<td align="left"><code>--enable</code></td>
+<td align="left">Unlock USERNAME&rsquo;s account if it is currently disabled.</td>
+</tr>
+<tr>
+<td align="left"><code>--approve</code></td>
+<td align="left">Approve the account, if you are/were in approval mode.</td>
+</tr>
+<tr>
+<td align="left"><code>--disable_2fa</code></td>
+<td align="left">Remove additional factors and allow login with password.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-delete"><code>tootctl accounts delete</code></h3>
+<p>Delete a user account with given USERNAME.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username for the account. Required.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-backup"><code>tootctl accounts backup</code></h3>
+<p>Request a backup for a user account with given USERNAME. The backup will be created in Sidekiq asynchronously, and the user will receive an email with a link to it once it&rsquo;s done.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username for the account. Required.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-cull"><code>tootctl accounts cull</code></h3>
+<p>Remove remote accounts that no longer exist. Queries every single remote account in the database to determine if it still exists on the origin server, and if it doesn&rsquo;t, then remove it from the database. Accounts that have had confirmed activity within the last week are excluded from the checks, in case the server is just down.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added
+2.8.0 - add <code>--dry_run</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to N=5.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-refresh"><code>tootctl accounts refresh</code></h3>
+<p>Refetch remote user data and files for one or multiple accounts.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username</td>
+</tr>
+<tr>
+<td align="left"><code>--all</code></td>
+<td align="left">Can be provided instead of USERNAME to refresh all remote accounts.</td>
+</tr>
+<tr>
+<td align="left"><code>--domain DOMAIN</code></td>
+<td align="left">Can be provided instead of USERNAME. Operate only on remote accounts from this DOMAIN.</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to N=5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-follow"><code>tootctl accounts follow</code></h3>
+<p>Force all local accounts to follow a local account specified by username.</p>
+<p><strong>Version history:</strong>
+2.7.0 - added
+3.0.0 - now uses USERNAME instead of ACCT</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to N=5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-unfollow"><code>tootctl accounts unfollow</code></h3>
+<p>Force all local accounts to unfollow an account specified by their address.</p>
+<p><strong>Version history:</strong>
+2.7.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>ACCT</code></td>
+<td align="left"><code>username@domain</code> address</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to N=5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-reset-relationships"><code>tootctl accounts reset-relationships</code></h3>
+<p>Reset all follow and/or follower relationships for a local account.</p>
+<p><strong>Version history:</strong>
+2.8.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username</td>
+</tr>
+<tr>
+<td align="left"><code>--follows</code></td>
+<td align="left">Force USERNAME to unfollow everyone, then re-follow them.</td>
+</tr>
+<tr>
+<td align="left"><code>--followers</code></td>
+<td align="left">Remove all of USERNAME&rsquo;s followers.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts-approve"><code>tootctl accounts approve</code></h3>
+<p>Approve new registrations when instance is in approval mode.</p>
+<p><strong>Version history:</strong>
+2.8.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Approve the pending account with this username</td>
+</tr>
+<tr>
+<td align="left"><code>--number N</code></td>
+<td align="left">Approve the N most recent registrations.</td>
+</tr>
+<tr>
+<td align="left"><code>--all</code></td>
+<td align="left">Approve all pending registrations.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cache">Cache CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/cache_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/cache_cli.rb
+</a>
+
+<h3 id="cache-clear"><code>tootctl cache clear</code></h3>
+<p>Clear out the cache storage.</p>
+<p><strong>Version history:</strong>
+2.8.1 - added</p>
+<h3 id="cache-recount"><code>tootctl cache recount</code></h3>
+<p>Update hard-cached counters of TYPE by counting referenced records from scratch. It may take a very long time to finish, depending on the size of the database. Accounts will have their follower, following, and status counts refreshed. Statuses will have their reply, boost, and favourite counts refreshed.</p>
+<p><strong>Version history:</strong>
+3.0.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">TYPE</td>
+<td align="left">Either <code>accounts</code> or <code>statuses</code></td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to N=5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="domains">Domains CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/domains_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/domains_cli.rb
+</a>
+
+<h3 id="domains-purge"><code>tootctl domains purge</code></h3>
+<p>Remove all accounts from a given DOMAIN without leaving behind any records. Unlike a suspension, if the DOMAIN still exists in the wild, it means the accounts could return if they are resolved again.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added
+2.8.0 - add <code>--whitelist_mode</code>
+2.9.0 - remove custom emoji as well
+3.0.0 - accept multiple domains</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>DOMAIN[...]</code></td>
+<td align="left">Domains to purge, separated by space.</td>
+</tr>
+<tr>
+<td align="left"><code>--whitelist_mode</code></td>
+<td align="left">Can be provided instead of DOMAIN. Instead of purging from a single domain, all accounts from domains that are not whitelisted will be removed from the database. Use this after enabling whitelist mode and defining your whitelist.</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to 5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="domains-crawl"><code>tootctl domains crawl</code></h3>
+<p>Crawl the known fediverse by using Mastodon REST API endpoints that expose all known peers, and collect statistics from those peers, as long as those peers support those API endpoints. When no START is given, the command uses the server&rsquo;s own database of known peers to seed the crawl. Returns total servers, total registered users, total active users in the last week, and total users joined in the last week.</p>
+<p><strong>Version history:</strong>
+2.7.0 - added
+3.0.0 - add <code>--exclude_suspended</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">START</td>
+<td align="left">Optionally start from a different domain name.</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to 50.</td>
+</tr>
+<tr>
+<td align="left"><code>--format FORMAT</code></td>
+<td align="left">Control how results are returned. <code>summary</code> will print a summary. <code>domains</code> will return a newline-delimited list of all discovered peers. <code>json</code> will dump aggregated raw data. Defaults to <code>summary</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>--exclude_suspended</code></td>
+<td align="left">Do not include instances that you have suspended in the output. Also includes any subdomains.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="emoji">Emoji CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/emoji_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/emoji_cli.rb
+</a>
+
+<h3 id="emoji-import"><code>tootctl emoji import</code></h3>
+<p>Imports custom emoji from a .tar.gz archive at a given path. The archive should contain PNG or GIF files no larger than 50KB, and the shortcode will be set equal to the filename minus the extension, with optional prefixes and/or suffixes.</p>
+<p><strong>Version history:</strong>
+2.5.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>PATH</code></td>
+<td align="left">Path to a .tar.gz archive containing pictures.</td>
+</tr>
+<tr>
+<td align="left"><code>--prefix PREFIX</code></td>
+<td align="left">Add PREFIX to the beginning of generated shortcodes.</td>
+</tr>
+<tr>
+<td align="left"><code>--suffix SUFFIX</code></td>
+<td align="left">Add SUFFIX to the end of generated shortcodes.</td>
+</tr>
+<tr>
+<td align="left"><code>--overwrite</code></td>
+<td align="left">Instead of skipping existing emoji, replace them with any discovered emoji with the same shortcode.</td>
+</tr>
+<tr>
+<td align="left"><code>--unlisted</code></td>
+<td align="left">Processed emoji will not be shown in the emoji picker, but will be usable only by their direct shortcode.</td>
+</tr>
+<tr>
+<td align="left"><code>--category CATEGORY</code></td>
+<td align="left">Group the processed emoji under CATEGORY in the picker.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="emoji-purge"><code>tootctl emoji purge</code></h3>
+<p>Remove all custom emoji.</p>
+<p><strong>Version history:</strong>
+3.1.0 - add <code>--remote_only</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--remote_only</code></td>
+<td align="left">If provided, remove only from remote domains.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Version history:</strong>
+2.8.0 - added</p>
+<h2 id="feeds">Feeds CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/feeds_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/feeds_cli.rb
+</a>
+
+<h3 id="feeds-build"><code>tootctl feeds build</code></h3>
+<p>Build home and list feeds for one or all users. Feeds will be built from the database and cached in-memory with Redis. Mastodon manages home feeds for active users automatically.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>USERNAME</code></td>
+<td align="left">Local username whose feeds will be regenerated.</td>
+</tr>
+<tr>
+<td align="left"><code>--all</code></td>
+<td align="left">Can be provided instead of USERNAME to refresh all local accounts&rsquo; feeds.</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to N=5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="feeds-clear"><code>tootctl feeds clear</code></h3>
+<p>Remove all home and list feeds from Redis.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<h2 id="media">Media CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/media_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/media_cli.rb
+</a>
+
+<h3 id="media-remove"><code>tootctl media remove</code></h3>
+<p>Remove locally cached copies of media attachments from other servers.</p>
+<p><strong>Version history:</strong>
+2.5.0 - added
+2.6.2 - show freed disk space</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--days</code></td>
+<td align="left">How old media attachments have to be before they are removed. Defaults to 7.</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to 5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="media-remove-orphans"><code>tootctl media remove-orphans</code></h3>
+<p>Scans for files that do not belong to existing media attachments, and remove them. Please mind that some storage providers charge for the necessary API requests to list objects. Also, this operation requires iterating over every single file individually, so it will be slow.</p>
+<p><strong>Version history:</strong>
+3.1.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--start_after</code></td>
+<td align="left">The Paperclip attachment key where the loop will start. Use this option if the command was interrupted before.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="media-refresh"><code>tootctl media refresh</code></h3>
+<p>Refetch remote media attachments from other servers. You must specify the source of media attachments with either &ndash;status, &ndash;account, or &ndash;domain. If an attachment already exists in the database, it will not be overwritten unless you use &ndash;force.</p>
+<p><strong>Version history:</strong>
+3.0.0 - added
+3.0.1 - add <code>--force</code> and skip already downloaded attachments by default</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--account ACCT</code></td>
+<td align="left">String <code>username@domain</code> handle of the account</td>
+</tr>
+<tr>
+<td align="left"><code>--domain DOMAIN</code></td>
+<td align="left">FQDN string</td>
+</tr>
+<tr>
+<td align="left"><code>--status ID</code></td>
+<td align="left">Local numeric ID of the status in the database.</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to 5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+<tr>
+<td align="left"><code>--force</code></td>
+<td align="left">Force redownload the remote resource and overwrite the local attachment.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="media-usage"><code>tootctl media usage</code></h3>
+<p>Calculate disk space consumed by Mastodon.</p>
+<p><strong>Version history:</strong>
+3.0.1 - added</p>
+<h3 id="media-lookup"><code>tootctl media lookup</code></h3>
+<p>Prompts for a media URL, then looks up where the media is displayed.</p>
+<p><strong>Version history:</strong>
+3.1.0 - added</p>
+<h2 id="preview_cards">Preview Cards CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/preview_cards_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/preview_cards_cli.rb
+</a>
+
+<h3 id="preview_cards-remove"><code>tootctl preview_cards remove</code></h3>
+<p>Remove local thumbnails for preview cards.</p>
+<p><strong>Version history:</strong>
+3.0.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--days</code></td>
+<td align="left">How old media attachments have to be before they are removed. Defaults to 180. (NOTE: it is not recommended to delete preview cards within the last 14 days, because preview cards will not be refetched unless the link is reposted after 2 weeks from last time.)</td>
+</tr>
+<tr>
+<td align="left"><code>--concurrency N</code></td>
+<td align="left">The number of workers to use for this task. Defaults to 5.</td>
+</tr>
+<tr>
+<td align="left"><code>--verbose</code></td>
+<td align="left">Print additional information while task is processing.</td>
+</tr>
+<tr>
+<td align="left"><code>--dry_run</code></td>
+<td align="left">Print expected results only, without performing any actions.</td>
+</tr>
+<tr>
+<td align="left"><code>--link</code></td>
+<td align="left">Only delete link-type preview cards; leave video and photo cards untouched.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="search">Search CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/search_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/search_cli.rb
+</a>
+
+<h3 id="search-deploy"><code>tootctl search deploy</code></h3>
+<p>Create or update an ElasticSearch index and populate it. If ElasticSearch is empty, this command will create the necessary indices and then import data from the database into those indices. This command will also upgrade indices if the underlying schema has been changed since the last run.</p>
+<p><strong>Version history:</strong>
+2.8.0 - added
+3.0.0 - add <code>--processes</code> for parallelization</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--processes N</code></td>
+<td align="left">Parallelize execution of the command. Defaults to N=2. Can also specify <code>auto</code> to derive a number based on available CPUs.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="settings">Settings CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/settings_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/settings_cli.rb
+</a>
+
+<h3 id="settings-registrations-open"><code>tootctl settings registrations open</code></h3>
+<p>Opens registrations.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<h3 id="settings-registrations-close"><code>tootctl settings registrations close</code></h3>
+<p>Closes registrations.</p>
+<p><strong>Version history:</strong>
+2.6.0 - added</p>
+<h2 id="statuses">Statuses CLI</h2>
+<a href="https://github.com/tootsuite/mastodon/blob/master/lib/mastodon/statuses_cli.rb" class="page-ref">
+  <div class="page-ref-icon"><i class="fa fa-external-link-square-alt"></i></div>
+  lib/mastodon/statuses_cli.rb
+</a>
+
+<h3 id="statuses-remove"><code>tootctl statuses remove</code></h3>
+<p>Remove unreferenced statuses from the database, such as statuses that came from relays or from users who are no longer followed by any local accounts, and have not been replied to or otherwise interacted with.</p>
+<p>This is a computationally heavy procedure that creates extra database indices before commencing, and removes them afterward.</p>
+<p><strong>Version history:</strong>
+2.8.0 - added</p>
+<table>
+<thead>
+<tr>
+<th align="left">Option</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>--days</code></td>
+<td align="left">How old statuses have to be before they are removed. Defaults to 90.</td>
+</tr>
+</tbody>
+</table>
+
+
+    <p style="color: #687590;">
+      Last updated January 1, 0001 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/admin/tootctl.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/admin/tootctl.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

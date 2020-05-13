@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/account/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/activity/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/spec/activitypub/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/admin/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/admin-account/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/admin-report/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/application/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/apps/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/attachment/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/backups/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/blocks/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/bookmarks/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/dev/disclosure/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/card/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/dev/code/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/config/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/context/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/conversation/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/timelines/conversations/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/instance/custom_emojis/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/moderating/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/instance/directory/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/domain_blocks/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/emoji/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/endorsements/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/error/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/favourites/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/featured_tags/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/featuredtag/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/field/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/filter/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/filters/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/follow_requests/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/optional/elasticsearch/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/client/intro/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/client/guidelines/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/optional/tor/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/history/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/identityproof/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/install/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/optional/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/instance/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/instance/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/client/libraries/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/list/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/timelines/lists/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/client/authorized/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/marker/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/timelines/markers/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/statuses/media/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/mention/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/spec/microformats/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/migrating/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/moderation/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/contacts/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/moving/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/mutes/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/notification/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/notifications/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/spec/oauth/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/apps/oauth/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/api/oauth-scopes/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/client/token/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/oembed/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/client/public/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/poll/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/statuses/polls/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/posting/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/preferences/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/preferences/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/prerequisites/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/discoverability/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/proofs/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/notifications/push/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/push-subscription/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/api/rate-limits/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/relationship/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/report/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/reports/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/results/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/dev/routes/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/run-your-own/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/scaling/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/statuses/scheduled_statuses/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/scheduledstatus/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/search/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/spec/security/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/preferences/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/dev/setup/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/setup/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/profile/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/signup/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/optional/sso/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/source/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/status/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/statuses/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/timelines/streaming/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/accounts/suggestions/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/tag/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/dev/overview/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/timelines/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/entities/token/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/methods/instance/trends/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/troubleshooting/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/upgrading/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/external/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/admin/tootctl/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/user/network/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/docs/spec/webfinger/</loc>
+  </url>
+  
+  <url>
+    <loc>http://docs.joinmastodon.org/</loc>
+  </url>
+  
+</urlset>
