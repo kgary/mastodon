@@ -3,6 +3,46 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
+## [v0.5-beta] - 2020-05-15 - BRIDGES
+### Added
+- Add mastodon [documentation](./documentation) at endpoint `/docs` in web app
+
+### Changed
+- Change mastodon documentation to include the custom bridges changes to `POST: api/v1/statuses` and `GET: /api/v1/accounts/3/statuses` 
+
+## [v0.4-beta] - 2020-04-03 - BRIDGES
+### Added
+- Add ability to create a `goal` in web app on any futureSelf post made by a user
+
+## [v0.3-beta] - 2020-03-06 - BRIDGES
+### Added
+
+- Add form-data parameters: `futureself`, `goal` to `POST: api/v1/statuses`
+- Add query parameter: `homework` to `GET: /api/v1/accounts/3/statuses`
+- Add filtered posts by homework in `/web/accounts/{id}/futureSelf`
+- Add futureSelf posts from the compose form in web app 
+- Add python script to alter psql table for user, adding `heal_group_name` and `link_end`
+- Add python script to auto-follow users in same group when new user is registered
+- Add python script to auto-follow users in same group when user logs in
+- Add [provisioning walkthrough](./docs/provisionWalkthrough.md)
+- Add [Manage Moderators doc](./docs/manageModerators.md)
+- Add in [.env](.env) `AUTHORIZED_FETCH=true`, `WHITELIST_MODE=true`
+
+### Changed
+- Change psql table `users`, add column `heal_group_name:string`
+- Change psql table `users`, add column `link_end:string`
+- Change psql table `statuses`, add column `goal:boolean`
+- Change psql table `statuses`, add column `futureself:boolean`
+- Change Direct Messaging through wedb app to only allows users who are followed/following to DM
+- Change 'toot' to 'post' in web app
+
+### Fixed
+- Fix web app errors resulting in crash on Android API 25
+
+### Removed
+- Remove any link to fediverse in webapp
+
+
 ## [3.0.1] - 2019-10-10
 ### Added
 
