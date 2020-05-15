@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>Getting started with the API - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/client/intro/">
+
+  
+    <meta name="description" content="A primer on REST APIs, HTTP requests and responses, and parameters.">
+    <meta property="og:description" content="A primer on REST APIs, HTTP requests and responses, and parameters.">
+    <meta name="twitter:description" content="A primer on REST APIs, HTTP requests and responses, and parameters.">
+  
+
+  <meta name="twitter:title" content="Getting started with the API">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/client/intro/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="active">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>Getting started with the API</h1>
+
+  
+    <p>A primer on REST APIs, HTTP requests and responses, and parameters.</p>
+  
+
+  <div class="e-content">
+    <h2 id="rest">An introduction to REST</h2>
+<p>Mastodon provides access to its data over a REST API. REST stands for REpresentational State Transfer, but for our purposes, just think of it as sending and receiving information about various resources based on the request. The Mastodon REST API uses HTTP for its requests, and JSON for its payloads.</p>
+<h2 id="http">Understanding HTTP requests and responses</h2>
+<p>REST API endpoints can be called with certain HTTP methods, and more than one method can be used on the same endpoint. The Mastodon API will generally use the following HTTP methods:</p>
+<ul>
+<li><strong>GET</strong>: Read or view a resource.</li>
+<li><strong>POST</strong>: Send information to the server.</li>
+<li><strong>PUT</strong> | <strong>PATCH</strong>: Update a resource.</li>
+<li><strong>DELETE</strong>: Removes a resource.</li>
+</ul>
+<p>Your favorite programming language probably has a utility or library to make HTTP requests. For the purposes of this section, the cURL utility will be used for examples, which is a command-line utility included with many operating systems by default (as <code>curl</code>).</p>
+<p>With cURL, the default HTTP method is GET, but you can specify the type of request to make by using the <code>--request</code> or <code>-X</code> flag; for example, <code>curl -X POST</code> will send a POST request instead of a GET request. You may also want to use the <code>-i</code> flag to include additional HTTP headers that may be returned as part of the response where relevant.</p>
+<h2 id="parameters">Providing parameters</h2>
+<p>HTTP requests can include additional parameters in various different ways, but most notably, the Mastodon API understands query strings, form data, and JSON.</p>
+<div class="hint hint-info">
+  <div class="hint-icon"><i class="fa fa-info-circle"></i></div>
+
+  Query strings, form data, and JSON submitted via POST body are equally understood by the API. It is expected that query strings are used for GET requests, and form data or JSON is used for all other requests.
+</div>
+
+<h3 id="query-strings">Query strings</h3>
+<p>Simply request the URL, but append query strings to the end. Query strings can be appended by first typing ? and then appending them in the form of parameter=value. Multiple query strings can be appended by separating them with &amp;. For example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl https://mastodon.example/endpoint?q<span style="color:#ff79c6">=</span>test&amp;<span style="color:#8be9fd;font-style:italic">n</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>
+</code></pre></div><h3 id="form-data">Form data</h3>
+<p>Instead of mutating the URL with query strings, you can send the data separately. With cURL, this is done by passing it with the <code>--data</code> or <code>-d</code> flag. Data may be sent together similar to query strings, or it may be sent separately as key-value pairs with multiple data flags. You may also use the <code>--form</code> or <code>-F</code> flag for key-value pairs, which also allows sending multipart data such as files. For example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># send raw data as query strings</span>
+curl -X POST <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -d <span style="color:#f1fa8c">&#39;q=test&amp;n=0&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     https://mastodon.example/endpoint
+<span style="color:#6272a4"># send raw data separately</span>
+curl -X POST <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -d <span style="color:#f1fa8c">&#39;q=test&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -d <span style="color:#f1fa8c">&#39;n=0&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     https://mastodon.example/endpoint
+<span style="color:#6272a4"># explicit form-encoded; allows for multipart data</span>
+curl -X POST <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -F <span style="color:#f1fa8c">&#39;q=test&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -F <span style="color:#f1fa8c">&#39;n=0&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -F <span style="color:#f1fa8c">&#39;file=@filename.jpg&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     https://mastodon.example/endpoint
+</code></pre></div><h3 id="json">JSON</h3>
+<p>Similar to sending form data, but with an additional header to specify that the data is in JSON format. To send a JSON request with cURL, specify the JSON content type with a header, then send the JSON data as form data:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -X POST <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -H <span style="color:#f1fa8c">&#39;Content-Type: application/json&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     -d <span style="color:#f1fa8c">&#39;{&#34;parameter&#34;: &#34;value}&#39;</span> <span style="color:#f1fa8c">\
+</span><span style="color:#f1fa8c"></span>     https://mastodon.example/endpoint
+</code></pre></div><h2 id="types">Data types</h2>
+<h3 id="array">Multiple values (Array)</h3>
+<p>An array parameter must encoded using bracket notation, e.g. <code>array[]=foo&amp;array[]=bar</code> would be translated into the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">array <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">[</span>
+  <span style="color:#f1fa8c">&#39;foo&#39;</span>,
+  <span style="color:#f1fa8c">&#39;bar&#39;</span>,
+<span style="color:#ff79c6">]</span>
+</code></pre></div><p>As JSON, arrays are formatted like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;array&#34;</span><span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#34;foo&#34;</span>, <span style="color:#f1fa8c">&#34;bar&#34;</span>]
+}
+</code></pre></div><h3 id="hash">Nested parameters (Hash)</h3>
+<p>Some parameters need to be nested. For that, bracket notation must also be used. For example, <code>source[privacy]=public&amp;source[language]=en</code> would be translated into:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">source <span style="color:#ff79c6">=</span> {
+  <span style="color:#f1fa8c">privacy</span>: <span style="color:#f1fa8c">&#39;public&#39;</span>,
+  <span style="color:#f1fa8c">language</span>: <span style="color:#f1fa8c">&#39;en&#39;</span>,
+}
+</code></pre></div><p>As JSON, hashes are formatted like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;source&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;privacy&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;public&#34;</span>,
+    <span style="color:#f1fa8c">&#34;language&#34;</span>, <span style="color:#f1fa8c">&#34;en&#34;</span>
+  }
+}
+</code></pre></div><h3 id="boolean">True-or-false (Booleans)</h3>
+<p>A boolean value is considered false for the values <code>0</code>, <code>f</code>, <code>F</code>, <code>false</code>, <code>FALSE</code>, <code>off</code>, <code>OFF</code>, considered to not be provided for empty strings, and considered to be true for all other values. When using JSON data, use the literals <code>true</code>, <code>false</code>, and <code>null</code> instead.</p>
+<h3 id="file">Files</h3>
+<p>File uploads must be encoded using <code>multipart/form-data</code>.</p>
+<p>This can be combined with arrays as well.</p>
+<h2 id="responses">How to use API response data</h2>
+<p>The Mastodon REST API will return JSON as the response text. It also returns HTTP headers which may be useful in handling the response, as well as an HTTP status code which should let you know how the server handled the request. The following HTTP status codes may be expected:</p>
+<ul>
+<li>200 = OK. The request was handled successfully.</li>
+<li>4xx = Client error. Your request was not correct. Most commonly, you may see 401 Unauthorized, 404 Not Found, 410 Gone, or 422 Unprocessed.</li>
+<li>5xx = Server error. Something went wrong while handling the request. Most commonly, you may see 503 Unavailable.</li>
+</ul>
+
+
+    <p style="color: #687590;">
+      Last updated May 13, 2020 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/client/intro.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/client/intro.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

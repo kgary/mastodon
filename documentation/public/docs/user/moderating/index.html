@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>Dealing with unwanted content - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/user/moderating/">
+
+  
+    <meta name="description" content="Control what you see, for a more comfortable social media experience.">
+    <meta property="og:description" content="Control what you see, for a more comfortable social media experience.">
+    <meta name="twitter:description" content="Control what you see, for a more comfortable social media experience.">
+  
+
+  <meta name="twitter:title" content="Dealing with unwanted content">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/user/moderating/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="active">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>Dealing with unwanted content</h1>
+
+  
+    <p>Control what you see, for a more comfortable social media experience.</p>
+  
+
+  <div class="e-content">
+    <h2 id="filters">Filtering posts</h2>
+<p>It is possible to filter statuses for specific keywords and phrases so that they can be hidden automatically.</p>
+<figure>
+    <img src="/assets/image%20%2848%29.png"
+         alt="A sample of active filters for various keywords in different contexts."/> <figcaption>
+            <p>A sample of active filters for various keywords in different contexts.</p>
+        </figcaption>
+</figure>
+
+<p>To create or manage your filters, go to Settings &gt; Filters. The &ldquo;Add new filter&rdquo; button will let you create a new filter, and existing filters can be edited or deleted. Your existing filters will be summarized in a table.</p>
+<figure>
+    <img src="/assets/image%20%2814%29.png"
+         alt="Filters can have an expiry date, specific contexts, server-side drop, and use word boundaries."/> <figcaption>
+            <p>Filters can have an expiry date, specific contexts, server-side drop, and use word boundaries.</p>
+        </figcaption>
+</figure>
+
+<p>Filters have the following settings:</p>
+<h3 id="filter-phrase">Keyword or phrase</h3>
+<p>This is the string that will be matched. The keyword will be searched for in any status&rsquo;s content, including CW, media descriptions, and poll options.</p>
+<h3 id="filter-expire">Expire after</h3>
+<p>Optionally only apply the filter for a limited amount of time. Expired filters are not automatically deleted, but can be reactivated by setting a new expiry date (or changing it back to &ldquo;never&rdquo; expire).</p>
+<h3 id="filter-context">Filter contexts</h3>
+<p>Choose where the filter will be applied:</p>
+<ul>
+<li>Home timeline = matching statuses will be removed from your home feed</li>
+<li>Notifications = matching notifications will not be shown</li>
+<li>Public timelines = matching statuses will not appear in local/federated timelines</li>
+<li>Conversations = matching statuses will be hidden in threads and detailed views</li>
+</ul>
+<h3 id="filter-drop">Drop instead of hide</h3>
+<p>Filtering is usually done client-side, so that disabling a filter will cause filtered statuses to be visible again. However, if you enable &ldquo;drop instead of hide&rdquo;, any matching statuses will be disappear completely and will never be delivered to your home or notifications.</p>
+<h3 id="filter-whole">Whole word</h3>
+<p>Filters normally apply to any status that contains the included characters, regardless of whether they are in the middle of a word. Enabling &ldquo;whole word&rdquo; will only apply the filter if the keyword is surrounded by spaces or other non-alphanumeric characters.</p>
+<h2 id="blocking-and-muting">User-level actions</h2>
+<figure>
+    <img src="/assets/image%20%2824%29.png"
+         alt="The user dropdown menu offers various actions."/> <figcaption>
+            <p>The user dropdown menu offers various actions.</p>
+        </figcaption>
+</figure>
+
+<h3 id="hide-boosts">Hiding boosts</h3>
+<p>If you hide boosts from someone, you won’t see their boosts in your home feed. This option only appears on users who you are currently following.</p>
+<h3 id="mute">Muting</h3>
+<figure>
+    <img src="/assets/image%20%2852%29.png"
+         alt="Sample of muted accounts."/> <figcaption>
+            <p>Sample of muted accounts.</p>
+        </figcaption>
+</figure>
+
+<p>When muting, you have the option to mute notifications from them or not. Muting without muting notifications hides the user from your view:</p>
+<ul>
+<li>You won’t see the user in your home feed</li>
+<li>You won’t see other people boosting the user</li>
+<li>You won’t see other people mentioning the user</li>
+<li>You won’t see the user in public timelines</li>
+</ul>
+<p>If you choose to also mute notifications from them, you will additionally not see notifications from that user.</p>
+<p>The user has no way of knowing they have been muted.</p>
+<h3 id="block">Blocking</h3>
+<figure>
+    <img src="/assets/image%20%2836%29.png"
+         alt="Sample of blocked accounts."/> <figcaption>
+            <p>Sample of blocked accounts.</p>
+        </figcaption>
+</figure>
+
+<p>Blocking hides a user from your view:</p>
+<ul>
+<li>You won’t see the user in your home feed</li>
+<li>You won’t see other people boosting the user</li>
+<li>You won’t see other people mentioning the user</li>
+<li>You won’t see the user in public timelines</li>
+<li>You won’t see notifications from that user</li>
+</ul>
+<p>Additionally, on the blocked user’s side:</p>
+<ul>
+<li>The user is forced to unfollow you</li>
+<li>The user cannot follow you</li>
+<li>The user won’t see other people’s boosts of you</li>
+<li>The user won’t see you in public timelines</li>
+</ul>
+<p>If you and the blocked user are on the same server, the blocked user will not be able to view your posts on your profile while logged in.</p>
+<h3 id="hide-domain">Hiding an entire server</h3>
+<p><img src="/assets/image%20%2861%29.png" alt=""></p>
+<p>If you hide an entire server:</p>
+<ul>
+<li>You will not see posts from that server on the public timelines</li>
+<li>You won’t see other people’s boosts of that server in your home feed</li>
+<li>You won’t see notifications from that server</li>
+<li>You will lose any followers that you might have had on that server</li>
+</ul>
+<h2 id="report">Reporting problematic content to moderators</h2>
+<figure>
+    <img src="/assets/image%20%283%29.png"
+         alt="The report modal allows selecting example statuses, adding a note, and forwarding reports."/> <figcaption>
+            <p>The report modal allows selecting example statuses, adding a note, and forwarding reports.</p>
+        </figcaption>
+</figure>
+
+<p>If you see a status or user that is violating the rules of your website, you can report that user to your site&rsquo;s moderators. Clicking the &ldquo;report&rdquo; option on the user dropdown or status dropdown will open the report modal. Here, you can (and should) add a note about why you are reporting this account. You can attach certain problematic statuses for additional context on why you are reporting the account, and if their conduct is violating the rules of the remote website, you can also choose to forward the report to their site&rsquo;s moderators.</p>
+
+
+    <p style="color: #687590;">
+      Last updated May 13, 2020 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/user/moderating.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/user/moderating.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

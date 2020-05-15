@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>Microformats - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/spec/microformats/">
+
+  
+    <meta name="description" content="An open data format using CSS classes to structure your already-existing HTML.">
+    <meta property="og:description" content="An open data format using CSS classes to structure your already-existing HTML.">
+    <meta name="twitter:description" content="An open data format using CSS classes to structure your already-existing HTML.">
+  
+
+  <meta name="twitter:title" content="Microformats">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/spec/microformats/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="active">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>Microformats</h1>
+
+  
+    <p>An open data format using CSS classes to structure your already-existing HTML.</p>
+  
+
+  <div class="e-content">
+    <h2 id="intro">What are microformats?</h2>
+<p><a href="https://microformats.io/">Microformats 2.0</a> is a standard used to embed metadata directly within an HTML document. Rather than needing to use an API for read-only purposes, a web page can simply be parsed for certain CSS classes in order to extract information that you have already fetched simply by viewing the page, rather than having to separately request that same information from an API. The use of microformats classes allows for semantic parsing of data within a given web page, and can be used to generate feeds, cards, or representations of that data.</p>
+<h2 id="classes">Microformats classes</h2>
+<p>All microformats classes use a prefix. The prefix indicates the type of the element, independent of hierarchy. These are the microformats classes as used in Mastodon&rsquo;s codebase.</p>
+<h3 id="h">Root elements (<code>h-*</code>)</h3>
+<h4 id="h-feed"><code>h-feed</code></h4>
+<p>Represents a stream of entries. Attached to a profile&rsquo;s toots. Also attached to the parent thread within detailed status views.</p>
+<h4 id="h-entry"><code>h-entry</code></h4>
+<p>Represents episodic or date stamped online content. Attached to a status.</p>
+<h4 id="h-cite"><code>h-cite</code></h4>
+<p>Represents a reference to another online publication. Attached to a boost. Also attached to other statuses in the thread within detailed status views.</p>
+<h4 id="h-card"><code>h-card</code></h4>
+<p>Represents a person or organization. Attached to the container of display name, username, and avatar. Also attached to mentions.</p>
+<h3 id="p">Plain-text properties (<code>p-*</code>)</h3>
+<h4 id="p-author"><code>p-author</code></h4>
+<p>Within <code>h-entry</code> or <code>h-cite</code>, represents the author of the entry, and is attached to the container of display name, username, and avatar.</p>
+<h4 id="p-name"><code>p-name</code></h4>
+<p>Within <code>h-feed</code>, represents the title of the feed. Attached to <code>data</code> element with <code>value</code> attribute.
+Within <code>h-entry</code> or <code>h-cite</code>, represents the title of the entry. Unused in Mastodon.
+Within <code>h-card</code>, represents the plain-text name of a person or organization. Attached to display name.</p>
+<h4 id="p-in-reply-to"><code>p-in-reply-to</code></h4>
+<p>Within <code>h-entry</code> of a detailed status, represents the status that is the direct parent.</p>
+<h4 id="p-repost-of"><code>p-repost-of</code></h4>
+<p>Within h-entry of a detailed status, represents a post that is a reblog and also a direct parent. Currently unused, since reblogs cannot be replied to.</p>
+<h4 id="p-comment"><code>p-comment</code></h4>
+<p>Within <code>h-entry</code> of a detailed status, represents statuses that are direct children.</p>
+<h3 id="u">URL properties (<code>u-*</code>)</h3>
+<h4 id="u-photo"><code>u-photo</code></h4>
+<p>Within <code>h-card</code>, represents the profile picture. Attached to the avatar image.</p>
+<h4 id="u-uid"><code>u-uid</code></h4>
+<p>Within <code>h-entry</code> or <code>h-cite</code>, represents a universally unique identifier. Attached to timestamp link.</p>
+<h4 id="u-url"><code>u-url</code></h4>
+<p>Within <code>h-entry</code> or <code>h-cite</code>, represents the status permalink. Attached to timestamp link.
+Within <code>h-card</code>, represents the profile permalink. Attached to display name link.</p>
+<h3 id="dt">Datetime properties (<code>dt-*</code>)</h3>
+<h4 id="dt-published"><code>dt-published</code></h4>
+<p>Within <code>h-entry</code> or <code>h-cite</code>, represents the date and time at which the status was published. Attached to <code>data</code> element with <code>value</code> attribute.</p>
+<h3 id="e">Element tree (<code>e-*</code>)</h3>
+<h4 id="e-content"><code>e-content</code></h4>
+<p>Within <code>h-entry</code> or <code>h-cite</code>, represents the content of the status. Attached to status content.</p>
+<h2 id="mastodon">Additional classes</h2>
+<p>These elements are attached by Mastodon for parsing metadata, but are not technically part of the Microformats vocabulary.</p>
+<h4 id="mention"><code>mention</code></h4>
+<p>Indicates that the link should be opened in-app with the associated mention data from the API.</p>
+<h4 id="hashtag"><code>hashtag</code></h4>
+<p>Indicates that the link should be opened in-app with the associated hashtag data from the API.</p>
+
+
+    <p style="color: #687590;">
+      Last updated May 13, 2020 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/spec/microformats.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/spec/microformats.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

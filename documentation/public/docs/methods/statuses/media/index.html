@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>media - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/methods/statuses/media/">
+
+  
+    <meta name="description" content="Attach media to authored statuses. See Using Mastodon &gt; Posting toots &gt; Attachments for more information about size and format limits.">
+    <meta property="og:description" content="Attach media to authored statuses. See Using Mastodon &gt; Posting toots &gt; Attachments for more information about size and format limits.">
+    <meta name="twitter:description" content="Attach media to authored statuses. See Using Mastodon &gt; Posting toots &gt; Attachments for more information about size and format limits.">
+  
+
+  <meta name="twitter:title" content="media">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/methods/statuses/media/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="active">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>media</h1>
+
+  
+    <p>Attach media to authored statuses. See Using Mastodon &gt; Posting toots &gt; Attachments for more information about size and format limits.</p>
+  
+
+  <div class="e-content">
+    <p><div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Upload media as attachment</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/media</span>
+  </div>
+
+<div>
+</p>
+<p>Creates an attachment to be used with a new status.</p>
+<p><strong>Returns:</strong> Attachment<br>
+<strong>OAuth:</strong> User token + <code>write:media</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+<li>2.3.0 - add <code>focus</code> parameter</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Form Data Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>file</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>object</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+The file to be attached, using multipart form data.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>description</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+A plain-text description of the media, for accessibility purposes.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>focus</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Attachment created successfully. Note that the Attachment will be created even if the file is not understood correctly.
+</div>
+</p>
+<p><div class="tabs">
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">file correct</h5>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;22348641&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;image&#34;</span>,
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/media_attachments/files/022/348/641/original/cebc6d51be03e509.jpeg&#34;</span>,
+  <span style="color:#f1fa8c">&#34;preview_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/media_attachments/files/022/348/641/small/cebc6d51be03e509.jpeg&#34;</span>,
+  <span style="color:#f1fa8c">&#34;remote_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;text_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/media/4Zj6ewxzzzDi0g8JnZQ&#34;</span>,
+  <span style="color:#f1fa8c">&#34;meta&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;focus&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;x&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">0.69</span>,
+      <span style="color:#f1fa8c">&#34;y&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0.42</span>
+    },
+    <span style="color:#f1fa8c">&#34;original&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">640</span>,
+      <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">480</span>,
+      <span style="color:#f1fa8c">&#34;size&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;640x480&#34;</span>,
+      <span style="color:#f1fa8c">&#34;aspect&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1.3333333333333333</span>
+    },
+    <span style="color:#f1fa8c">&#34;small&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">461</span>,
+      <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">346</span>,
+      <span style="color:#f1fa8c">&#34;size&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;461x346&#34;</span>,
+      <span style="color:#f1fa8c">&#34;aspect&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1.3323699421965318</span>
+    }
+  },
+  <span style="color:#f1fa8c">&#34;description&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test uploaded via api&#34;</span>,
+  <span style="color:#f1fa8c">&#34;blurhash&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}&#34;</span>
+}
+</code></pre></div></div>
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">file not correct</h5>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;22348456&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;unknown&#34;</span>,
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/files/original/missing.png&#34;</span>,
+  <span style="color:#f1fa8c">&#34;preview_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/files/small/missing.png&#34;</span>,
+  <span style="color:#f1fa8c">&#34;remote_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;text_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/media/Ao2nvQoQNHROpKgEyoA&#34;</span>,
+  <span style="color:#f1fa8c">&#34;meta&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;focus&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;x&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">0.69</span>,
+      <span style="color:#f1fa8c">&#34;y&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0.42</span>
+    }
+  },
+  <span style="color:#f1fa8c">&#34;description&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test uploaded via api&#34;</span>,
+  <span style="color:#f1fa8c">&#34;blurhash&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    422: Unprocessable Entity
+  </h5>
+
+<div>
+</p>
+<p>File or file type is unsupported or invalid
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Validation failed: File content type is invalid, File is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>put</span>
+    </div>
+
+    <span class="api-method-title">Update attachment</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/media/:id</span>
+  </div>
+
+<div>
+</p>
+<p>Update an Attachment, before it is attached to a status and posted.</p>
+<p><strong>Returns:</strong> Attachment<br>
+<strong>OAuth:</strong> User token + <code>write:media</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+The id of the Attachment entity to be updated
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Form Data Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>file</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>object</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+The file to be attached, using multipart form data.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>description</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+A plain-text description of the media, for accessibility purposes.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>focus</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Two floating points (x,y), comma-delimited ranging from -1.0 to 1.0
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;22348641&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;image&#34;</span>,
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/media_attachments/files/022/348/641/original/e96382f26c72a29c.jpeg&#34;</span>,
+  <span style="color:#f1fa8c">&#34;preview_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/media_attachments/files/022/348/641/small/e96382f26c72a29c.jpeg&#34;</span>,
+  <span style="color:#f1fa8c">&#34;remote_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;text_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/media/4Zj6ewxzzzDi0g8JnZQ&#34;</span>,
+  <span style="color:#f1fa8c">&#34;meta&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;focus&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;x&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">0.42</span>,
+      <span style="color:#f1fa8c">&#34;y&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0.69</span>
+    },
+    <span style="color:#f1fa8c">&#34;original&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">640</span>,
+      <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">480</span>,
+      <span style="color:#f1fa8c">&#34;size&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;640x480&#34;</span>,
+      <span style="color:#f1fa8c">&#34;aspect&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1.3333333333333333</span>
+    },
+    <span style="color:#f1fa8c">&#34;small&#34;</span><span style="color:#ff79c6">:</span> {
+      <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">461</span>,
+      <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">346</span>,
+      <span style="color:#f1fa8c">&#34;size&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;461x346&#34;</span>,
+      <span style="color:#f1fa8c">&#34;aspect&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1.3323699421965318</span>
+    }
+  },
+  <span style="color:#f1fa8c">&#34;description&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test uploaded via api, but updated&#34;</span>,
+  <span style="color:#f1fa8c">&#34;blurhash&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Attachment does not exist, is deleted, or was not created by you
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    422: Unprocessable Entity
+  </h5>
+
+<div>
+</p>
+<p>File or file type is unsupported or invalid
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Validation failed: File content type is invalid, File is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+</p>
+<h2 id="focal-points">Focal points</h2>
+<p>Server-side preview images are never cropped, to support a variety of apps and user interfaces. Therefore, the cropping must be done by those apps. To crop intelligently, focal points can be used to ensure a certain section of the image is always within the cropped viewport. <a href="https://github.com/jonom/jquery-focuspoint#1-calculate-your-images-focus-point">See this guide on how focal points are defined.</a> In summary, floating points range from -1.0 to 1.0, left-to-right or bottom-to-top. (0,0) is the center of the image. (0.5, 0.5) would be in the center of the upper-right quadrant. (-0.5, -0.5) would be in the center of the lower-left quadrant. For reference, thumbnails in the Mastodon frontend are most commonly 16:9.</p>
+<p><figure>
+    <img src="..//assets/image%20%2856%29.png"
+         alt="A demonstration of various focal points and their coordinates."/> <figcaption>
+            <p>A demonstration of various focal points and their coordinates.</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="..//assets/image%20%2856%29.png"
+         alt="A demonstration of various focal points and their coordinates."/> <figcaption>
+            <p>A demonstration of various focal points and their coordinates.</p>
+        </figcaption>
+</figure>
+</p>
+
+
+    <p style="color: #687590;">
+      Last updated May 13, 2020 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/methods/statuses/media.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/methods/statuses/media.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>
