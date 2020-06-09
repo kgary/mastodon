@@ -1,0 +1,8 @@
+%p#notice= notice
+
+%p= "Group Name: \t" + @heal_group.name
+%p= "Start Date: \t" + @heal_group.start_date.strftime("%m/%d/%Y")
+
+= link_to 'Edit', edit_heal_group_path(@heal_group)
+\|
+= link_to 'Back', heal_groups_path

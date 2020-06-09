@@ -1,0 +1,2 @@
+module HealGroupsHelper
+end

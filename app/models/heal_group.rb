@@ -4,7 +4,7 @@
 #
 #  id         :bigint(8)        not null, primary key
 #  name       :string           not null
-#  start_date :date             default(Tue, 09 Jun 2020)
+#  start_date :date             default(Tue, 09 Jun 2020), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

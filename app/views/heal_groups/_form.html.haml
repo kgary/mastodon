@@ -1,0 +1,12 @@
+= simple_form_for(@heal_group) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, wrapper: :with_label, label: 'Group Name:', include_blank: false
+    = label_tag :start_date, "Start Date"
+    -#= date_select "patient", "dob", { start_year: 100.years.ago.year, end_year: Date.today.year, default: Date.today}
+    = date_select :heal_group, :start_date, order: [:month, :day, :year]
+    -#= f.input :start_date, :value => t(@heal_group.start_date,:format => :long)
+
+  .form-actions
+    = f.button :submit
