@@ -1,12 +1,34 @@
+- content_for :page_title do
+  = "Group: #{@admin_healgroup.name}"
 %p#notice= notice
 
-%p
-  %b Name:
-  = @admin_healgroup.name
-%p
-  %b Start date:
-  = @admin_healgroup.start_date
+%div{style: "font-size: 20px"}
+  %p{style: "font-size: 20px"}
+    %b{style: "color: orange"}
+      %strong
+        Start date:
+    = @admin_healgroup.start_date
+  %br
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= "User"
+        %th= "Role"
+        %th= t('admin.accounts.most_recent_activity')
+        %th= "Notes"
+        %th
+    %tbody
+      - @admin_healgroup_users.each do |user|
+        %tr
+          %td
+            = admin_account_link_to(user)
+          %td
+            %div{ style: 'margin: -2px 0' }= account_badge(user, all: true)
+          %td
+            = user.updated_at
+          %td
+            = user.note
 
-= link_to 'Edit', edit_admin_healgroup_path(@admin_healgroup)
-\|
-= link_to 'Back', admin_healgroups_path
+= link_to 'Edit', edit_admin_healgroup_path(@admin_healgroup), class: 'button'
+= link_to 'Back', admin_healgroups_path, class: 'button'

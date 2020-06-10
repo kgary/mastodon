@@ -1,9 +1,11 @@
 = simple_form_for(@admin_healgroup) do |f|
-  = f.error_notification
+  = render 'shared/error_messages', object: @admin_healgroup
 
   .form-inputs
+    = f.label 'Group Name:'
     = f.input :name
+    = f.label 'Start Date:'
     = f.input :start_date
 
   .form-actions
-    = f.button :submit
+    = f.button :button, t('.create'), type: :submit
