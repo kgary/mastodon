@@ -1,6 +1,6 @@
-class CreateHealGroups < ActiveRecord::Migration[5.2]
+class CreateAdminHealgroups < ActiveRecord::Migration[5.2]
   def change
-    create_table :heal_groups do |t|
+    create_table :admin_healgroups do |t|
       t.string :name, null: false, index: { unique: true }
       t.date :start_date, :default => Date.current, null: false
 

@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe HealGroupsController, type: :controller do
+RSpec.describe Admin::HealgroupsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # HealGroup. As you add validations to HealGroup, be sure to
+  # Admin::Healgroup. As you add validations to Admin::Healgroup, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,12 +38,12 @@ RSpec.describe HealGroupsController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # HealGroupsController. Be sure to keep this updated too.
+  # Admin::HealgroupsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
-      HealGroup.create! valid_attributes
+      Admin::Healgroup.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,8 +51,8 @@ RSpec.describe HealGroupsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      heal_group = HealGroup.create! valid_attributes
-      get :show, params: {id: heal_group.to_param}, session: valid_session
+      healgroup = Admin::Healgroup.create! valid_attributes
+      get :show, params: {id: healgroup.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -66,29 +66,29 @@ RSpec.describe HealGroupsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      heal_group = HealGroup.create! valid_attributes
-      get :edit, params: {id: heal_group.to_param}, session: valid_session
+      healgroup = Admin::Healgroup.create! valid_attributes
+      get :edit, params: {id: healgroup.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new HealGroup" do
+      it "creates a new Admin::Healgroup" do
         expect {
-          post :create, params: {heal_group: valid_attributes}, session: valid_session
-        }.to change(HealGroup, :count).by(1)
+          post :create, params: {admin_healgroup: valid_attributes}, session: valid_session
+        }.to change(Admin::Healgroup, :count).by(1)
       end
 
-      it "redirects to the created heal_group" do
-        post :create, params: {heal_group: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(HealGroup.last)
+      it "redirects to the created admin_healgroup" do
+        post :create, params: {admin_healgroup: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(Admin::Healgroup.last)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {heal_group: invalid_attributes}, session: valid_session
+        post :create, params: {admin_healgroup: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -100,41 +100,41 @@ RSpec.describe HealGroupsController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested heal_group" do
-        heal_group = HealGroup.create! valid_attributes
-        put :update, params: {id: heal_group.to_param, heal_group: new_attributes}, session: valid_session
-        heal_group.reload
+      it "updates the requested admin_healgroup" do
+        healgroup = Admin::Healgroup.create! valid_attributes
+        put :update, params: {id: healgroup.to_param, admin_healgroup: new_attributes}, session: valid_session
+        healgroup.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the heal_group" do
-        heal_group = HealGroup.create! valid_attributes
-        put :update, params: {id: heal_group.to_param, heal_group: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(heal_group)
+      it "redirects to the admin_healgroup" do
+        healgroup = Admin::Healgroup.create! valid_attributes
+        put :update, params: {id: healgroup.to_param, admin_healgroup: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(healgroup)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        heal_group = HealGroup.create! valid_attributes
-        put :update, params: {id: heal_group.to_param, heal_group: invalid_attributes}, session: valid_session
+        healgroup = Admin::Healgroup.create! valid_attributes
+        put :update, params: {id: healgroup.to_param, admin_healgroup: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested heal_group" do
-      heal_group = HealGroup.create! valid_attributes
+    it "destroys the requested admin_healgroup" do
+      healgroup = Admin::Healgroup.create! valid_attributes
       expect {
-        delete :destroy, params: {id: heal_group.to_param}, session: valid_session
-      }.to change(HealGroup, :count).by(-1)
+        delete :destroy, params: {id: healgroup.to_param}, session: valid_session
+      }.to change(Admin::Healgroup, :count).by(-1)
     end
 
-    it "redirects to the heal_groups list" do
-      heal_group = HealGroup.create! valid_attributes
-      delete :destroy, params: {id: heal_group.to_param}, session: valid_session
-      expect(response).to redirect_to(heal_groups_url)
+    it "redirects to the admin_healgroups list" do
+      healgroup = Admin::Healgroup.create! valid_attributes
+      delete :destroy, params: {id: healgroup.to_param}, session: valid_session
+      expect(response).to redirect_to(admin_healgroups_url)
     end
   end
 

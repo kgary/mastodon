@@ -1,0 +1,23 @@
+%h1 Listing admin_healgroups
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Start date
+      %th
+      %th
+      %th
+
+  %tbody
+    - @admin_healgroups.each do |admin_healgroup|
+      %tr
+        %td= admin_healgroup.name
+        %td= admin_healgroup.start_date
+        %td= link_to 'Show', admin_healgroup
+        %td= link_to 'Edit', edit_admin_healgroup_path(admin_healgroup)
+        %td= link_to 'Destroy', admin_healgroup, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Healgroup', new_admin_healgroup_path

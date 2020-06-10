@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @admin_healgroup.name
+%p
+  %b Start date:
+  = @admin_healgroup.start_date
+
+= link_to 'Edit', edit_admin_healgroup_path(@admin_healgroup)
+\|
+= link_to 'Back', admin_healgroups_path
