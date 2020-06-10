@@ -8,5 +8,5 @@
   %td
     = table_link_to 'eye', 'Show', admin_healgroup_path(healgroup)
     = table_link_to 'pencil', 'Edit', edit_admin_healgroup_path(healgroup)
-    = table_link_to 'trash', 'Delete', admin_healgroup_path(healgroup), method: :delete
+    = table_link_to 'trash', 'Delete', admin_healgroup_path(healgroup), method: :delete, data: { confirm: 'Are you sure?' }
 
