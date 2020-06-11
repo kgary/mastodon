@@ -167,6 +167,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
 
+    resources :healgroups, only: [:new, :create, :show, :destroy, :update, :edit, :index]
     resources :domain_allows, only: [:new, :create, :show, :destroy]
     resources :domain_blocks, only: [:new, :create, :show, :destroy, :update] do
       member do

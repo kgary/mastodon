@@ -19,8 +19,21 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def create
     super
-    py_script = Rails.root.join('bridgesGroupPop.py')
-    res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+    @user = User.find_by(email: params[:user][:email])
+    @heal_group_name = nil
+    @heal_group_name = Invite.find_by(code: params[:user][:invite_code]).comment unless Invite.find_by(code: params[:user][:invite_code]).nil?
+    @user.update(heal_group_name: @heal_group_name.to_s, invite_end: (params[:user][:invite_code].nil? ? 'No link' : params[:user][:invite_code]).to_s)
+    @group = User.where('heal_group_name = ?', @heal_group_name.nil? ? 'Global' : @heal_group_name)
+    @group.each do |target|
+      begin
+        Follow.create!(account_id: @user.id, target_account_id: target.id)
+        Follow.create!(account_id: target.id, target_account_id: @user.id)
+      rescue
+        puts "Skipping follow, Account has already been taken"
+      end
+    end
+    #py_script = Rails.root.join('bridgesGroupPop.py')
+    #res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
   end
 
   def destroy

@@ -3,7 +3,6 @@
 #
 # Table name: users
 #
-#  id                        :bigint(8)        not null, primary key
 #  email                     :string           default(""), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
@@ -31,6 +30,7 @@
 #  otp_backup_codes          :string           is an Array
 #  filtered_languages        :string           default([]), not null, is an Array
 #  account_id                :bigint(8)        not null
+#  id                        :bigint(8)        not null, primary key
 #  disabled                  :boolean          default(FALSE), not null
 #  moderator                 :boolean          default(FALSE), not null
 #  invite_id                 :bigint(8)
@@ -38,8 +38,9 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
-#  heal_group_name           :string           default("Global"), not null
-#  invite_end                :string           default("No link"), not null
+#  heal_group_name           :string           default("Global")
+#  invite_end                :string           default("No link")
+#
 
 class User < ApplicationRecord
   include Settings::Extend

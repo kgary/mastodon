@@ -8,7 +8,7 @@
       = f.input :expires_in, wrapper: :with_label, collection: [30.minutes, 1.hour, 6.hours, 12.hours, 1.day, 1.week].map(&:to_i), label_method: lambda { |i| I18n.t("invites.expires_in.#{i}") }, prompt: I18n.t('invites.expires_in_prompt')
 
   .field-group
-    = f.input :comment, wrapper: :with_label, collection: ['Group 1', 'Group 2', 'Group 3', 'Global'], label: 'Select group:', include_blank: false
+    = f.input :comment, wrapper: :with_label, collection: Admin::Healgroup.all.map(&:name), label: 'Select group:', include_blank: false
 
   .actions
     = f.button :button, t('invites.generate'), type: :submit
