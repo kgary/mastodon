@@ -3,6 +3,7 @@
 module Admin
   class Admin::HealgroupsController < BaseController
     before_action :set_admin_healgroup, only: [:show, :edit, :update, :destroy]
+    before_action :set_admin_healgroup_users, only: [:show]
 
     # GET /admin/healgroups
     def index
@@ -13,8 +14,6 @@ module Admin
     # GET /admin/healgroups/1
     def show
       authorize @admin_healgroup, :show?
-      #@admin_healgroup_users = User.where(heal_group_name: Admin::Healgroup.find(params[:id]).name)
-      @admin_healgroup_users = Account.joins("INNER JOIN users ON users.account_id = accounts.id AND users.heal_group_name = '#{Admin::Healgroup.find(params[:id]).name}'")
     end
 
     # GET /admin/healgroups/new
@@ -67,6 +66,10 @@ module Admin
       # Only allow a trusted parameter "white list" through.
       def admin_healgroup_params
         params.require(:admin_healgroup).permit(:name, :start_date)
+      end
+
+      def set_admin_healgroup_users
+        @admin_healgroup_accounts = Account.joins("INNER JOIN users ON users.account_id = accounts.id AND users.heal_group_name = '#{Admin::Healgroup.find(params[:id]).name}'")
       end
   end
 end

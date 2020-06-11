@@ -19,16 +19,16 @@
         %th= "Notes"
         %th
     %tbody
-      - @admin_healgroup_users.each do |user|
+      - @admin_healgroup_accounts.each do |account|
         %tr
           %td
-            = admin_account_link_to(user)
+            = admin_account_link_to(account)
           %td
-            %div{ style: 'margin: -2px 0' }= account_badge(user, all: true)
+            %div{ style: 'margin: -2px 0' }= account_badge(account, all: true)
           %td
-            = user.updated_at
+            = account.updated_at
           %td
-            = user.note
+            = account.note
 
 = link_to 'Edit', edit_admin_healgroup_path(@admin_healgroup), class: 'button'
 = link_to 'Back', admin_healgroups_path, class: 'button'

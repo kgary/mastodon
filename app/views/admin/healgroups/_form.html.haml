@@ -5,7 +5,7 @@
     = f.label 'Group Name:'
     = f.input :name
     = f.label 'Start Date:'
-    = f.input :start_date
+    = f.input :start_date, :order => [:month, :day, :year]
 
   .form-actions
     = f.button :button, t('.create'), type: :submit
