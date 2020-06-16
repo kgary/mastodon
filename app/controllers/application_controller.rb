@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token, only: :raise_not_found
 
+  after_action :track_action
+
   def raise_not_found
     raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
   end
@@ -140,5 +142,12 @@ class ApplicationController < ActionController::Base
       format.any  { head code }
       format.html { render "errors/#{code}", layout: 'error', status: code }
     end
+  end
+
+  def track_action
+    #pp @current_session
+    #pp @current_account
+    p 'HI MOM'
+    ahoy.track "#{controller_name.classify}", request.path_parameters
   end
 end

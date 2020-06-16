@@ -77,6 +77,8 @@ class User < ApplicationRecord
   has_many :backups, inverse_of: :user
   has_many :invites, inverse_of: :user
   has_many :markers, inverse_of: :user, dependent: :destroy
+  has_many :ahoy_visits, :class_name => 'Ahoy::Visit'
+  has_many :ahoy_events, :class_name => 'Ahoy::Event'
 
   has_one :invite_request, class_name: 'UserInviteRequest', inverse_of: :user, dependent: :destroy
   accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
