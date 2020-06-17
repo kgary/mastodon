@@ -100,6 +100,12 @@ gem 'json-ld', git: 'https://github.com/ruby-rdf/json-ld.git', ref: 'e742697a090
 gem 'json-ld-preloaded', '~> 3.0'
 gem 'rdf-normalize', '~> 0.3'
 
+# user tracking
+gem 'ahoy_matey'
+# data viz
+gem 'chartkick'
+gem 'groupdate'
+
 group :development, :test do
   gem 'fabrication', '~> 2.20'
   gem 'fuubar', '~> 2.4'

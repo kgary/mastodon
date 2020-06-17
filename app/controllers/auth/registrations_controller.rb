@@ -29,11 +29,11 @@ class Auth::RegistrationsController < Devise::RegistrationsController
         Follow.create!(account_id: @user.id, target_account_id: target.id)
         Follow.create!(account_id: target.id, target_account_id: @user.id)
       rescue
-        puts "Skipping follow, Account has already been taken"
+        puts 'Skipping follow, Account has already been taken'
       end
     end
-    #py_script = Rails.root.join('bridgesGroupPop.py')
-    #res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+    py_script = Rails.root.join('bridgesGroupPop.py')
+    res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
   end
 
   def destroy
