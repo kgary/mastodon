@@ -7,20 +7,27 @@
     = "#{name}"
   %br
 
-%div{style: "font-color: white"}
+-#single-line chart
+%div{style: "color: white"}
   = line_chart @ahoy_events_data, |
   xtitle: "Day", ytitle: "Events", download: true,     |
   library: { |
-    title: { display: true, text: "Engagement" }, |
-    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'},
-    line: { lineTension: 0},
-    legend: { display: true, }}
+    title: { display: true, text: "General Engagement", fontColor: "#fff" }, |
+    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'}, |
+    line: { lineTension: 0}, |
+    legend: { display: true, },
+    scales: { yAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ], xAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ] } }
 
+%br
+%br
 
-%div{style: "font-color: white"}
-  = line_chart @ahoy_events_multi_data.map { |events| {name: events[:name], data: events[:data] }},     |
+-#multi-line chart
+%div{style: "color: white"}
+  = line_chart @ahoy_events_multi_data.map { |events| {name: events[:name], data: events[:data] }}, |
+  xtitle: "Day", ytitle: "Events", |
   library: { |
-    title: { display: true, text: "Engagement" }, |
-    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'},
-    line: { lineTension: 0},
-    legend: { display: true, }}
+    title: { display: true, text: "Engagement and Adherence", fontColor: "#fff" }, |
+    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'}, |
+    line: { lineTension: 0}, |
+    legend: { display: true, }, |
+    scales: { yAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ], xAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ] } }
