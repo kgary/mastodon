@@ -146,6 +146,10 @@ class ApplicationController < ActionController::Base
 
   # A bridges_status is any status that is either a futureself status,
   # goal status, or a reply/boost/pin/favourite to/on a futureself/goal status
+  #
+  # TODO
+  # Blocks made:
+  # Mutes made:
   def bridges_status?
     pp request.params
     if request.params[:in_reply_to_id].present?

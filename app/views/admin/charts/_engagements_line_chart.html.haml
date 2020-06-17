@@ -7,27 +7,28 @@
     = "#{name}"
   %br
 
--#single-line chart
-%div{style: "color: white"}
-  = line_chart @ahoy_events_data, |
-  xtitle: "Day", ytitle: "Events", download: true,     |
-  library: { |
-    title: { display: true, text: "General Engagement", fontColor: "#fff" }, |
-    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'}, |
-    line: { lineTension: 0}, |
-    legend: { display: true, },
-    scales: { yAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ], xAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ] } }
-
-%br
-%br
+-#-#single-line chart
+-#%div{style: "color: white"}
+-#  = line_chart @ahoy_events_data, |
+-#  xtitle: "Day", ytitle: "Events", download: true,     |
+-#  library: { |
+-#    title: { display: true, text: "General Engagement", fontColor: "#fff" }, |
+-#    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'}, |
+-#    line: { lineTension: 0}, |
+-#    legend: { display: true, },
+-#    scales: { yAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ], xAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ] } }
+-#
+-#%br
+-#%br
 
 -#multi-line chart
 %div{style: "color: white"}
-  = line_chart @ahoy_events_multi_data.map { |events| {name: events[:name], data: events[:data] }}, |
-  xtitle: "Day", ytitle: "Events", |
+  = line_chart @ahoy_events_multi_data, |
+  xtitle: "Day", ytitle: "Events", download: true, |
   library: { |
     title: { display: true, text: "Engagement and Adherence", fontColor: "#fff" }, |
     tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'}, |
     line: { lineTension: 0}, |
     legend: { display: true, }, |
-    scales: { yAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ], xAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ] } }
+    scales: { yAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ], xAxes: [ { ticks: { fontColor: "#fff" }, scaleLabel: { fontColor: "#fff" } } ] }, |
+    series: { 0 => { borderDash: [10,5]}, 1 => { pointStyle: 'triangle'}, 2 => { borderDash: [10,5]}, 3 => { pointStyle: 'triangle'} } }
