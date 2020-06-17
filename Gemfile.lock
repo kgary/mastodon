@@ -174,6 +174,7 @@ GEM
     case_transform (0.2)
       activesupport
     charlock_holmes (0.7.6)
+    chartkick (3.3.1)
     chewy (5.1.0)
       activesupport (>= 4.0)
       elasticsearch (>= 2.0.0)
@@ -283,6 +284,8 @@ GEM
       http (~> 3.0)
       nokogiri (~> 1.8)
       oj (~> 3.0)
+    groupdate (5.0.0)
+      activesupport (>= 5)
     hamlit (2.9.3)
       temple (>= 0.8.0)
       thor
@@ -707,6 +710,7 @@ DEPENDENCIES
   capistrano-yarn (~> 2.0)
   capybara (~> 3.29)
   charlock_holmes (~> 0.7.6)
+  chartkick
   chewy (~> 5.1)
   cld3 (~> 3.2.4)
   climate_control (~> 0.2)
@@ -727,6 +731,7 @@ DEPENDENCIES
   fog-openstack (~> 0.3)
   fuubar (~> 2.4)
   goldfinger (~> 2.1)
+  groupdate
   hamlit-rails (~> 0.2)
   health_check!
   hiredis (~> 0.6)

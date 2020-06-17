@@ -1,0 +1,26 @@
+= javascript_include_tag 'application'
+%div{style: "font-size: 20px"}
+  %p{style: "font-size: 20px"}
+    %b{style: "color: orange"}
+      %strong
+        Engagement:
+    = "#{name}"
+  %br
+
+%div{style: "font-color: white"}
+  = line_chart @ahoy_events_data, |
+  xtitle: "Day", ytitle: "Events", download: true,     |
+  library: { |
+    title: { display: true, text: "Engagement" }, |
+    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'},
+    line: { lineTension: 0},
+    legend: { display: true, }}
+
+
+%div{style: "font-color: white"}
+  = line_chart @ahoy_events_multi_data.map { |events| {name: events[:name], data: events[:data] }},     |
+  library: { |
+    title: { display: true, text: "Engagement" }, |
+    tooltips: {text: "Events", backgroundColor: 'rgba(0,0,0,0.8)'},
+    line: { lineTension: 0},
+    legend: { display: true, }}

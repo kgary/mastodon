@@ -35,6 +35,7 @@ module Admin::ActionLogsHelper
   end
 
   def icon_for_log(log)
+    p log.target_type
     case log.target_type
     when 'Account', 'User'
       'user'
@@ -50,6 +51,8 @@ module Admin::ActionLogsHelper
       'pencil'
     when 'AccountWarning'
       'warning'
+    when 'Admin::Healgroup'
+      'hand-spock-o'
     end
   end
 

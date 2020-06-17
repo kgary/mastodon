@@ -102,6 +102,9 @@ gem 'rdf-normalize', '~> 0.3'
 
 # user tracking
 gem 'ahoy_matey'
+# data viz
+gem 'chartkick'
+gem 'groupdate'
 
 group :development, :test do
   gem 'fabrication', '~> 2.20'
