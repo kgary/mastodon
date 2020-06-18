@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token, only: :raise_not_found
 
+  after_action :track_action
+
   def raise_not_found
     raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
   end
@@ -140,5 +142,34 @@ class ApplicationController < ActionController::Base
       format.any  { head code }
       format.html { render "errors/#{code}", layout: 'error', status: code }
     end
+  end
+
+  # A bridges_status is any status that is either a futureself status,
+  # goal status, or a reply/boost/pin/favourite to/on a futureself/goal status
+  #
+  # TODO
+  # Blocks made:
+  # Mutes made:
+  def bridges_status?
+    pp request.params
+    if request.params[:in_reply_to_id].present?
+      @parent_status = Status.find(request.params[:in_reply_to_id])
+      return @parent_status.goal || @parent_status.futureself
+    end
+    if %w(favourites reblogs pins).any? { |substr| request.params[:controller].include? substr} && request.params[:status_id].present?
+      @parent_status = Status.find(request.params[:status_id])
+      return @parent_status.goal || @parent_status.futureself
+    end
+    if (request.params[:controller].include? 'statuses') && %w(context show).any? { |substr| request.params[:action].include? substr} && request.params[:id].present?
+      @parent_status = Status.find(request.params[:id])
+      return @parent_status.goal || @parent_status.futureself
+    end
+    request.parameters[:futureSelf] || request.parameters[:goal] ? true : false
+  end
+
+  def track_action
+    @properties = request.path_parameters
+    @properties['bridges'] = bridges_status?
+    ahoy.track controller_name.classify.to_s, request.path_parameters
   end
 end

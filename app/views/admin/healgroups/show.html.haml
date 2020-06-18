@@ -15,9 +15,8 @@
       %tr
         %th= "User"
         %th= "Role"
-        %th= t('admin.accounts.most_recent_activity')
-        %th= "Notes"
         %th
+        %th= t('admin.accounts.most_recent_activity')
     %tbody
       - @admin_healgroup_accounts.each do |account|
         %tr
@@ -26,9 +25,10 @@
           %td
             %div{ style: 'margin: -2px 0' }= account_badge(account, all: true)
           %td
-            = account.updated_at
           %td
-            = account.note
+            = account.updated_at
+
+=render partial: 'admin/charts/engagements_line_chart', locals: { name: @admin_healgroup.name }
 
 = link_to 'Edit', edit_admin_healgroup_path(@admin_healgroup), class: 'button'
 = link_to 'Back', admin_healgroups_path, class: 'button'

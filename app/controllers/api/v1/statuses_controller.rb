@@ -93,4 +93,22 @@ class Api::V1::StatusesController < Api::BaseController
   def pagination_params(core_params)
     params.slice(:limit).permit(:limit).merge(core_params)
   end
+
+  ## A bridges_status is any status that is either a futureself status,
+  ## goal status, or a reply to a futureself/goal status
+  #def bridges_status?
+  #  if request.params[:in_reply_to_id].present?
+  #    @parent_status = Status.find(request.params[:in_reply_to_id])
+  #    return @parent_status.goal || @parent_status.futureself
+  #  end
+  #  request.parameters[:futureSelf] || request.parameters[:goal]
+  #end
+
+  protected
+
+  #def track_action
+  #  @properties = request.path_parameters
+  #  @properties["bridges"] = bridges_status?
+  #  ahoy.track controller_name.classify.to_s, @properties
+  #end
 end

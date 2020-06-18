@@ -2,8 +2,9 @@
 
 module Admin
   class Admin::HealgroupsController < BaseController
+    include ChartHelper
     before_action :set_admin_healgroup, only: [:show, :edit, :update, :destroy]
-    before_action :set_admin_healgroup_users, only: [:show]
+    before_action :set_admin_healgroup_users, :group_activity_line_chart, :group_activity_multi_line_chart, only: [:show]
 
     # GET /admin/healgroups
     def index
@@ -58,18 +59,29 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_admin_healgroup
-        @admin_healgroup = Admin::Healgroup.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def admin_healgroup_params
-        params.require(:admin_healgroup).permit(:name, :start_date)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_admin_healgroup
+      @admin_healgroup = Admin::Healgroup.find(params[:id])
+    end
 
-      def set_admin_healgroup_users
-        @admin_healgroup_accounts = Account.joins("INNER JOIN users ON users.account_id = accounts.id AND users.heal_group_name = '#{Admin::Healgroup.find(params[:id]).name}'")
-      end
+    # Only allow a trusted parameter "white list" through.
+    def admin_healgroup_params
+      params.require(:admin_healgroup).permit(:name, :start_date)
+    end
+
+    def set_admin_healgroup_users
+      @admin_healgroup_accounts = Account.joins("INNER JOIN users ON users.account_id = accounts.id AND users.heal_group_name = '#{Admin::Healgroup.find(params[:id]).name}'")
+    end
+
+    def group_activity_line_chart
+      @ahoy_events = Ahoy::Event.where(user_id: User.where(heal_group_name: @admin_healgroup.name))
+      @ahoy_events_data = render_single_line_engagement_chart(@ahoy_events)
+    end
+
+    def group_activity_multi_line_chart
+      @ahoy_events_all = Ahoy::Event.where(user_id: User.where(heal_group_name: @admin_healgroup.name))
+      @ahoy_events_multi_data = render_multi_line_engagement_chart(@ahoy_events_all)
+    end
   end
 end
