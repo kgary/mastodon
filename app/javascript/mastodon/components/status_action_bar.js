@@ -194,6 +194,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const mutingConversation = status.get('muted');
     const anonymousAccess    = !me;
     const publicStatus       = ['public', 'unlisted'].includes(status.get('visibility'));
+    const boostable          = ['public', 'unlisted', 'private'].includes(status.get('visibility'));
 
     let menu = [];
     let reblogIcon = 'retweet';
@@ -245,9 +246,9 @@ class StatusActionBar extends ImmutablePureComponent {
 
     if (status.get('visibility') === 'direct') {
       reblogIcon = 'envelope';
-    } else if (status.get('visibility') === 'private') {
+    } /*else if (status.get('visibility') === 'private') {
       reblogIcon = 'lock';
-    }
+    }*/
 
     if (status.get('in_reply_to_id', null) === null) {
       replyIcon = 'reply';
@@ -263,7 +264,7 @@ class StatusActionBar extends ImmutablePureComponent {
     return (
       <div className='status__action-bar'>
         <div className='status__action-bar__counter'><IconButton className='status__action-bar-button' title={replyTitle} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /><span className='status__action-bar__counter__label' >{obfuscatedCount(status.get('replies_count'))}</span></div>
-        <IconButton className='status__action-bar-button' disabled={!publicStatus} active={status.get('reblogged')} pressed={status.get('reblogged')} title={!publicStatus ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} />
+        <IconButton className='status__action-bar-button' disabled={!boostable} active={status.get('reblogged')} pressed={status.get('reblogged')} title={!boostable ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} />
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
         {status.get('futureself') && status.getIn(['account', 'id']) === `${me}` && <IconButton className='status__action-bar-button' title={goalTitle} icon={goalIcon} onClick={this.handleGoalClick} />}
         {shareButton}

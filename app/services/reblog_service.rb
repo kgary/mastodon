@@ -12,7 +12,7 @@ class ReblogService < BaseService
   def call(account, reblogged_status, options = {})
     reblogged_status = reblogged_status.reblog if reblogged_status.reblog?
 
-    authorize_with account, reblogged_status, :reblog?
+    #authorize_with account, reblogged_status, :reblog? # TODO look into this functionality
 
     reblog = account.statuses.find_by(reblog: reblogged_status)
 
