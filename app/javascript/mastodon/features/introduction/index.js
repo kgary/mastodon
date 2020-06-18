@@ -18,7 +18,7 @@ const FrameWelcome = ({ domain, onNext }) => (
 
     <div className='introduction__text introduction__text--centered'>
       <h3><FormattedMessage id='introduction.welcome.headline' defaultMessage='First steps' /></h3>
-      <p><FormattedMessage id='introduction.welcome.text' defaultMessage="Welcome to the fediverse! In a few moments, you'll be able to broadcast messages and talk to your friends across a wide variety of servers. But this server, {domain}, is special—it hosts your profile, so remember its name." values={{ domain: <code>{domain}</code> }} /></p>
+      <p><FormattedMessage id='introduction.welcome.text' defaultMessage="Welcome to the Bridges! In a few moments, you'll be able to broadcast messages and talk to your friends. This server, {domain}, is special—it hosts your profile, so remember its name." values={{ domain: <code>{domain}</code> }} /></p>
     </div>
 
     <div className='introduction__action'>
@@ -40,19 +40,19 @@ const FrameFederation = ({ onNext }) => (
 
     <div className='introduction__text introduction__text--columnized'>
       <div>
-        <h3><FormattedMessage id='introduction.federation.home.headline' defaultMessage='Home' /></h3>
-        <p><FormattedMessage id='introduction.federation.home.text' defaultMessage='Posts from people you follow will appear in your home feed. You can follow anyone on any server!' /></p>
+        <h3><FormattedMessage id='introduction.federation.home.headline' defaultMessage='My Group' /></h3>
+        <p><FormattedMessage id='introduction.federation.home.text' defaultMessage='Posts from your group will appear in your My Group feed.' /></p>
       </div>
 
       <div>
-        <h3><FormattedMessage id='introduction.federation.local.headline' defaultMessage='Local' /></h3>
-        <p><FormattedMessage id='introduction.federation.local.text' defaultMessage='Public posts from people on the same server as you will appear in the local timeline.' /></p>
+        <h3><FormattedMessage id='introduction.federation.local.headline' defaultMessage='Everyone' /></h3>
+        <p><FormattedMessage id='introduction.federation.local.text' defaultMessage='Public posts from people on the same server as you will appear in the Everyone timeline.' /></p>
       </div>
 
-      <div>
-        <h3><FormattedMessage id='introduction.federation.federated.headline' defaultMessage='Federated' /></h3>
-        <p><FormattedMessage id='introduction.federation.federated.text' defaultMessage='Public posts from other servers of the fediverse will appear in the federated timeline.' /></p>
-      </div>
+      {/*<div>*/}
+      {/*  <h3><FormattedMessage id='introduction.federation.federated.headline' defaultMessage='Federated' /></h3>*/}
+      {/*  <p><FormattedMessage id='introduction.federation.federated.text' defaultMessage='Public posts from other servers of the fediverse will appear in the federated timeline.' /></p>*/}
+      {/*</div>*/}
     </div>
 
     <div className='introduction__action'>
@@ -74,17 +74,17 @@ const FrameInteractions = ({ onNext }) => (
     <div className='introduction__text introduction__text--columnized'>
       <div>
         <h3><FormattedMessage id='introduction.interactions.reply.headline' defaultMessage='Reply' /></h3>
-        <p><FormattedMessage id='introduction.interactions.reply.text' defaultMessage="You can reply to other people's and your own toots, which will chain them together in a conversation." /></p>
+        <p><FormattedMessage id='introduction.interactions.reply.text' defaultMessage="You can reply to other people's and your own posts, which will chain them together in a conversation." /></p>
       </div>
 
       <div>
         <h3><FormattedMessage id='introduction.interactions.reblog.headline' defaultMessage='Boost' /></h3>
-        <p><FormattedMessage id='introduction.interactions.reblog.text' defaultMessage="You can share other people's toots with your followers by boosting them." /></p>
+        <p><FormattedMessage id='introduction.interactions.reblog.text' defaultMessage="You can share other people's posts with your followers by boosting them." /></p>
       </div>
 
       <div>
         <h3><FormattedMessage id='introduction.interactions.favourite.headline' defaultMessage='Favourite' /></h3>
-        <p><FormattedMessage id='introduction.interactions.favourite.text' defaultMessage='You can save a toot for later, and let the author know that you liked it, by favouriting it.' /></p>
+        <p><FormattedMessage id='introduction.interactions.favourite.text' defaultMessage='You can save a post for later, and let the author know that you liked it, by favouriting it.' /></p>
       </div>
     </div>
 

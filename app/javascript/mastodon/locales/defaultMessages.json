@@ -1670,7 +1670,7 @@
         "id": "introduction.welcome.headline"
       },
       {
-        "defaultMessage": "Welcome to the fediverse! In a few moments, you'll be able to broadcast messages and talk to your friends across a wide variety of servers. But this server, {domain}, is special—it hosts your profile, so remember its name.",
+        "defaultMessage": "Welcome to Bridges! In a few moments, you'll be able to broadcast messages and talk to your new friends. But this server, {domain}, is special—it hosts your profile, so remember its name.",
         "id": "introduction.welcome.text"
       },
       {
@@ -1678,19 +1678,19 @@
         "id": "introduction.welcome.action"
       },
       {
-        "defaultMessage": "Home",
+        "defaultMessage": "My Group",
         "id": "introduction.federation.home.headline"
       },
       {
-        "defaultMessage": "Posts from people you follow will appear in your home feed. You can follow anyone on any server!",
+        "defaultMessage": "Posts from your group will appear in your My Group feed.",
         "id": "introduction.federation.home.text"
       },
       {
-        "defaultMessage": "Local",
+        "defaultMessage": "Everyone",
         "id": "introduction.federation.local.headline"
       },
       {
-        "defaultMessage": "Public posts from people on the same server as you will appear in the local timeline.",
+        "defaultMessage": "Public posts from people on the same server as you will appear in the Everyone timeline.",
         "id": "introduction.federation.local.text"
       },
       {
@@ -1710,7 +1710,7 @@
         "id": "introduction.interactions.reply.headline"
       },
       {
-        "defaultMessage": "You can reply to other people's and your own toots, which will chain them together in a conversation.",
+        "defaultMessage": "You can replyYou can reply to other people's and your own posts, which will chain them together in a conversation.",
         "id": "introduction.interactions.reply.text"
       },
       {
@@ -1718,7 +1718,7 @@
         "id": "introduction.interactions.reblog.headline"
       },
       {
-        "defaultMessage": "You can share other people's toots with your followers by boosting them.",
+        "defaultMessage": "You can share other people's posts with your followers by boosting them.",
         "id": "introduction.interactions.reblog.text"
       },
       {
@@ -1726,7 +1726,7 @@
         "id": "introduction.interactions.favourite.headline"
       },
       {
-        "defaultMessage": "You can save a toot for later, and let the author know that you liked it, by favouriting it.",
+        "defaultMessage": "You can save a post for later, and let the author know that you liked it, by favouriting it.",
         "id": "introduction.interactions.favourite.text"
       },
       {
