@@ -539,7 +539,6 @@ export function changeComposeFutureSelf(value) {
 
 export function goalCompose(status, routerHistory) {
   return (dispatch, getState) => {
-    // dispatch(addPoll()); // TODO modify this to show the Goal Form not a poll.
     dispatch({
       type: COMPOSE_GOAL,
       status: status,

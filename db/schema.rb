@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_194316) do
+ActiveRecord::Schema.define(version: 2020_06_18_071925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_194316) do
     t.datetime "header_updated_at"
     t.string "avatar_remote_url"
     t.datetime "subscription_expires_at"
-    t.boolean "locked", default: false, null: false
+    t.boolean "locked", default: true, null: false
     t.string "header_remote_url", default: "", null: false
     t.datetime "last_webfingered_at"
     t.string "inbox_url", default: "", null: false

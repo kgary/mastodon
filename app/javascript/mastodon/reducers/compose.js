@@ -51,7 +51,7 @@ const initialState = ImmutableMap({
   sensitive: false,
   spoiler: false,
   spoiler_text: '',
-  privacy: null,
+  privacy: 'private',
   futureSelf: false,
   goal: false,
   text: '',
@@ -68,7 +68,7 @@ const initialState = ImmutableMap({
   poll: null,
   suggestion_token: null,
   suggestions: ImmutableList(),
-  default_privacy: 'public',
+  default_privacy: 'unlisted',
   default_sensitive: false,
   resetFileKey: Math.floor((Math.random() * 0x10000)),
   idempotencyKey: null,
@@ -285,6 +285,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_FUTURE_SELF_CHANGE:
     return state
       .set('futureSelf', action.value)
+      .set('privacy', 'private')
       .set('idempotencyKey', uuid());
   case COMPOSE_GOAL: // map.set('goal', action.value)
     return state.withMutations(map => {
@@ -292,7 +293,7 @@ export default function compose(state = initialState, action) {
       map.set('in_reply_to', action.status.get('id'));
       map.set('text', statusToTextMentions(state, action.status));
       // TODO add goalForm
-      map.set('privacy', privacyPreference('unlisted', state.get('default_privacy')));
+      map.set('privacy', privacyPreference('private', state.get('default_privacy')));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('poll', null);
