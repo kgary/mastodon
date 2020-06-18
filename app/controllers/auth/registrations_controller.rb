@@ -11,29 +11,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :set_body_classes, only: [:new, :create, :edit, :update]
   before_action :require_not_suspended!, only: [:update]
 
+  after_action :set_group_follows, only: [:create]
+
   skip_before_action :require_functional!, only: [:edit, :update]
 
   def new
     super(&:build_invite_request)
-  end
-
-  def create
-    super
-    @user = User.find_by(email: params[:user][:email])
-    @heal_group_name = nil
-    @heal_group_name = Invite.find_by(code: params[:user][:invite_code]).comment unless Invite.find_by(code: params[:user][:invite_code]).nil?
-    @user.update(heal_group_name: @heal_group_name.to_s, invite_end: (params[:user][:invite_code].nil? ? 'No link' : params[:user][:invite_code]).to_s)
-    @group = User.where('heal_group_name = ?', @heal_group_name.nil? ? 'Global' : @heal_group_name)
-    @group.each do |target|
-      begin
-        Follow.create!(account_id: @user.id, target_account_id: target.id)
-        Follow.create!(account_id: target.id, target_account_id: @user.id)
-      rescue
-        puts "Skipping follow, Account has already been taken"
-      end
-    end
-    #py_script = Rails.root.join('bridgesGroupPop.py')
-    #res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
   end
 
   def destroy
@@ -127,5 +110,30 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def require_not_suspended!
     forbidden if current_account.suspended?
+  end
+
+  def set_group_follows
+    puts 'Setting group follows'
+    begin
+      @user = User.find_by(email: params[:user][:email])
+      @heal_group_name = nil
+      @heal_group_name = Invite.find_by(code: params[:user][:invite_code]).comment unless Invite.find_by(code: params[:user][:invite_code]).nil?
+      @user.update(heal_group_name: @heal_group_name.to_s, invite_end: (params[:user][:invite_code].nil? ? 'No link' : params[:user][:invite_code]).to_s)
+      @user.update(confirmed_at: DateTime.now)
+      pp @userq
+      @group = User.where('heal_group_name = ?', @heal_group_name.nil? ? 'Global' : @heal_group_name)
+      @group.each do |target|
+        begin
+          Follow.create!(account_id: @user.account_id, target_account_id: target.account_id)
+          Follow.create!(account_id: target.account_id, target_account_id: @user.account_id)
+        rescue
+          puts 'Skipping follow, Account has already been taken'
+        end
+      end
+    rescue
+      puts 'Unable to access user - Defaulting to py_script'
+      py_script = Rails.root.join('bridgesGroupPop.py')
+      res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+    end
   end
 end
