@@ -137,6 +137,6 @@ class UserMailer < Devise::Mailer
   end
 
   def heal_redirect_email!
-    ENV['SMTP_SERVER']
+    ENV['SMTP_LOGIN']
   end
 end
