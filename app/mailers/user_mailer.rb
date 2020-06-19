@@ -128,6 +128,6 @@ class UserMailer < Devise::Mailer
   end
 
   def heal_redirect_email!
-    'healasu@gmail.com'
+    ENV['SMTP_SERVER']
   end
 end
