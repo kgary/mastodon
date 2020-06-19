@@ -17,7 +17,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.unconfirmed_email.presence || @resource.email,
+      #mail to: @resource.unconfirmed_email.presence || @resource.email,
+      mail to: heal_redirect_email!,
            subject: I18n.t(@resource.pending_reconfirmation? ? 'devise.mailer.reconfirmation_instructions.subject' : 'devise.mailer.confirmation_instructions.subject', instance: @instance),
            template_name: @resource.pending_reconfirmation? ? 'reconfirmation_instructions' : 'confirmation_instructions'
     end
@@ -32,7 +33,7 @@ class UserMailer < Devise::Mailer
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
       #mail to: @resource.email, subject: I18n.t('devise.mailer.reset_password_instructions.subject')
-      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.reset_password_instructions.subject') + 'for account: ' + @resource.email
+      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.reset_password_instructions.subject', acct: "@#{user.account.local_username_and_domain}") + ' for account: ' + @resource.email
     end
   end
 
@@ -43,7 +44,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.password_change.subject')
+      #mail to: @resource.email, subject: I18n.t('devise.mailer.password_change.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.password_change.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -54,7 +56,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.email_changed.subject')
+      #mail to: @resource.email, subject: I18n.t('devise.mailer.email_changed.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.email_changed.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -65,7 +68,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.two_factor_enabled.subject')
+      #mail to: @resource.email, subject: I18n.t('devise.mailer.two_factor_enabled.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.two_factor_enabled.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -76,7 +80,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.two_factor_disabled.subject')
+      #mail to: @resource.email, subject: I18n.t('devise.mailer.two_factor_disabled.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.two_factor_disabled.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -87,7 +92,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('devise.mailer.two_factor_recovery_codes_changed.subject')
+      #mail to: @resource.email, subject: I18n.t('devise.mailer.two_factor_recovery_codes_changed.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('devise.mailer.two_factor_recovery_codes_changed.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -98,7 +104,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('user_mailer.welcome.subject')
+      #mail to: @resource.email, subject: I18n.t('user_mailer.welcome.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('user_mailer.welcome.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -110,7 +117,8 @@ class UserMailer < Devise::Mailer
     return if @resource.disabled?
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email, subject: I18n.t('user_mailer.backup_ready.subject')
+      #mail to: @resource.email, subject: I18n.t('user_mailer.backup_ready.subject')
+      mail to: heal_redirect_email!, subject: I18n.t('user_mailer.backup_ready.subject', acct: "@#{user.account.local_username_and_domain}")
     end
   end
 
@@ -121,7 +129,8 @@ class UserMailer < Devise::Mailer
     @statuses = Status.where(id: status_ids).includes(:account) if status_ids.is_a?(Array)
 
     I18n.with_locale(@resource.locale || I18n.default_locale) do
-      mail to: @resource.email,
+      #mail to: @resource.email,
+      mail to: heal_redirect_email!,
            subject: I18n.t("user_mailer.warning.subject.#{@warning.action}", acct: "@#{user.account.local_username_and_domain}"),
            reply_to: Setting.site_contact_email
     end
