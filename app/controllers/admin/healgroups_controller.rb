@@ -3,7 +3,7 @@
 module Admin
   class Admin::HealgroupsController < BaseController
     include ChartHelper
-    before_action :set_admin_healgroup, only: [:show, :edit, :update, :destroy]
+    before_action :set_admin_healgroup, only: [:show, :edit, :update, :destroy, :group_activity]
     before_action :set_admin_healgroup_users, :group_activity_line_chart, :group_activity_multi_line_chart, only: [:show]
 
     # GET /admin/healgroups
@@ -56,6 +56,12 @@ module Admin
       @admin_healgroup.destroy!
       log_action :destroy, @admin_healgroup
       redirect_to admin_healgroups_url, notice: 'Healgroup was successfully destroyed.'
+    end
+
+    def group_activity
+      @ahoy_events_all = Ahoy::Event.where(user_id: User.where(heal_group_name: @admin_healgroup.name))
+      @ahoy_events_multi_data = export_multi_line_engagement_chart(@ahoy_events_all)
+      render json: { heal_group_name: @admin_healgroup.name, data_sets: @ahoy_events_multi_data }
     end
 
     private

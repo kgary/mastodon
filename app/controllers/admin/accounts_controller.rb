@@ -3,7 +3,7 @@
 module Admin
   class AccountsController < BaseController
     include ChartHelper
-    before_action :set_account, only: [:show, :redownload, :remove_avatar, :remove_header, :enable, :unsilence, :unsuspend, :memorialize, :approve, :reject]
+    before_action :set_account, only: [:show, :redownload, :remove_avatar, :remove_header, :enable, :unsilence, :unsuspend, :memorialize, :approve, :reject, :activity]
     before_action :require_remote_account!, only: [:redownload]
     before_action :require_local_account!, only: [:enable, :memorialize, :approve, :reject]
     before_action :user_activity_line_chart, :user_activity_multi_line_chart,  only: [:show]
@@ -90,6 +90,12 @@ module Admin
       log_action :remove_header, @account.user
 
       redirect_to admin_account_path(@account.id)
+    end
+
+    def activity
+      @ahoy_events_all = Ahoy::Event.where(user_id: User.where(account_id: @account.id))
+      @ahoy_events_multi_data = export_multi_line_engagement_chart(@ahoy_events_all)
+      render json: { account_id: @account.id, data_sets: @ahoy_events_multi_data }
     end
 
     private

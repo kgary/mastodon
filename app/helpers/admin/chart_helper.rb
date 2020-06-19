@@ -31,6 +31,6 @@ module Admin::ChartHelper
   end
 
   def export_multi_line_engagement_chart(ahoy_events_all)
-    pp json: render_multi_line_engagement_chart(ahoy_events_all)
+    render_multi_line_engagement_chart(ahoy_events_all)
   end
 end
