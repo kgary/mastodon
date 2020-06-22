@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_18_071925) do
+ActiveRecord::Schema.define(version: 2020_06_22_180906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -416,6 +416,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_071925) do
     t.datetime "updated_at", null: false
     t.boolean "autofollow", default: false, null: false
     t.text "comment"
+    t.string "role"
     t.index ["code"], name: "index_invites_on_code", unique: true
     t.index ["user_id"], name: "index_invites_on_user_id"
   end

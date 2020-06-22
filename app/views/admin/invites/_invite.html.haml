@@ -26,11 +26,11 @@
       = t('invites.expired')
 
   %td
-    - if invite.valid_for_use? && policy(invite).destroy?
-      = table_link_to 'times', t('invites.delete'), admin_invite_path(invite), method: :delete
-
+    = invite.comment
   %td
     = invite.role
 
   %td
-    = invite.comment
+    - if invite.valid_for_use? && policy(invite).destroy?
+      = table_link_to 'times', t('invites.delete'), admin_invite_path(invite), method: :delete
+
