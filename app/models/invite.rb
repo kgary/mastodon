@@ -13,6 +13,7 @@
 #  updated_at :datetime         not null
 #  autofollow :boolean          default(FALSE), not null
 #  comment    :text
+#  role       :string
 #
 
 class Invite < ApplicationRecord

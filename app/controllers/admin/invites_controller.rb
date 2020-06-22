@@ -39,7 +39,7 @@ module Admin
     private
 
     def resource_params
-      params.require(:invite).permit(:max_uses, :expires_in, :comment)
+      params.require(:invite).permit(:max_uses, :expires_in, :comment, :role)
     end
 
     def filtered_invites

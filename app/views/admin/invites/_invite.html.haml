@@ -30,4 +30,7 @@
       = table_link_to 'times', t('invites.delete'), admin_invite_path(invite), method: :delete
 
   %td
+    = invite.role
+
+  %td
     = invite.comment

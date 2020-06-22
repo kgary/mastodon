@@ -9,6 +9,6 @@
 
   .field-group
     = f.input :comment, wrapper: :with_label, collection: Admin::Healgroup.all.map(&:name), label: 'Select group:', include_blank: false
-
+    = f.input :role, wrapper: :with_label, collection: %w(User Moderator Admin), label: 'Select role:', include_blank: false
   .actions
     = f.button :button, t('invites.generate'), type: :submit
