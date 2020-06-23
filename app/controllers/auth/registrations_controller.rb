@@ -114,37 +114,51 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def set_group_follows
     puts 'Setting group follows'
+    #begin
+    @user = User.find_by(email: params[:user][:email])
+    @invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
+    @heal_group_name = nil
+    @heal_group_name = @invite.comment unless @invite.nil?
+    @user.update(heal_group_name: @heal_group_name.to_s, invite_end: (params[:user][:invite_code].nil? ? 'No link' : params[:user][:invite_code]).to_s)
+    @user.update(confirmed_at: DateTime.now)
+    pp @user
+    @group = find_follow_group!(@user, @heal_group_name)
+    @group.each do |target|
+      follow!(@user.account_id, target.account_id) if @user.account_id != target.account_id
+    end
+    #rescue
+    #  puts 'Unable to access user - Defaulting to py_script'
+    #  py_script = Rails.root.join('bridgesGroupPop.py')
+    #  res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+    #end
+  end
+
+  def follow!(uid, tid)
     begin
-      @user = User.find_by(email: params[:user][:email])
-      @invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
-      @heal_group_name = nil
-      @heal_group_name = @invite.comment unless @invite.nil?
-      @user.update(heal_group_name: @heal_group_name.to_s, invite_end: (params[:user][:invite_code].nil? ? 'No link' : params[:user][:invite_code]).to_s)
-      @user.update(confirmed_at: DateTime.now)
-      pp @user
-      @group = User.where('heal_group_name = ?', @heal_group_name.nil? ? 'Global' : @heal_group_name)
-      @group.each do |target|
-        begin
-          if @user.account_id != target.account_id
-            Follow.create!(account_id: @user.account_id, target_account_id: target.account_id)
-            Follow.create!(account_id: target.account_id, target_account_id: @user.account_id)
-          end
-        rescue
-          puts 'Skipping follow, Account has already been taken'
-        end
-      end
+      Follow.create!(account_id: uid, target_account_id: tid)
     rescue
-      puts 'Unable to access user - Defaulting to py_script'
-      py_script = Rails.root.join('bridgesGroupPop.py')
-      res = `python3 #{py_script} '{"username": "#{params[:user][:account_attributes][:username]}", "invite_end": "#{params[:user][:invite_code]}", "auth_token": "#{params[:authenticity_token]}"}'`
+      puts 'user is already following target'
+    end
+    begin
+      Follow.create!(account_id: tid, target_account_id: uid)
+    rescue
+      puts 'target is already following user'
+    end
+  end
+
+  def find_follow_group!(user, group)
+    if user.admin
+      User.all
+    elsif user.moderator && (group.eql? 'Global')
+      User.all
+    else
+      User.where('heal_group_name = ? OR admin = ? OR (moderator = ? AND heal_group_name = ?)', group.nil? ? 'Global' : group, true, true, 'Global')
     end
   end
 
   def group_role!
     @invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
-    if @invite.nil? || (@invite.role.eql? 'User')
-      return @user = User.find_by(email: params[:user][:email])
-    end
+    return @user = User.find_by(email: params[:user][:email]) if @invite.nil? || (@invite.role.eql? 'User')
     if @invite.role.eql? 'Admin'
       @user.update(admin: true)
       return
