@@ -60,7 +60,12 @@ module Admin
 
     def group_activity
       @ahoy_events_all = Ahoy::Event.where(user_id: User.where(heal_group_name: @admin_healgroup.name))
-      @ahoy_events_multi_data = export_multi_line_engagement_chart(@ahoy_events_all)
+      @ahoy_events_multi_data = {}
+      @ahoy_events_multi_data = if params[:verbose]
+                                  export_multi_line_engagement_chart_verbose(@ahoy_events_all)
+                                else
+                                  export_multi_line_engagement_chart(@ahoy_events_all)
+                                end
       render json: { heal_group_name: @admin_healgroup.name, data_sets: @ahoy_events_multi_data }
     end
 
