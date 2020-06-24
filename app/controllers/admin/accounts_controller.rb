@@ -94,7 +94,12 @@ module Admin
 
     def activity
       @ahoy_events_all = Ahoy::Event.where(user_id: User.where(account_id: @account.id))
-      @ahoy_events_multi_data = export_multi_line_engagement_chart(@ahoy_events_all)
+      @ahoy_events_multi_data = {}
+      @ahoy_events_multi_data = if params[:verbose]
+                                  export_multi_line_engagement_chart_verbose(@ahoy_events_all)
+                                else
+                                  export_multi_line_engagement_chart(@ahoy_events_all)
+                                end
       render json: { account_id: @account.id, data_sets: @ahoy_events_multi_data }
     end
 
