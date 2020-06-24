@@ -26,8 +26,8 @@ class Auth::SessionsController < Devise::SessionsController
       remember_me(resource)
       flash.delete(:notice)
     end
-    py_script = Rails.root.join('bridgesLoginFollow.py')
-    res = `python3 #{py_script} '{"email": "#{params[:user][:email]}", "auth_token": "#{params[:authenticity_token]}"}'`
+    #py_script = Rails.root.join('bridgesLoginFollow.py')
+    #res = `python3 #{py_script} '{"email": "#{params[:user][:email]}", "auth_token": "#{params[:authenticity_token]}"}'`
   end
 
   def destroy
