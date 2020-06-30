@@ -7,6 +7,7 @@ class Api::V1::StatusesController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :destroy]
   before_action :require_user!, except:  [:show, :context]
   before_action :set_status, only:       [:show, :context]
+  before_action :bridges_hashtag?, only: [:create]
 
   respond_to :json
 
@@ -39,7 +40,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
                                          futureself: status_params[:futureSelf] || false, # this passes the endpoint property to the service
                                          goal: status_params[:goal] || false, # this passes the endpoint property to the service
-                                         bridges_tag: bridges_hashtag?,
+                                         bridges_tag: @bridges_tag,
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],
@@ -114,7 +115,8 @@ class Api::V1::StatusesController < Api::BaseController
   #end
   #
   def bridges_hashtag?
-    return false if status_params[:futureSelf] || status_params[:goal]
-    %w(#SMART #IfThen #BOLD #Coping).any? { |substr| status_params[:status].downcase.include? substr.downcase }
+    @bridges_tag = false
+    return if status_params[:futureSelf] || status_params[:goal]
+    @bridges_tag = %w(#SMART #IfThen #BOLD #Coping).any? { |substr| status_params[:status].downcase.include? substr.downcase }
   end
 end
