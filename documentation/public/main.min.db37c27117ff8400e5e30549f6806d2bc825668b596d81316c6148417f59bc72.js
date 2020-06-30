@@ -1,1 +1,0 @@
-(function(){'use strict';const onLoaded=()=>{};if(['interactive','complete'].indexOf(document.readyState)!==-1){onLoaded();}else{document.addEventListener('DOMContentLoaded',onLoaded);}})();
