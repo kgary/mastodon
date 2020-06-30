@@ -25,6 +25,7 @@
 #  deleted_at             :datetime
 #  futureself             :boolean
 #  goal                   :boolean
+#  bridges_tag            :boolean
 #
 
 class Status < ApplicationRecord
@@ -86,7 +87,9 @@ class Status < ApplicationRecord
 
   scope :without_replies, -> { where('statuses.reply = FALSE OR statuses.in_reply_to_account_id = statuses.account_id') }
   scope :without_reblogs, -> { where('statuses.reblog_of_id IS NULL') }
-  scope :homework, -> { where('statuses.futureself = TRUE OR statuses.goal = TRUE')} # this is where we set the homework scope for the query
+  scope :with_group, ->(account_id) { where("statuses.account_id IN (#{User.select(:account_id).where("heal_group_name = (#{User.select(:heal_group_name).where(account_id: account_id).to_sql}) OR admin = true OR (moderator = true AND heal_group_name = 'Global')").to_sql})") }
+  scope :with_public_and_group_visibility, -> { where('visibility = 0 OR visibility = 2') }
+  scope :homework, -> { where('statuses.futureself = TRUE OR statuses.goal = TRUE OR statuses.bridges_tag = TRUE')} # this is where we set the homework scope for the query
   scope :with_public_visibility, -> { where(visibility: :public) }
   scope :tagged_with, ->(tag) { joins(:statuses_tags).where(statuses_tags: { tag_id: tag }) }
   scope :excluding_silenced_accounts, -> { left_outer_joins(:account).where(accounts: { silenced_at: nil }) }
@@ -292,7 +295,7 @@ class Status < ApplicationRecord
     end
 
     def as_tag_timeline(tag, account = nil, local_only = false)
-      query = timeline_scope(local_only).tagged_with(tag)
+      query = timeline_bridges_tag_scope(local_only, account).tagged_with(tag)
 
       apply_timeline_filters(query, account, local_only)
     end
@@ -366,6 +369,14 @@ class Status < ApplicationRecord
       starting_scope
         .with_public_visibility
         .without_reblogs
+    end
+
+    def timeline_bridges_tag_scope(local_only = false, account_id)
+      starting_scope = local_only ? Status.local : Status
+      starting_scope
+          .with_public_and_group_visibility
+          .without_reblogs
+          .with_group(account_id)
     end
 
     def apply_timeline_filters(query, account, local_only)

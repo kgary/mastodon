@@ -20,7 +20,7 @@ export default class AutosuggestHashtag extends React.PureComponent {
     return (
       <div className='autosuggest-hashtag'>
         <div className='autosuggest-hashtag__name'>#<strong>{tag.name}</strong></div>
-        {tag.history !== undefined && <div className='autosuggest-hashtag__uses'><FormattedMessage id='autosuggest_hashtag.per_week' defaultMessage='{count} per week' values={{ count: weeklyUses }} /></div>}
+        {/*{tag.history !== undefined && <div className='autosuggest-hashtag__uses'><FormattedMessage id='autosuggest_hashtag.per_week' defaultMessage='{count} per week' values={{ count: weeklyUses }} /></div>}*/}
       </div>
     );
   }

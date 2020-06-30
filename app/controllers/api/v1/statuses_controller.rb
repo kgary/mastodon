@@ -39,6 +39,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
                                          futureself: status_params[:futureSelf] || false, # this passes the endpoint property to the service
                                          goal: status_params[:goal] || false, # this passes the endpoint property to the service
+                                         bridges_tag: bridges_hashtag?,
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],
@@ -111,4 +112,9 @@ class Api::V1::StatusesController < Api::BaseController
   #  @properties["bridges"] = bridges_status?
   #  ahoy.track controller_name.classify.to_s, @properties
   #end
+  #
+  def bridges_hashtag?
+    return false if status_params[:futureSelf] || status_params[:goal]
+    %w(#SMART #IfThen #BOLD #Coping).any? { |substr| status_params[:status].downcase.include? substr.downcase }
+  end
 end

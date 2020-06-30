@@ -54,6 +54,7 @@ class PostStatusService < BaseService
     @scheduled_at = nil if scheduled_in_the_past?
     @futureself   = @options[:futureself] # this pulls in the value which was passed from the endpoint
     @goal   = @options[:goal] # this pulls in the value which was passed from the endpoint
+    @bridges_tag = @options[:bridges_tag]
   rescue ArgumentError
     raise ActiveRecord::RecordInvalid
   end
@@ -162,6 +163,7 @@ class PostStatusService < BaseService
       visibility: @visibility,
       futureself: @futureself, # this is where the attribute is set when sent to db
       goal: @goal, # this is where the attribute is set when sent to db
+      bridges_tag: @bridges_tag, # this is where the attribute is set when sent to db
       language: language_from_option(@options[:language]) || @account.user&.setting_default_language&.presence || LanguageDetector.instance.detect(@text, @account),
       application: @options[:application],
     }.compact
