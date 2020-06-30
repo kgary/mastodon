@@ -3,6 +3,7 @@
 module Admin
   class Admin::HealgroupsController < BaseController
     include ChartHelper
+
     before_action :set_admin_healgroup, only: [:show, :edit, :update, :destroy, :group_activity]
     before_action :set_admin_healgroup_users, :group_activity_line_chart, :group_activity_multi_line_chart, only: [:show]
 

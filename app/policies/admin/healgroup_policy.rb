@@ -2,11 +2,11 @@
 
 class Admin::HealgroupPolicy < ApplicationPolicy
   def index?
-    admin?
+    staff?
   end
 
   def show?
-    admin?
+    staff?
   end
 
   def create?

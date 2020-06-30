@@ -10,8 +10,10 @@ module Admin::ChartHelper
     @ahoy_events_passive = { name: 'Passive Events', data: [] }
     @ahoy_events_active = { name: 'Active Events', data: [] }
     @ahoy_events_adherence = { name: 'Adherence Events', data: [] }
-    @ahoy_events_human_intervention = { name: 'Human Intervention', data: { 'Tue, 16 Jun 2020' => 1 }} # TODO pull from Admin::Intervention when created
-    @ahoy_events_ai_intervention = { name: 'AI Intervention', data: { 'Tue, 14 Jun 2020' => 1 }}       # TODO pull from Admin::Intervention when created
+    @ahoy_events_human_intervention = { name: 'Human Intervention', data: [] }
+    @ahoy_events_ai_intervention = { name: 'AI Intervention', data: [] }
+    #@ahoy_events_human_intervention = { name: 'Human Intervention', data: { 'Tue, 16 Jun 2020' => 1 }} # TODO pull from Admin::Intervention when created
+    #@ahoy_events_ai_intervention = { name: 'AI Intervention', data: { 'Tue, 14 Jun 2020' => 1 }}       # TODO pull from Admin::Intervention when created
 
     @ahoy_events_passive[:data]    = ahoy_events_all.where('properties @> ? OR properties @> ? OR properties @> ?', '{"action": "show"}', '{"action": "index"}', '{"action": "context"}')
     @ahoy_events_active[:data]     = ahoy_events_all.where('properties @> ? OR properties @> ? OR properties @> ? AND NOT properties @> ?', '{"action": "create"}', '{"action": "update"}', '{"action": "destroy"}', '{"bridges": true}')
@@ -34,6 +36,8 @@ module Admin::ChartHelper
     @ahoy_events_passive = { name: 'Passive Events', data: [] }
     @ahoy_events_active = { name: 'Active Events', data: [] }
     @ahoy_events_adherence = { name: 'Adherence Events', data: [] }
+    @ahoy_events_human_intervention = { name: 'Human Intervention', data: [] }
+    @ahoy_events_ai_intervention = { name: 'AI Intervention', data: [] }
     #@ahoy_events_human_intervention = { name: 'Human Intervention', data: { 'Tue, 16 Jun 2020' => 1 }} # TODO pull from Admin::Intervention when created
     #@ahoy_events_ai_intervention = { name: 'AI Intervention', data: { 'Tue, 14 Jun 2020' => 1 }}       # TODO pull from Admin::Intervention when created
 
