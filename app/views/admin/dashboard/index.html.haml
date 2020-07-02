@@ -44,8 +44,8 @@
       .dashboard__counters__label= t 'admin.dashboard.backlog'
   %div
     = link_to admin_healgroups_url do
-      .dashboard__counters__num{ title: number_with_delimiter(Admin::Healgroup.count, strip_insignificant_zeros: true) }
-        = number_to_human Admin::Healgroup.count, strip_insignificant_zeros: true
+      .dashboard__counters__num{ title: number_with_delimiter(@healgroups, strip_insignificant_zeros: true) }
+        = number_to_human @healgroups, strip_insignificant_zeros: true
       .dashboard__counters__label= t 'Heal Groups'
 
 .dashboard__widgets

@@ -163,20 +163,37 @@ class ApplicationController < ActionController::Base
       @parent_status = Status.find(request.params[:id])
       return @parent_status.goal || @parent_status.futureself || @parent_status.bridges_tag
     end
-    if (request.params[:controller].include? 'statuses') && %w(create update).any? { |substr| request.params[:action].include? substr}
-      return bridges_hashtag?
-    end
+    return bridges_hashtag? if (request.params[:controller].include? 'statuses') && %w(create update).any? { |substr| request.params[:action].include? substr}
     request.parameters[:futureSelf] || request.parameters[:goal]
   end
 
   def bridges_hashtag?
-    return false if request.parameters[:futureSelf] || request.parameters[:goal]
+    return false if request.parameters[:futureSelf] ||
+                    request.parameters[:goal] ||
+                    !(controller_name.classify.to_s.include? 'Status')
     %w(#SMART #IfThen #BOLD #Coping).any? { |substr| request.parameters[:status].downcase.include? substr.downcase }
   end
 
+  def bridges_type?
+    if request.parameters[:futureSelf]
+      'futureSelf'
+    elsif request.parameters[:goal]
+      'goal'
+    elsif bridges_hashtag? && request.parameters[:in_reply_to_id].nil?
+      %w(#SMART #IfThen #BOLD #Coping).any? do |substr|
+        return substr if request.parameters[:status].downcase.include? substr.downcase
+      end
+    else
+      'reaction'
+    end
+  end
+
   def track_action
+    #pp request
+    return if %w(Home Notification Filter List Trend CustomEmoji Relationship).any? { |name| controller_name.classify.to_s.downcase.include? name.downcase }
     @properties = request.path_parameters
     @properties['bridges'] = bridges_status?
-    ahoy.track controller_name.classify.to_s, request.path_parameters
+    @properties['bridges_type'] = @properties['bridges'] ? bridges_type? : 'none'
+    ahoy.track controller_name.classify.to_s, @properties
   end
 end

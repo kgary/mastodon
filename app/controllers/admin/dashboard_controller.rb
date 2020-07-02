@@ -36,6 +36,7 @@ module Admin
       @timeline_preview      = Setting.timeline_preview
       @spam_check_enabled    = Setting.spam_check_enabled
       @trends_enabled        = Setting.trends
+      @healgroups            = Admin::Healgroup.count
     end
 
     private
