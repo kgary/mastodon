@@ -72,8 +72,31 @@ module Admin::ChartHelper
 
   def user_meta_data(account)
     @user_meta_data = { user_id: account.user.id,
-        account_id: account.id,
-        username: account.username }
+                        account_id: account.id,
+                        username: account.username,
+                        healgroup: account.user.heal_group_name}
     pp @user_meta_data
+  end
+
+  def get_heal_groups
+    healgroups = Admin::Healgroup.all
+
+    healgroups.each do |healgroup|
+      response.append(get_heal_group(healgroup.id))
+    end
+    response
+  end
+
+  def get_heal_group(id = nil, name = nil)
+    if id.present?
+      healgroup = Admin::Healgroup.find(id)
+      [User.where("heal_group_name = '#{healgroup.name}'")]
+    else
+      [User.where("heal_group_name = '#{name}'")]
+    end
+  end
+
+  def TODO(feature)
+    raise "IMPLEMENT #{feature}"
   end
 end
