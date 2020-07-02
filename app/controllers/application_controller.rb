@@ -163,18 +163,21 @@ class ApplicationController < ActionController::Base
       @parent_status = Status.find(request.params[:id])
       return @parent_status.goal || @parent_status.futureself || @parent_status.bridges_tag
     end
-    return bridges_hashtag? if (request.params[:controller].include? 'statuses') && %w(create update).any? { |substr| request.params[:action].include? substr}
-    request.parameters[:futureSelf] || request.parameters[:goal]
+    return true if request.parameters[:futureSelf] || request.parameters[:goal]
+    return bridges_hashtag?
+    #if (request.params[:controller].include? 'statuses') && %w(create update).any? { |substr| request.params[:action].include? substr}
   end
 
   def bridges_hashtag?
-    return false if request.parameters[:futureSelf] ||
+    return false if !(request.params[:action].eql? 'create') ||
+                    request.parameters[:futureSelf] ||
                     request.parameters[:goal] ||
                     !(controller_name.classify.to_s.include? 'Status')
     %w(#SMART #IfThen #BOLD #Coping).any? { |substr| request.parameters[:status].downcase.include? substr.downcase }
   end
 
   def bridges_type?
+    pp @status
     if request.parameters[:futureSelf]
       'futureSelf'
     elsif request.parameters[:goal]
@@ -183,14 +186,26 @@ class ApplicationController < ActionController::Base
       %w(#SMART #IfThen #BOLD #Coping).any? do |substr|
         return substr if request.parameters[:status].downcase.include? substr.downcase
       end
+    elsif @parent_status.present?
+      type = (controller_name.classify.to_s.eql? 'Status') ? 'Reply' : controller_name.classify.to_s
+      if @parent_status.goal
+        return "goal #{type}"
+      elsif @parent_status.futureself
+        return "futureSelf #{type}"
+      elsif @parent_status.bridges_tag
+        return "bridgesTag #{type}"
+      else
+        'none'
+      end
     else
-      'reaction'
+      controller_name.classify.to_s
     end
   end
 
   def track_action
-    #pp request
-    return if %w(Home Notification Filter List Trend CustomEmoji Relationship).any? { |name| controller_name.classify.to_s.downcase.include? name.downcase }
+    pp request.params
+    pp controller_name.classify.to_s
+    return if %w(Home Notification Filter List Trend CustomEmoji Relationship IdentityProof FollowRequest).any? { |name| controller_name.classify.to_s.downcase.include? name.downcase }
     @properties = request.path_parameters
     @properties['bridges'] = bridges_status?
     @properties['bridges_type'] = @properties['bridges'] ? bridges_type? : 'none'
