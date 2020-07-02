@@ -39,7 +39,7 @@ options_parser = OptionParser.new do |opts|
 
   opts.separator ''
   opts.separator 'Options:'
-  opts.on('-b', '--bridges', 'Get Bridges Engagement Events') do |b|
+  opts.on('-b', '--bridges', 'Get Bridges Specific Events') do |b|
     @options[:bridges] = b
   end
   opts.on('-e', '--active', 'Get Active Engagement Events') do |e|
@@ -51,7 +51,7 @@ options_parser = OptionParser.new do |opts|
   opts.on('-a', '--all', 'Get all Engagement Events: Active, Passive, and Bridges') do |a|
     @options[:all] = a
   end
-  opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
+  opts.on('-v', '--verbose', 'Run verbosely') do |v|
     @options[:verbose] = v
   end
 end
@@ -65,27 +65,6 @@ rescue OptionParser::InvalidOption => e
 end
 
 ch = Admin::ChartHelper
-
-# if filtered?
-#  if options[:account_id].present? || options[:username].present?
-#    user_meta_data = options[:account_id].present? ? find_user_data_by_id(options[:account_id]) : find_user_data_by_username(options[:username])
-#    @ahoy_events_all = Ahoy::Event.where(user_id: user_meta_data[:user_id])
-#    @ahoy_events_multi_data = {}
-#    @ahoy_events_multi_data = if options[:verbose]
-#                                ch.export_multi_line_engagement_chart_verbose(@ahoy_events_all)
-#                              else
-#                                ch.export_multi_line_engagement_chart(@ahoy_events_all)
-#                              end
-#    pp user_meta_data, data_sets: @ahoy_events_multi_data
-#    File.open('testy.json', 'w') do |f|
-#      f.write(JSON.pretty_generate(user_meta_data: user_meta_data, data_sets: @ahoy_events_multi_data.as_json))
-#    end
-#  else
-#    puts options_parser.help
-#    exit(0)
-#  end
-# end
-#
 
 def get_user_data(account_id = nil, username = nil)
   ch = Admin::ChartHelper
@@ -114,14 +93,17 @@ def get_user_data(account_id = nil, username = nil)
     data_sets.append(bridges_events)
   end
   # TODO remove and update filters
-  @ahoy_events_all = Ahoy::Event.where(user_id: user_meta_data[:user_id])
-  @ahoy_events_multi_data = {}
-  @ahoy_events_multi_data = if @options[:verbose]
-                              ch.export_multi_line_engagement_chart_verbose(@ahoy_events_all)
-                            else
-                              ch.export_multi_line_engagement_chart(@ahoy_events_all)
-                            end
-  { user_meta_data: user_meta_data, data_sets: @ahoy_events_multi_data.as_json }
+  if @options[:all]
+    @ahoy_events_all = Ahoy::Event.where(user_id: user_meta_data[:user_id])
+    @ahoy_events_multi_data = {}
+    @ahoy_events_multi_data = if @options[:verbose]
+                                ch.export_multi_line_engagement_chart_verbose(@ahoy_events_all)
+                              else
+                                ch.export_multi_line_engagement_chart(@ahoy_events_all)
+                              end
+    data_sets = @ahoy_events_multi_data.as_json
+  end
+  { user_meta_data: user_meta_data, data_sets: data_sets }
 end
 
 def get_group_data(healgroup)
@@ -135,12 +117,12 @@ end
 
 def write(json)
   File.open('testy.json', 'w') do |f|
-      f.write(JSON.pretty_generate(json))
+    f.write(JSON.pretty_generate(json))
   end
 end
 response = []
 if @options[:apply_group_filter] # get all users in a specific group
-  healgroups = get_heal_group(@options[:group_id], @options[:group_name])
+  healgroups = [get_heal_group(@options[:group_id], @options[:group_name])]
 elsif !@options[:apply_user_filter] # get a specific user
   healgroups = get_heal_groups
 else # get data for all users in a healgroup
@@ -158,23 +140,4 @@ end
 
 res = response
 write(res)
-# response = []
-#
-# if not filtered, find all group names (DISTINCT from users), or let healgroups be a single healgroup
-#   :healgroups
-#   grab all users per group or grab specific user if option is set
-#     :healgroupx = { healgroupx: []}
-#     per user in group
-#       get meta data
-#         meta_data = meta_data_by_id()
-#         data_sets = []
-#       if active events || all
-#         get all active events
-#         data_sets.push(active_events)
-#       if passive events || all
-#         get all passive events
-#         data_sets.push(passive_events)
-#       if bridges events || all
-#         get all bridges events
-#         data_sets.push(bridges_events)
-#       healgroupx[:healgroupx].push({user_meta_data: user_meta_data, data_sets: []})
+

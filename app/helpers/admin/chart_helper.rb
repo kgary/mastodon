@@ -80,7 +80,7 @@ module Admin::ChartHelper
 
   def get_heal_groups
     healgroups = Admin::Healgroup.all
-
+    response = []
     healgroups.each do |healgroup|
       response.append(get_heal_group(healgroup.id))
     end
@@ -90,9 +90,9 @@ module Admin::ChartHelper
   def get_heal_group(id = nil, name = nil)
     if id.present?
       healgroup = Admin::Healgroup.find(id)
-      [User.where("heal_group_name = '#{healgroup.name}'")]
+      User.where("heal_group_name = '#{healgroup.name}'")
     else
-      [User.where("heal_group_name = '#{name}'")]
+      User.where("heal_group_name = '#{name}'")
     end
   end
 
