@@ -61,4 +61,19 @@ module Admin::ChartHelper
   def export_multi_line_engagement_chart_verbose(ahoy_events_all)
     render_multi_line_engagement_chart_verbose(ahoy_events_all)
   end
+
+  def find_user_data_by_id(account_id)
+    user_meta_data(Account.find(account_id))
+  end
+
+  def find_user_data_by_username(username)
+    user_meta_data(Account.find_by(username: username))
+  end
+
+  def user_meta_data(account)
+    @user_meta_data = { user_id: account.user.id,
+        account_id: account.id,
+        username: account.username }
+    pp @user_meta_data
+  end
 end
