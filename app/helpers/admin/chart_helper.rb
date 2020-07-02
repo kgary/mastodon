@@ -99,4 +99,47 @@ module Admin::ChartHelper
   def TODO(feature)
     raise "IMPLEMENT #{feature}"
   end
+  
+  def ahoy_events_for_user(user_id)
+    Ahoy::Event.where(user_id: user_id)
+  end
+  
+  def active_events_for_user(user_events, verbose)
+    active_events = user_events.where('properties @> ? OR properties @> ? OR properties @> ? AND NOT properties @> ?',
+                                      '{"action": "create"}', '{"action": "update"}', '{"action": "destroy"}',
+                                      '{"bridges": true}')
+    active_events = if !verbose
+                      active_events.group_by_day(:time).count
+                    else
+                       active_events.select(:user_id, :name, :properties, :time)
+                                    .group(:user_id, :time, :name, :properties)
+                                    .order(:user_id, time: :desc)
+                    end
+    { name: 'Active Events', data: active_events.as_json }
+  end
+
+  def passive_events_for_user(user_events, verbose)
+    passive_events = user_events.where('properties @> ? OR properties @> ? OR properties @> ?',
+                                       '{"action": "show"}', '{"action": "index"}', '{"action": "context"}')
+    passive_events = if !verbose
+                       passive_events.group_by_day(:time).count
+                    else
+                      passive_events.select(:user_id, :name, :properties, :time)
+                                    .group(:user_id, :time, :name, :properties)
+                                    .order(:user_id, time: :desc)
+                    end
+    { name: 'Passive Events', data: passive_events.as_json }
+  end
+
+  def bridges_events_for_user(user_events, verbose)
+    bridges_events = user_events.where('properties @> ?', '{"bridges": true}')
+    bridges_events = if !verbose
+                       bridges_events.group_by_day(:time).count
+                     else
+                       bridges_events.select(:user_id, :name, :properties, :time)
+                           .group(:user_id, :time, :name, :properties)
+                           .order(:user_id, time: :desc)
+                     end
+    { name: 'Bridges Events', data: bridges_events.as_json }
+  end
 end

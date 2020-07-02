@@ -77,32 +77,33 @@ def get_user_data(account_id = nil, username = nil)
                      find_user_data_by_username(username)
                    end
   data_sets = []
+  user_events = ahoy_events_for_user(user_meta_data[:user_id])
   if @options[:all] || @options[:active]
     # get active
-    active_events = [] # TODO('get active events')
+    active_events = active_events_for_user(user_events, @options[:verbose])
     data_sets.append(active_events)
   end
   if @options[:all] || @options[:passive]
     # get passive
-    passive_events = [] # TODO('get passive events')
+    passive_events = passive_events_for_user(user_events, @options[:verbose])
     data_sets.append(passive_events)
   end
   if @options[:all] || @options[:bridges]
     # get bridges
-    bridges_events = [] # TODO('get bridges events')
+    bridges_events = bridges_events_for_user(user_events, @options[:verbose])
     data_sets.append(bridges_events)
   end
   # TODO remove and update filters
-  if @options[:all]
-    @ahoy_events_all = Ahoy::Event.where(user_id: user_meta_data[:user_id])
-    @ahoy_events_multi_data = {}
-    @ahoy_events_multi_data = if @options[:verbose]
-                                ch.export_multi_line_engagement_chart_verbose(@ahoy_events_all)
-                              else
-                                ch.export_multi_line_engagement_chart(@ahoy_events_all)
-                              end
-    data_sets = @ahoy_events_multi_data.as_json
-  end
+  #if @options[:all]
+  #  @ahoy_events_all = Ahoy::Event.where(user_id: user_meta_data[:user_id])
+  #  @ahoy_events_multi_data = {}
+  #  @ahoy_events_multi_data = if @options[:verbose]
+  #                              ch.export_multi_line_engagement_chart_verbose(@ahoy_events_all)
+  #                            else
+  #                              ch.export_multi_line_engagement_chart(@ahoy_events_all)
+  #                            end
+  #  data_sets = @ahoy_events_multi_data.as_json
+  #end
   { user_meta_data: user_meta_data, data_sets: data_sets }
 end
 
@@ -120,6 +121,7 @@ def write(json)
     f.write(JSON.pretty_generate(json))
   end
 end
+
 response = []
 if @options[:apply_group_filter] # get all users in a specific group
   healgroups = [get_heal_group(@options[:group_id], @options[:group_name])]
