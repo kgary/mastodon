@@ -109,11 +109,12 @@ end
 
 def get_group_data(healgroup)
   user_data = []
+  healgroup_name = healgroup.first.present? ? healgroup.first.heal_group_name : 'empty group'
   healgroup.each do |user|
     data = get_user_data(user.account_id)
     user_data.append(data)
   end
-  { healgroup: healgroup.first.heal_group_name, user_data: user_data }
+  { healgroup: healgroup_name, user_data: user_data }
 end
 
 def write(json)
