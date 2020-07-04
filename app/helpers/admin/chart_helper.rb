@@ -67,7 +67,9 @@ module Admin::ChartHelper
   end
 
   def find_user_data_by_username(username)
-    user_meta_data(Account.find_by(username: username))
+    account = Account.find_by(username: username)
+    raise ActiveRecord::RecordNotFound, "Couldn't find Account with 'username'='#{username}''" if account.nil?
+    user_meta_data(account)
   end
 
   def user_meta_data(account)
