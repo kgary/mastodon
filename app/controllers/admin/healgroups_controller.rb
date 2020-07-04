@@ -6,6 +6,7 @@ module Admin
 
     before_action :set_admin_healgroup, only: [:show, :edit, :update, :destroy, :group_activity]
     before_action :set_admin_healgroup_users, :group_activity_line_chart, :group_activity_multi_line_chart, only: [:show]
+    before_action :get_heal_group_users, only: [:update]
 
     # GET /admin/healgroups
     def index
@@ -45,6 +46,7 @@ module Admin
     def update
       authorize @admin_healgroup, :update?
       if @admin_healgroup.update(admin_healgroup_params)
+        update_groups_users!
         redirect_to @admin_healgroup, notice: 'Healgroup was successfully updated.'
       else
         render :edit
@@ -94,6 +96,15 @@ module Admin
     def group_activity_multi_line_chart
       @ahoy_events_all = Ahoy::Event.where(user_id: User.where(heal_group_name: @admin_healgroup.name))
       @ahoy_events_multi_data = render_multi_line_engagement_chart(@ahoy_events_all)
+    end
+
+    def get_heal_group_users
+      @old_healgroup_name = @admin_healgroup.name
+      pp " OLD NAME #{@old_healgroup_name}"
+    end
+
+    def update_groups_users!
+      User.where(heal_group_name: @old_healgroup_name).update(heal_group_name: @admin_healgroup.name)
     end
   end
 end
