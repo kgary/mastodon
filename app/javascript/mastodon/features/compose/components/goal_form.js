@@ -51,7 +51,9 @@ class GoalForm extends ImmutablePureComponent {
   render () {
     const { value, suggestions, disabled, placeholder, onKeyUp, autoFocus, className, id, maxLength } = this.props;
     const styleA = { direction: 'ltr', backgroundColor:'rgba(0,0,0,0)', marginBottom: 10, color:'#272b37', fontSize: 14 };
-    const styleB = { direction: 'ltr', fontSize: 14, resize: 'none', backgroundColor: 'rgba(0,0,0,.2)', /*border: 'none', outlineColor: 'rgba(0,0,0,.25)'*/};
+    const styleB = { borderRadius: '4px 4px 0 0', display: 'block', width: '100%', border: '1px solid #000', padding: 10, boxSizing: 'border-box', direction: 'ltr', fontSize: 14, resize: 'none', backgroundColor: 'rgba(0,0,0,.2)', /*border: 'none', outlineColor: 'rgba(0,0,0,.25)'*/};
+    // const styleB = { border: '1px solid #000', width: 400, direction: 'ltr', fontSize: 14, resize: 'none', backgroundColor: 'rgba(0,0,0,.2)', /*border: 'none', outlineColor: 'rgba(0,0,0,.25)'*/};
+
 
     if(!this.props.display || null) {
       return (
@@ -134,8 +136,6 @@ class GoalForm extends ImmutablePureComponent {
                       style={styleA}
                       aria-autocomplete='list'
                       id={'goalPlanInput'}
-                      // className='input-copy'
-                      // maxLength={25}
                     />
                   </div>
                 </div>
@@ -156,23 +156,24 @@ class GoalForm extends ImmutablePureComponent {
                       My Goal is:
                     </label>
                     <div className='label_input__wrapper'>
-                      <Textarea
-                        type='text'
-                        ref={this.setInput}
-                        disabled
-                        placeholder={'...'}
-                        value={this.props.goal}
-                        onChange={this.handleGoalChange}
-                        onKeyDown={this.onKeyDown}
-                        onKeyUp={onKeyUp}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        style={styleB}
-                        aria-autocomplete='list'
-                        id={'goal'}
-                        // className='input-copy'
-                        // maxLength={25}
-                      />
+                      <div className='goal-textarea__textarea' style={styleB} dangerouslySetInnerHTML={{__html: this.props.goal}} />
+                      {/*<Textarea*/}
+                      {/*  type='text'*/}
+                      {/*  ref={this.setInput}*/}
+                      {/*  disabled*/}
+                      {/*  placeholder={'...'}*/}
+                      {/*  value={this.props.goal}*/}
+                      {/*  onChange={this.handleGoalChange}*/}
+                      {/*  onKeyDown={this.onKeyDown}*/}
+                      {/*  onKeyUp={onKeyUp}*/}
+                      {/*  onFocus={this.onFocus}*/}
+                      {/*  onBlur={this.onBlur}*/}
+                      {/*  style={styleB}*/}
+                      {/*  aria-autocomplete='list'*/}
+                      {/*  id={'goal'}*/}
+                      {/*  // className='input-copy'*/}
+                      {/*  // maxLength={25}*/}
+                      {/*/>*/}
                     </div>
                   </div>
                 </div>
@@ -184,24 +185,25 @@ class GoalForm extends ImmutablePureComponent {
                       The goal is important to me because:
                     </label>
                     <div className='label_input__wrapper'>
-                      <Textarea
-                        type='text'
-                        ref={this.setInput}
-                        disabled
-                        placeholder={'...'}
-                        value={this.props.goalImportance}
-                        onChange={this.handleGoalImportanceChange}
-                        onKeyDown={this.onKeyDown}
-                        onKeyUp={onKeyUp}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        style={styleB}
-                        aria-autocomplete='list'
-                        id={'goalImportance'}
-                        // resize
-                        // className='input-copy'
-                        // maxLength={25}
-                      />
+                      <div className='goal-textarea__textarea' style={styleB} dangerouslySetInnerHTML={{__html: this.props.goalImportance}} />
+                      {/*<Textarea*/}
+                      {/*  type='text'*/}
+                      {/*  ref={this.setInput}*/}
+                      {/*  disabled*/}
+                      {/*  placeholder={'...'}*/}
+                      {/*  value={this.props.goalImportance}*/}
+                      {/*  onChange={this.handleGoalImportanceChange}*/}
+                      {/*  onKeyDown={this.onKeyDown}*/}
+                      {/*  onKeyUp={onKeyUp}*/}
+                      {/*  onFocus={this.onFocus}*/}
+                      {/*  onBlur={this.onBlur}*/}
+                      {/*  style={styleB}*/}
+                      {/*  aria-autocomplete='list'*/}
+                      {/*  id={'goalImportance'}*/}
+                      {/*  // resize*/}
+                      {/*  // className='input-copy'*/}
+                      {/*  // maxLength={25}*/}
+                      {/*/>*/}
                     </div>
                   </div>
                 </div>
@@ -213,23 +215,24 @@ class GoalForm extends ImmutablePureComponent {
                       To achieve this goal I will:
                     </label>
                     <div className='label_input__wrapper'>
-                      <Textarea
-                        type='text'
-                        ref={this.setInput}
-                        disabled
-                        placeholder={'...'}
-                        value={this.props.goalPlan}
-                        onChange={this.handleGoalPlanChange}
-                        onKeyDown={this.onKeyDown}
-                        onKeyUp={onKeyUp}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        style={styleB}
-                        aria-autocomplete='list'
-                        id={'goalPlan'}
-                        // className='input-copy'
-                        // maxLength={25}
-                      />
+                      <div className='goal-textarea__textarea' style={styleB} dangerouslySetInnerHTML={{__html: this.props.goalPlan}} />
+                      {/*<Textarea*/}
+                      {/*  type='text'*/}
+                      {/*  ref={this.setInput}*/}
+                      {/*  disabled*/}
+                      {/*  placeholder={'...'}*/}
+                      {/*  value={this.props.goalPlan}*/}
+                      {/*  onChange={this.handleGoalPlanChange}*/}
+                      {/*  onKeyDown={this.onKeyDown}*/}
+                      {/*  onKeyUp={onKeyUp}*/}
+                      {/*  onFocus={this.onFocus}*/}
+                      {/*  onBlur={this.onBlur}*/}
+                      {/*  style={styleB}*/}
+                      {/*  aria-autocomplete='list'*/}
+                      {/*  id={'goalPlan'}*/}
+                      {/*  // className='input-copy'*/}
+                      {/*  // maxLength={25}*/}
+                      {/*/>*/}
                     </div>
                   </div>
                 </div>
