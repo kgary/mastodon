@@ -72,11 +72,23 @@ module Admin::ChartHelper
     user_meta_data(account)
   end
 
+  def find_role(user)
+    if user.admin
+      'admin'
+    elsif user.moderator
+      'moderator'
+    else
+      'user'
+    end
+  end
+
   def user_meta_data(account)
     @user_meta_data = { user_id: account.user.id,
                         account_id: account.id,
                         username: account.username,
-                        healgroup: account.user.heal_group_name}
+                        healgroup: account.user.heal_group_name,
+                        role: find_role(account.user),
+    }
     pp @user_meta_data
   end
 
@@ -106,10 +118,11 @@ module Admin::ChartHelper
     Ahoy::Event.where(user_id: user_id)
   end
   
-  def active_events_for_user(user_events, verbose)
-    active_events = user_events.where('properties @> ? OR properties @> ? OR properties @> ? AND NOT properties @> ?',
+  def active_events_for_user(user_events, opt)
+    active_events = user_events.where('(properties @> ? OR properties @> ? OR properties @> ?) AND NOT properties @> ?' \
+                                          ' AND time >= ? AND time <= ?',
                                       '{"action": "create"}', '{"action": "update"}', '{"action": "destroy"}',
-                                      '{"bridges": true}')
+                                      '{"bridges": true}', opt[:min], opt[:max])
     active_events = if !verbose
                       active_events.group_by_day(:time).count
                     else
@@ -120,9 +133,10 @@ module Admin::ChartHelper
     { name: 'Active Events', data: active_events.as_json }
   end
 
-  def passive_events_for_user(user_events, verbose)
-    passive_events = user_events.where('properties @> ? OR properties @> ? OR properties @> ?',
-                                       '{"action": "show"}', '{"action": "index"}', '{"action": "context"}')
+  def passive_events_for_user(user_events, opt)
+    passive_events = user_events.where('(properties @> ? OR properties @> ? OR properties @> ?) AND time >= ? AND time <= ?',
+                                       '{"action": "show"}', '{"action": "index"}',
+                                       '{"action": "context"}', opt[:min], opt[:max])
     passive_events = if !verbose
                        passive_events.group_by_day(:time).count
                     else
@@ -133,9 +147,10 @@ module Admin::ChartHelper
     { name: 'Passive Events', data: passive_events.as_json }
   end
 
-  def bridges_events_for_user(user_events, verbose)
-    bridges_events = user_events.where('properties @> ?', '{"bridges": true}')
-    bridges_events = if !verbose
+  def bridges_events_for_user(user_events, opt)
+    bridges_events = user_events.where('properties @> ? AND time >= ? AND time <= ?',
+                                       '{"bridges": true}', opt[:min], opt[:max])
+    bridges_events = if !opt[:verbose]
                        bridges_events.group_by_day(:time).count
                      else
                        bridges_events.select(:user_id, :name, :properties, :time)

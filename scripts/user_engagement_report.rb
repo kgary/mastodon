@@ -11,6 +11,8 @@ require_relative '../app/helpers/admin/chart_helper'
 include Admin::ChartHelper
 
 @options = {}
+@options[:min_date] = DateTime.new(2020, 1, 1).utc
+@options[:max_date] = (DateTime.current + 1).utc
 options_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: user_engagement_report.rb { --group-id:integer | --group-name:string | --account-id:integer | --username:string } [options]'
 
@@ -35,6 +37,15 @@ options_parser = OptionParser.new do |opts|
   opts.on('-u', '--username username', 'Find account by username') do |u|
     @options[:username] = u
     @options[:apply_user_filter] = true
+  end
+
+  opts.on('-l', "--min-date 'YYYY-MM-DD'", 'Minimum value for date range') do |l|
+    @options[:min_date] = DateTime.parse(l).utc
+    pp @options[:min_date]
+  end
+  opts.on('-m', "--max-date 'YYYY-MM-DD'", 'Maximum value for date range') do |m|
+    @options[:max_date] = DateTime.parse(m).utc
+    pp @options[:max_date]
   end
 
   opts.separator ''
@@ -80,30 +91,19 @@ def get_user_data(account_id = nil, username = nil)
   user_events = ahoy_events_for_user(user_meta_data[:user_id])
   if @options[:all] || @options[:active]
     # get active
-    active_events = active_events_for_user(user_events, @options[:verbose])
+    active_events = active_events_for_user(user_events, min: @options[:min_date], max: @options[:max_date], verbose: @options[:verbose])
     data_sets.append(active_events)
   end
   if @options[:all] || @options[:passive]
     # get passive
-    passive_events = passive_events_for_user(user_events, @options[:verbose])
+    passive_events = passive_events_for_user(user_events, min: @options[:min_date], max: @options[:max_date], verbose: @options[:verbose])
     data_sets.append(passive_events)
   end
   if @options[:all] || @options[:bridges]
     # get bridges
-    bridges_events = bridges_events_for_user(user_events, @options[:verbose])
+    bridges_events = bridges_events_for_user(user_events, min: @options[:min_date], max: @options[:max_date], verbose: @options[:verbose])
     data_sets.append(bridges_events)
   end
-  # TODO remove and update filters
-  #if @options[:all]
-  #  @ahoy_events_all = Ahoy::Event.where(user_id: user_meta_data[:user_id])
-  #  @ahoy_events_multi_data = {}
-  #  @ahoy_events_multi_data = if @options[:verbose]
-  #                              ch.export_multi_line_engagement_chart_verbose(@ahoy_events_all)
-  #                            else
-  #                              ch.export_multi_line_engagement_chart(@ahoy_events_all)
-  #                            end
-  #  data_sets = @ahoy_events_multi_data.as_json
-  #end
   { user_meta_data: user_meta_data, data_sets: data_sets }
 end
 
