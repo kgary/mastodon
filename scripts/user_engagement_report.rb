@@ -5,7 +5,7 @@
 
 require 'json'
 require 'optparse'
-require Dir.pwd + '/config/environment.rb' # TODO: may need to change this to explicitly state production
+require_relative '../config/environment.rb'
 require_relative '../app/helpers/admin/chart_helper'
 
 include Admin::ChartHelper
@@ -13,6 +13,7 @@ include Admin::ChartHelper
 @options = {}
 @options[:min_date] = DateTime.new(2020, 1, 1).utc
 @options[:max_date] = (DateTime.current + 1).utc
+@options[:file]     = 'testy.json'
 options_parser = OptionParser.new do |opts|
   opts.banner = 'Usage: user_engagement_report.rb { --group-id:integer | --group-name:string | --account-id:integer | --username:string } [options]'
 
@@ -46,6 +47,10 @@ options_parser = OptionParser.new do |opts|
   opts.on('-m', '--max-date DateTime', "Maximum value for date range: 'YYYY-MM-DD' OR 'YYYY-MM-DD hh:mm:ss +offset' (-7 for MST)") do |m|
     @options[:max_date] = DateTime.parse(m).utc
     pp @options[:max_date]
+  end
+
+  opts.on('-f', '--file FILE.json', 'Name of file. Default: testy.json') do |f|
+    @options[:file] = f
   end
 
   opts.separator ''
@@ -118,7 +123,7 @@ def get_group_data(healgroup)
 end
 
 def write(json)
-  File.open('testy.json', 'w') do |f|
+  File.open(@options[:file], 'w') do |f|
     f.write(JSON.pretty_generate(json))
   end
 end
