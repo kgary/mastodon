@@ -39,11 +39,11 @@ options_parser = OptionParser.new do |opts|
     @options[:apply_user_filter] = true
   end
 
-  opts.on('-l', "--min-date 'YYYY-MM-DD'", 'Minimum value for date range') do |l|
+  opts.on('-l', '--min-date', "Minimum value for date range: 'YYYY-MM-DD' OR 'YYYY-MM-DD hh:mm:ss +offset' (-7 for MST)") do |l|
     @options[:min_date] = DateTime.parse(l).utc
     pp @options[:min_date]
   end
-  opts.on('-m', "--max-date 'YYYY-MM-DD'", 'Maximum value for date range') do |m|
+  opts.on('-m', '--max-date', "Maximum value for date range: 'YYYY-MM-DD' OR 'YYYY-MM-DD hh:mm:ss +offset' (-7 for MST)") do |m|
     @options[:max_date] = DateTime.parse(m).utc
     pp @options[:max_date]
   end
