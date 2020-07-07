@@ -123,7 +123,7 @@ module Admin::ChartHelper
                                           ' AND time >= ? AND time <= ?',
                                       '{"action": "create"}', '{"action": "update"}', '{"action": "destroy"}',
                                       '{"bridges": true}', opt[:min], opt[:max])
-    active_events = if !verbose
+    active_events = if !opt[:verbose]
                       active_events.group_by_day(:time).count
                     else
                        active_events.select(:user_id, :name, :properties, :time)
@@ -137,7 +137,7 @@ module Admin::ChartHelper
     passive_events = user_events.where('(properties @> ? OR properties @> ? OR properties @> ?) AND time >= ? AND time <= ?',
                                        '{"action": "show"}', '{"action": "index"}',
                                        '{"action": "context"}', opt[:min], opt[:max])
-    passive_events = if !verbose
+    passive_events = if !opt[:verbose]
                        passive_events.group_by_day(:time).count
                     else
                       passive_events.select(:user_id, :name, :properties, :time)
