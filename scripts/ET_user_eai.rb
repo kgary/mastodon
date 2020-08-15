@@ -5,7 +5,7 @@ require_relative '../config/environment.rb'
 @options = {}
 @options[:filePath] = 'data_export'
 options_parser = OptionParser.new do |opts|
-  opts.banner = 'Usage: ET_user_eng_adh_inter.rb { --all | --group-name:string | --account-id:integer | --username:string }'
+  opts.banner = 'Usage: ET_user_eai.rb { --all | --group-name:string | --account-id:integer | --username:string }'
 
   opts.separator ''
   opts.separator 'To filter by group or user, provide either a healgroup id, healgroup name, an account id or a username:'

@@ -1,4 +1,25 @@
+require 'optparse'
 require_relative '../config/environment.rb'
+
+
+@options = {}
+@options[:filePath] = 'data_export'
+
+options_parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: ET_user_eai.rb --pwd path/to/folder'
+
+  opts.on('-p', '--pwd path/write/directory', 'Where to save the file') do |p|
+    @options[:filePath] = p
+  end
+end
+
+begin
+  options_parser.parse!
+rescue OptionParser::InvalidOption => e
+  puts "\n***************************\n#{e}\n***************************\n\n"
+  puts options_parser
+  exit 1
+end
 
 user_cols = %w(id account_id email sign_in_count admin moderator heal_group_name)
 users = User.select(user_cols).where('admin = FALSE AND moderator = FALSE AND created_at <> updated_at')
@@ -67,4 +88,4 @@ p.workbook.add_worksheet(name: 'Statuses') do |sheet|
 end
 
 
-p.serialize('simple.xlsx')
+p.serialize("#{@options[:filePath]}/ET_users_statuses.xlsx")
