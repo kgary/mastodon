@@ -3,6 +3,50 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
+## [v0.7-beta] - 2020-06-18 - BRIDGES 
+*TODO CREATE RELEASE*
+### Added
+- Add Ahoy Event tracking 
+- Add Data Vis for Engagement and Adherence
+- Add hint for email at login
+- Add role assignment to invite link
+- Add json render for group activity and user activity
+- Add support for group tags for bridges protocol: #SMART #IfThen #BOLD #Coping
+- Add bridges_tag to `statuses`
+- Add bridges_tag to filtered `Bridges Posts` tab
+- Add scripts for aggregating user data, representing engagement, and mapping interventions to user statuses
+- Add updated docs for resetting server, reloading db, creating an instance
+
+### Changed
+- Change Default accounts.locked value to true to avoid messages about blocking followers
+- Change Fix follow logic to user account.id
+- Change Allow boosts on private statuses and maintain status' visibility
+- Change introduction to match Bridges customizations
+- Change redirect all `user_mailers` to `SMTP_LOGIN`
+- Change follow logic for invite, promotion, and demotion to use ActiveRecord (resolves TODO in v0.6-beta)
+- Change tag visibility to be public AND private (if users are in same group OR post is made by admin/global mod)
+- Change `Future Self` Timeline to `Bridges Posts`
+
+### Removed
+- Remove profile toggles for account.locked, account.bot, and account.discoverable
+- Remove user ability to DELETE account and/or move account to different server
+- Remove pyscripts for follow logic on registration and promotion
+- Remove counts and trends from user view for tags
+
+## [v0.6-beta] - 2020-06-10 - BRIDGES
+### Added
+- Add healgroups to admin with full CRUD *healgroups and heal_group_name in users does not conform to 3NF*
+- Rails migrations for statuses (futureself, goals), users (futureself, goals), and admin_healgroups 
+
+### Changed
+- Invite links with groups generated using healgroups
+- User auto follows and auto gets followers at registration
+- **TODO:** update logic for admins and Global Moderators 
+
+### Removed
+- pyscript for generating tables due to added rails migrations
+- pyscript for registration follow logic due to changing registration follow logic
+
 ## [v0.5-beta] - 2020-05-15 - BRIDGES
 ### Added
 - Add mastodon [documentation](./documentation) at endpoint `/docs` in web app

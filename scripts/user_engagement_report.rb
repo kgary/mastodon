@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# RAILS_ENV=production bundle exec ruby scripts/user_engagement_report.rb id:integer [-v(erbose)]
+# RAILS_ENV=production exec ruby scripts/user_engagement_report.rb id:integer [-v(erbose)]
 
 require 'json'
 require 'optparse'
