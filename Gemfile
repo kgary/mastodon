@@ -152,6 +152,7 @@ group :development do
 
   gem 'derailed_benchmarks'
   gem 'stackprof'
+  gem 'caxlsx'
 end
 
 group :production do
