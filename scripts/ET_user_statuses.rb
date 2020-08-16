@@ -33,7 +33,12 @@ keywords.each do |keyword|
   maybe_bridges_query << " OR #{op} #{keyword}"
 end
 maybe_bridges_query = maybe_bridges_query[4..-1]
-maybe_bridges_query = "futureself = FALSE AND goal = FALSE and bridges_tag = FALSE AND (#{maybe_bridges_query})"
+begin
+  check_for_bridges_tag = Status.first.bridges_tag
+  maybe_bridges_query = "futureself = FALSE AND goal = FALSE and bridges_tag = FALSE AND (#{maybe_bridges_query})"
+rescue
+  maybe_bridges_query = "futureself = FALSE AND goal = FALSE AND (#{maybe_bridges_query})"
+end
 
 p = Axlsx::Package.new
 p.workbook.add_worksheet(name: 'Users') do |sheet|
@@ -49,10 +54,17 @@ p.workbook.add_worksheet(name: 'Users') do |sheet|
     user.append(a.pinned_statuses.count)
     user.append(a.reports.count)
     user.append(a.statuses.where('futureself = true').count) #futureSelf
-    user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%SMART%'").count) #SMART
-    user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%Bold%'").count) #Bold
-    user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%IfThen%'").count) #IfThen
-    user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%Coping%'").count) #Coping
+    begin
+      user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%SMART%'").count) #SMART
+      user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%Bold%'").count) #Bold
+      user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%IfThen%'").count) #IfThen
+      user.append(a.statuses.where("bridges_tag = true AND text ILIKE '%Coping%'").count) #Coping
+    rescue # old pilots did not have bridges_tag flag
+      user.append('bridges_tag added after conclusion of this pilot')
+      user.append('bridges_tag added after conclusion of this pilot')
+      user.append('bridges_tag added after conclusion of this pilot')
+      user.append('bridges_tag added after conclusion of this pilot')
+    end
     user.append(a.statuses.where(maybe_bridges_query).count) #Maybes
     user.append(u.ahoy_events.count) #EngagementEvents
     sheet.add_row user
