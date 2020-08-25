@@ -1,0 +1,34 @@
+- content_for :page_title do
+  = "Group: #{@admin_healgroup.name}"
+%p#notice= notice
+
+%div{style: "font-size: 20px"}
+  %p{style: "font-size: 20px"}
+    %b{style: "color: orange"}
+      %strong
+        Start date:
+    = @admin_healgroup.start_date
+  %br
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= "User"
+        %th= "Role"
+        %th
+        %th= t('admin.accounts.most_recent_activity')
+    %tbody
+      - @admin_healgroup_accounts.each do |account|
+        %tr
+          %td
+            = admin_account_link_to(account)
+          %td
+            %div{ style: 'margin: -2px 0' }= account_badge(account, all: true)
+          %td
+          %td
+            = account.updated_at
+
+=render partial: 'admin/charts/engagements_line_chart', locals: { name: @admin_healgroup.name }
+
+= link_to 'Edit', edit_admin_healgroup_path(@admin_healgroup), class: 'button'
+= link_to 'Back', admin_healgroups_path, class: 'button'

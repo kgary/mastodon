@@ -167,6 +167,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
 
+    resources :healgroups, only: [:new, :create, :show, :destroy, :update, :edit, :index] do
+      member do
+        get :group_activity
+      end
+    end
     resources :domain_allows, only: [:new, :create, :show, :destroy]
     resources :domain_blocks, only: [:new, :create, :show, :destroy, :update] do
       member do
@@ -217,6 +222,7 @@ Rails.application.routes.draw do
         post :memorialize
         post :approve
         post :reject
+        get :activity
       end
 
       resource :change_email, only: [:show, :update]
@@ -289,9 +295,6 @@ Rails.application.routes.draw do
           resource :favourite, only: :create
           post :unfavourite, to: 'favourites#destroy'
 
-          resource :bookmark, only: :create
-          post :unbookmark, to: 'bookmarks#destroy'
-
           resource :mute, only: :create
           post :unmute, to: 'mutes#destroy'
 
@@ -327,7 +330,6 @@ Rails.application.routes.draw do
       resources :blocks,       only: [:index]
       resources :mutes,        only: [:index]
       resources :favourites,   only: [:index]
-      resources :bookmarks,    only: [:index]
       resources :reports,      only: [:create]
       resources :trends,       only: [:index]
       resources :filters,      only: [:index, :create, :show, :update, :destroy]

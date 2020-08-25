@@ -2,6 +2,7 @@
 
 class Auth::RegistrationsController < Devise::RegistrationsController
   layout :determine_layout
+  include HealFollowHelper
 
   before_action :set_invite, only: [:new, :create]
   before_action :check_enabled_registrations, only: [:new, :create]
@@ -10,6 +11,8 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :set_instance_presenter, only: [:new, :create, :update]
   before_action :set_body_classes, only: [:new, :create, :edit, :update]
   before_action :require_not_suspended!, only: [:update]
+
+  after_action :heal_customize!, :group_role!, only: [:create]
 
   skip_before_action :require_functional!, only: [:edit, :update]
 
@@ -108,5 +111,48 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def require_not_suspended!
     forbidden if current_account.suspended?
+  end
+
+  def heal_customize!
+    @user = User.find_by(email: params[:user][:email])
+    @invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
+    @heal_group_name = nil
+    @heal_group_name = @invite.comment unless @invite.nil?
+    @user.update(heal_group_name: @heal_group_name.to_s, invite_end: (params[:user][:invite_code].nil? ? 'No link' : params[:user][:invite_code]).to_s)
+    @user.update(confirmed_at: DateTime.now)
+    group_follows!(@user)
+  end
+  #
+  #def follow!(uid, tid)
+  #  begin
+  #    Follow.create!(account_id: uid, target_account_id: tid)
+  #  rescue
+  #    puts 'user is already following target'
+  #  end
+  #  begin
+  #    Follow.create!(account_id: tid, target_account_id: uid)
+  #  rescue
+  #    puts 'target is already following user'
+  #  end
+  #end
+  #
+  #def find_follow_group!(user, group)
+  #  if user.admin
+  #    User.all
+  #  elsif user.moderator && (group.eql? 'Global')
+  #    User.all
+  #  else
+  #    User.where('heal_group_name = ? OR admin = ? OR (moderator = ? AND heal_group_name = ?)', group.nil? ? 'Global' : group, true, true, 'Global')
+  #  end
+  #end
+
+  def group_role!
+    @invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
+    return @user = User.find_by(email: params[:user][:email]) if @invite.nil? || (@invite.role.eql? 'User')
+    if @invite.role.eql? 'Admin'
+      @user.update(admin: true)
+      return
+    end
+    @user.update(moderator: true) if @invite.role.eql? 'Moderator'
   end
 end

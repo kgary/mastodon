@@ -49,8 +49,6 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
       'Application'
     elsif object.bot?
       'Service'
-    elsif object.group?
-      'Group'
     else
       'Person'
     end

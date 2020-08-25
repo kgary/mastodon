@@ -1,0 +1,18 @@
+- content_for :page_title do
+  = 'Heal Groups'
+
+
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= t('Group Name')
+        %th= t('Start Date')
+        %th= t('Group Size')
+        %th= t('Modify')
+    %tbody
+      = render @admin_healgroups
+
+= link_to 'New Heal Group', new_admin_healgroup_path, class: 'button'
+= link_to 'Back to Dashboard', 'dashboard', class: 'button'
+

@@ -2,9 +2,11 @@
 
 module Admin
   class AccountsController < BaseController
-    before_action :set_account, only: [:show, :redownload, :remove_avatar, :remove_header, :enable, :unsilence, :unsuspend, :memorialize, :approve, :reject]
+    include ChartHelper
+    before_action :set_account, only: [:show, :redownload, :remove_avatar, :remove_header, :enable, :unsilence, :unsuspend, :memorialize, :approve, :reject, :activity]
     before_action :require_remote_account!, only: [:redownload]
     before_action :require_local_account!, only: [:enable, :memorialize, :approve, :reject]
+    before_action :user_activity_line_chart, :user_activity_multi_line_chart,  only: [:show]
 
     def index
       authorize :account, :index?
@@ -90,6 +92,17 @@ module Admin
       redirect_to admin_account_path(@account.id)
     end
 
+    def activity
+      @ahoy_events_all = Ahoy::Event.where(user_id: User.where(account_id: @account.id))
+      @ahoy_events_multi_data = {}
+      @ahoy_events_multi_data = if params[:verbose]
+                                  export_multi_line_engagement_chart_verbose(@ahoy_events_all)
+                                else
+                                  export_multi_line_engagement_chart(@ahoy_events_all)
+                                end
+      render json: { account_id: @account.id, data_sets: @ahoy_events_multi_data }
+    end
+
     private
 
     def set_account
@@ -124,6 +137,16 @@ module Admin
         :ip,
         :staff
       )
+    end
+
+    def user_activity_line_chart
+      @ahoy_events = Ahoy::Event.where(user_id: User.where(account_id: @account.id))
+      @ahoy_events_data = render_single_line_engagement_chart(@ahoy_events)
+    end
+
+    def user_activity_multi_line_chart
+      @ahoy_events_all = Ahoy::Event.where(user_id: User.where(account_id: @account.id))
+      @ahoy_events_multi_data = render_multi_line_engagement_chart(@ahoy_events_all)
     end
   end
 end

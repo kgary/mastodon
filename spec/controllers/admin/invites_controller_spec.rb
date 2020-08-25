@@ -28,7 +28,7 @@ describe Admin::InvitesController do
     it 'succeeds to create a invite' do
       expect { subject }.to change { Invite.count }.by(1)
       expect(subject).to redirect_to admin_invites_path
-      expect(Invite.last).to have_attributes(user_id: user.id, max_uses: 10)
+      expect(Invite.last).to have_attributes(user_id: user.id, max_uses: 10, groupname: groupname)
     end
   end
 

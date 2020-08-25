@@ -5,6 +5,7 @@
     %table.accounts-table
       %tbody
         %tr
+          %td.accounts-table__count.optional= account.user.present? && account.user.heal_group_name.present? ? account.user.heal_group_name : '-'
           %td= account_link_to account
           %td.accounts-table__count.optional
             = number_to_human account.statuses_count, strip_insignificant_zeros: true

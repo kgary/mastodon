@@ -26,8 +26,6 @@ class MediaAttachment < ApplicationRecord
 
   enum type: [:image, :gifv, :video, :unknown, :audio]
 
-  MAX_DESCRIPTION_LENGTH = 1_500
-
   IMAGE_FILE_EXTENSIONS = %w(.jpg .jpeg .png .gif).freeze
   VIDEO_FILE_EXTENSIONS = %w(.webm .mp4 .m4v .mov).freeze
   AUDIO_FILE_EXTENSIONS = %w(.ogg .oga .mp3 .wav .flac .opus .aac .m4a .3gp .wma).freeze
@@ -89,7 +87,6 @@ class MediaAttachment < ApplicationRecord
       convert_options: {
         output: {
           'loglevel' => 'fatal',
-          'map_metadata' => '-1',
           'q:a' => 2,
         },
       },
@@ -141,7 +138,7 @@ class MediaAttachment < ApplicationRecord
   include Attachmentable
 
   validates :account, presence: true
-  validates :description, length: { maximum: MAX_DESCRIPTION_LENGTH }, if: :local?
+  validates :description, length: { maximum: 1_500 }, if: :local?
 
   scope :attached,   -> { where.not(status_id: nil).or(where.not(scheduled_status_id: nil)) }
   scope :unattached, -> { where(status_id: nil, scheduled_status_id: nil) }
@@ -165,18 +162,6 @@ class MediaAttachment < ApplicationRecord
 
   def audio_or_video?
     audio? || video?
-  end
-
-  def variant?(other_file_name)
-    return true if file_file_name == other_file_name
-
-    formats = file.styles.values.map(&:format).compact
-
-    return false if formats.empty?
-
-    extension = File.extname(other_file_name)
-
-    formats.include?(extension.delete('.')) && File.basename(other_file_name, extension) == File.basename(file_file_name, File.extname(file_file_name))
   end
 
   def to_param
@@ -257,7 +242,7 @@ class MediaAttachment < ApplicationRecord
   end
 
   def prepare_description
-    self.description = description.strip[0...MAX_DESCRIPTION_LENGTH] unless description.nil?
+    self.description = description.strip[0...420] unless description.nil?
   end
 
   def set_type_and_extension
@@ -299,7 +284,7 @@ class MediaAttachment < ApplicationRecord
       width:  width,
       height: height,
       size: "#{width}x#{height}",
-      aspect: width.to_f / height,
+      aspect: width.to_f / height.to_f,
     }
   end
 

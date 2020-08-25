@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'csv'
 
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
@@ -18,6 +19,15 @@ class ApplicationRecord < ActiveRecord::Base
       default_value
     else
       value
+    end
+  end
+
+  def self.to_csv
+    ::CSV.generate do |csv|
+      csv << column_names
+      all.find_each do |model|
+        csv << model.attributes.values_at(*column_names)
+      end
     end
   end
 end

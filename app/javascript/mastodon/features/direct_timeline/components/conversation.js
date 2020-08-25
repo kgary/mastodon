@@ -12,7 +12,6 @@ import IconButton from 'mastodon/components/icon_button';
 import RelativeTimestamp from 'mastodon/components/relative_timestamp';
 import { HotKeys } from 'react-hotkeys';
 import { autoPlayGif } from 'mastodon/initial_state';
-import classNames from 'classnames';
 
 const messages = defineMessages({
   more: { id: 'status.more', defaultMessage: 'More' },
@@ -159,7 +158,7 @@ class Conversation extends ImmutablePureComponent {
 
     return (
       <HotKeys handlers={handlers}>
-        <div className={classNames('conversation focusable muted', { 'conversation--unread': unread })} tabIndex='0'>
+        <div className='conversation focusable muted' tabIndex='0'>
           <div className='conversation__avatar'>
             <AvatarComposite accounts={accounts} size={48} />
           </div>
@@ -167,7 +166,7 @@ class Conversation extends ImmutablePureComponent {
           <div className='conversation__content'>
             <div className='conversation__content__info'>
               <div className='conversation__content__relative-time'>
-                {unread && <span className='conversation__unread' />} <RelativeTimestamp timestamp={lastStatus.get('created_at')} />
+                <RelativeTimestamp timestamp={lastStatus.get('created_at')} />
               </div>
 
               <div className='conversation__content__names' ref={this.setNamesRef}>

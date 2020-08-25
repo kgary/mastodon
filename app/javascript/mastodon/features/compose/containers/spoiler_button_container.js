@@ -9,7 +9,7 @@ const messages = defineMessages({
 });
 
 const mapStateToProps = (state, { intl }) => ({
-  label: 'CW',
+  label: 'Goals',
   title: intl.formatMessage(state.getIn(['compose', 'spoiler']) ? messages.marked : messages.unmarked),
   active: state.getIn(['compose', 'spoiler']),
   ariaControls: 'cw-spoiler-input',

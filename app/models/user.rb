@@ -3,7 +3,6 @@
 #
 # Table name: users
 #
-#  id                        :bigint(8)        not null, primary key
 #  email                     :string           default(""), not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
@@ -31,6 +30,7 @@
 #  otp_backup_codes          :string           is an Array
 #  filtered_languages        :string           default([]), not null, is an Array
 #  account_id                :bigint(8)        not null
+#  id                        :bigint(8)        not null, primary key
 #  disabled                  :boolean          default(FALSE), not null
 #  moderator                 :boolean          default(FALSE), not null
 #  invite_id                 :bigint(8)
@@ -38,6 +38,8 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
+#  heal_group_name           :string           default("Global")
+#  invite_end                :string           default("No link")
 #
 
 class User < ApplicationRecord
@@ -61,7 +63,7 @@ class User < ApplicationRecord
 
   devise :registerable, :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
-
+         
   include Omniauthable
   include PamAuthenticable
   include LdapAuthenticable
@@ -75,6 +77,8 @@ class User < ApplicationRecord
   has_many :backups, inverse_of: :user
   has_many :invites, inverse_of: :user
   has_many :markers, inverse_of: :user, dependent: :destroy
+  has_many :ahoy_visits, :class_name => 'Ahoy::Visit'
+  has_many :ahoy_events, :class_name => 'Ahoy::Event'
 
   has_one :invite_request, class_name: 'UserInviteRequest', inverse_of: :user, dependent: :destroy
   accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
@@ -108,7 +112,7 @@ class User < ApplicationRecord
   delegate :auto_play_gif, :default_sensitive, :unfollow_modal, :boost_modal, :delete_modal,
            :reduce_motion, :system_font_ui, :noindex, :theme, :display_media, :hide_network,
            :expand_spoilers, :default_language, :aggregate_reblogs, :show_application,
-           :advanced_layout, :use_blurhash, :use_pending_items, :trends, :crop_images,
+           :advanced_layout, :use_blurhash, :use_pending_items, :trends,
            to: :settings, prefix: :setting, allow_nil: false
 
   attr_reader :invite_code

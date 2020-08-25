@@ -1,7 +1,7 @@
 ---
 en:
   about:
-    about_hashtag_html: These are public toots tagged with <strong>#%{hashtag}</strong>. You can interact with them if you have an account anywhere in the fediverse.
+    about_hashtag_html: These are public posts tagged with <strong>#%{hashtag}</strong>. You can interact with them if you have an account anywhere in the fediverse.
     about_mastodon_html: 'The social network of the future: No ads, no corporate surveillance, ethical design, and decentralization! Own your data with Mastodon!'
     about_this: About
     active_count_after: active
@@ -11,7 +11,6 @@ en:
     apps: Mobile apps
     apps_platforms: Use Mastodon from iOS, Android and other platforms
     browse_directory: Browse a profile directory and filter by interests
-    browse_local_posts: Browse a live stream of public posts from this server
     browse_public_posts: Browse a live stream of public posts on Mastodon
     contact: Contact
     contact_missing: Not set
@@ -70,15 +69,14 @@ en:
     pin_errors:
       following: You must be already following the person you want to endorse
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
-    posts_with_replies: Toots and replies
+      one: Post
+      other: Posts
+    posts_tab_heading: Posts
+    posts_with_replies: Posts and replies
     reserved_username: The username is reserved
     roles:
       admin: Admin
       bot: Bot
-      group: Group
       moderator: Mod
     unavailable: Profile unavailable
     unfollow: Unfollow
@@ -119,7 +117,9 @@ en:
       email_status: Email status
       enable: Enable
       enabled: Enabled
+      feed_url: Feed URL
       followers: Followers
+      followers_url: Followers URL
       follows: Follows
       header: Header
       inbox_url: Inbox URL
@@ -147,8 +147,10 @@ en:
       no_account_selected: No accounts were changed as none were selected
       no_limits_imposed: No limits imposed
       not_subscribed: Not subscribed
+      outbox_url: Outbox URL
       pending: Pending review
       perform_full_suspension: Suspend
+      profile_url: Profile URL
       promote: Promote
       protocol: Protocol
       public: Public
@@ -171,8 +173,8 @@ en:
         moderator: Moderator
         staff: Staff
         user: User
+      salmon_url: Salmon URL
       search: Search
-      search_same_ip: Other users with the same IP
       shared_inbox_url: Shared inbox URL
       show:
         created_reports: Made reports
@@ -199,12 +201,10 @@ en:
         confirm_user: "%{name} confirmed e-mail address of user %{target}"
         create_account_warning: "%{name} sent a warning to %{target}"
         create_custom_emoji: "%{name} uploaded new emoji %{target}"
-        create_domain_allow: "%{name} whitelisted domain %{target}"
         create_domain_block: "%{name} blocked domain %{target}"
         create_email_domain_block: "%{name} blacklisted e-mail domain %{target}"
         demote_user: "%{name} demoted user %{target}"
         destroy_custom_emoji: "%{name} destroyed emoji %{target}"
-        destroy_domain_allow: "%{name} removed domain %{target} from whitelist"
         destroy_domain_block: "%{name} unblocked domain %{target}"
         destroy_email_domain_block: "%{name} whitelisted e-mail domain %{target}"
         destroy_status: "%{name} removed status by %{target}"
@@ -377,11 +377,11 @@ en:
     relays:
       add_new: Add new relay
       delete: Delete
-      description_html: A <strong>federation relay</strong> is an intermediary server that exchanges large volumes of public toots between servers that subscribe and publish to it. <strong>It can help small and medium servers discover content from the fediverse</strong>, which would otherwise require local users manually following other people on remote servers.
+      description_html: A <strong>federation relay</strong> is an intermediary server that exchanges large volumes of public posts between servers that subscribe and publish to it. <strong>It can help small and medium servers discover content from the fediverse</strong>, which would otherwise require local users manually following other people on remote servers.
       disable: Disable
       disabled: Disabled
       enable: Enable
-      enable_hint: Once enabled, your server will subscribe to all public toots from this relay, and will begin sending this server's public toots to it.
+      enable_hint: Once enabled, your server will subscribe to all public posts from this relay, and will begin sending this server's public posts to it.
       enabled: Enabled
       inbox_url: Relay URL
       pending: Waiting for relay's approval
@@ -395,17 +395,12 @@ en:
       destroyed_msg: Report note successfully deleted!
     reports:
       account:
-        notes:
-          one: "%{count} note"
-          other: "%{count} notes"
-        reports:
-          one: "%{count} report"
-          other: "%{count} reports"
+        note: note
+        report: report
       action_taken_by: Action taken by
       are_you_sure: Are you sure?
       assign_to_self: Assign to me
       assigned: Assigned moderator
-      by_target_domain: Domain of reported account
       comment:
         none: None
       created_at: Reported
@@ -451,8 +446,6 @@ en:
         users: To logged-in local users
       domain_blocks_rationale:
         title: Show rationale
-      enable_bootstrap_timeline_accounts:
-        title: Enable default follows for new users
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to server thumbnail
         title: Hero image
@@ -582,7 +575,6 @@ en:
     confirmation_dialogs: Confirmation dialogs
     discovery: Discovery
     sensitive_content: Sensitive content
-    toot_layout: Toot layout
   application_mailer:
     notification_preferences: Change e-mail preferences
     salutation: "%{name},"
@@ -712,13 +704,14 @@ en:
     archive_takeout:
       date: Date
       download: Download your archive
-      hint_html: You can request an archive of your <strong>toots and uploaded media</strong>. The exported data will be in the ActivityPub format, readable by any compliant software. You can request an archive every 7 days.
+      hint_html: You can request an archive of your <strong>posts and uploaded media</strong>. The exported data will be in the ActivityPub format, readable by any compliant software. You can request an archive every 7 days.
       in_progress: Compiling your archive...
       request: Request your archive
       size: Size
     blocks: You block
     csv: CSV
     domain_blocks: Domain blocks
+    follows: You follow
     lists: Lists
     mutes: You mute
     storage: Media storage
@@ -774,7 +767,7 @@ en:
     i_am_html: I am %{username} on %{service}.
     identity: Identity
     inactive: Inactive
-    publicize_checkbox: 'And toot this:'
+    publicize_checkbox: 'And post this:'
     publicize_toot: 'It is proven! I am %{username} on %{service}: %{url}'
     status: Verification status
     view_proof: View proof
@@ -888,10 +881,6 @@ en:
       body: 'Your status was boosted by %{name}:'
       subject: "%{name} boosted your status"
       title: New boost
-  notifications:
-    email_events: Events for e-mail notifications
-    email_events_hint: 'Select events that you want to receive notifications for:'
-    other_settings: Other notifications settings
   number:
     human:
       decimal_units:
@@ -926,8 +915,6 @@ en:
   relationships:
     activity: Account activity
     dormant: Dormant
-    followers: Followers
-    following: Following
     last_active: Last active
     most_recent: Most recent
     moved: Moved
@@ -948,16 +935,16 @@ en:
   remote_interaction:
     favourite:
       proceed: Proceed to favourite
-      prompt: 'You want to favourite this toot:'
+      prompt: 'You want to favourite this post:'
     reblog:
       proceed: Proceed to boost
-      prompt: 'You want to boost this toot:'
+      prompt: 'You want to boost this post:'
     reply:
       proceed: Proceed to reply
-      prompt: 'You want to reply to this toot:'
+      prompt: 'You want to reply to this post:'
   scheduled_statuses:
-    over_daily_limit: You have exceeded the limit of %{limit} scheduled toots for that day
-    over_total_limit: You have exceeded the limit of %{limit} scheduled toots
+    over_daily_limit: You have exceeded the limit of %{limit} scheduled posts for that day
+    over_total_limit: You have exceeded the limit of %{limit} scheduled posts
     too_soon: The scheduled date must be in the future
   sessions:
     activity: Last activity
@@ -1041,9 +1028,9 @@ en:
     open_in_web: Open in web
     over_character_limit: character limit of %{max} exceeded
     pin_errors:
-      limit: You have already pinned the maximum number of toots
-      ownership: Someone else's toot cannot be pinned
-      private: Non-public toot cannot be pinned
+      limit: You have already pinned the maximum number of posts
+      ownership: Someone else's post cannot be pinned
+      private: Non-public post cannot be pinned
       reblog: A boost cannot be pinned
     poll:
       total_people:
@@ -1064,7 +1051,7 @@ en:
       unlisted: Unlisted
       unlisted_long: Everyone can see, but not listed on public timelines
   stream_entries:
-    pinned: Pinned toot
+    pinned: Pinned post
     reblogged: boosted
     sensitive_content: Sensitive content
   tags:
@@ -1184,8 +1171,8 @@ en:
     warning:
       explanation:
         disable: While your account is frozen, your account data remains intact, but you cannot perform any actions until it is unlocked.
-        silence: While your account is limited, only people who are already following you will see your toots on this server, and you may be excluded from various public listings. However, others may still manually follow you.
-        suspend: Your account has been suspended, and all of your toots and your uploaded media files have been irreversibly removed from this server, and servers where you had followers.
+        silence: While your account is limited, only people who are already following you will see your posts on this server, and you may be excluded from various public listings. However, others may still manually follow you.
+        suspend: Your account has been suspended, and all of your posts and your uploaded media files have been irreversibly removed from this server, and servers where you had followers.
       get_in_touch: You can reply to this e-mail to get in touch with the staff of %{instance}.
       review_server_policies: Review server policies
       statuses: 'Specifically, for:'

@@ -23,7 +23,6 @@ public/packs
 public/packs-test
 .env
 .env.production
-.env.development
 node_modules/
 build/
 
@@ -56,9 +55,16 @@ npm-debug.log
 yarn-error.log
 yarn-debug.log
 
-# Ignore vagrant log files
-ubuntu-xenial-16.04-cloudimg-console.log
-
 # Ignore Docker option files
 docker-compose.override.yml
 
+# Ignore other .env settings for rails
+.env.nanobox
+.env.production*
+.env.vagrant
+
+#.bak files
+*.bak
+
+# bridges
+config.ini

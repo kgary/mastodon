@@ -13,8 +13,6 @@ import Column from '../ui/components/column';
 import {
   favourite,
   unfavourite,
-  bookmark,
-  unbookmark,
   reblog,
   unreblog,
   pin,
@@ -24,6 +22,7 @@ import {
   replyCompose,
   mentionCompose,
   directCompose,
+  goalCompose,
 } from '../../actions/compose';
 import {
   muteStatus,
@@ -32,14 +31,6 @@ import {
   hideStatus,
   revealStatus,
 } from '../../actions/statuses';
-import {
-  unblockAccount,
-  unmuteAccount,
-} from '../../actions/accounts';
-import {
-  blockDomain,
-  unblockDomain,
-} from '../../actions/domain_blocks';
 import { initMuteModal } from '../../actions/mutes';
 import { initBlockModal } from '../../actions/blocks';
 import { initReport } from '../../actions/reports';
@@ -49,7 +40,7 @@ import ColumnBackButton from '../../components/column_back_button';
 import ColumnHeader from '../../components/column_header';
 import StatusContainer from '../../containers/status_container';
 import { openModal } from '../../actions/modal';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import { boostModal, deleteModal } from '../../initial_state';
@@ -67,7 +58,6 @@ const messages = defineMessages({
   detailedStatus: { id: 'status.detailed_status', defaultMessage: 'Detailed conversation view' },
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
-  blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Hide entire domain' },
 });
 
 const makeMapStateToProps = () => {
@@ -227,6 +217,19 @@ class Status extends ImmutablePureComponent {
     }
   }
 
+  handleGoalClick = (status) => {
+    let { askReplyConfirmation, dispatch, intl } = this.props;
+    if (askReplyConfirmation) {
+      dispatch(openModal('CONFIRM', {
+        message: intl.formatMessage(messages.replyMessage),
+        confirm: intl.formatMessage(messages.replyConfirm),
+        onConfirm: () => dispatch(goalCompose(status, this.context.router.history)),
+      }));
+    } else {
+      dispatch(goalCompose(status, this.context.router.history));
+    }
+  }
+
   handleModalReblog = (status) => {
     this.props.dispatch(reblog(status));
   }
@@ -240,14 +243,6 @@ class Status extends ImmutablePureComponent {
       } else {
         this.props.dispatch(openModal('BOOST', { status, onReblog: this.handleModalReblog }));
       }
-    }
-  }
-
-  handleBookmarkClick = (status) => {
-    if (status.get('bookmarked')) {
-      this.props.dispatch(unbookmark(status));
-    } else {
-      this.props.dispatch(bookmark(status));
     }
   }
 
@@ -279,22 +274,6 @@ class Status extends ImmutablePureComponent {
 
   handleOpenVideo = (media, time) => {
     this.props.dispatch(openModal('VIDEO', { media, time }));
-  }
-
-  handleHotkeyOpenMedia = e => {
-    const status = this._properStatus();
-
-    e.preventDefault();
-
-    if (status.get('media_attachments').size > 0) {
-      if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
-        // TODO: toggle play/paused?
-      } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-        this.handleOpenVideo(status.getIn(['media_attachments', 0]), 0);
-      } else {
-        this.handleOpenMedia(status.get('media_attachments'), 0);
-      }
-    }
   }
 
   handleMuteClick = (account) => {
@@ -342,26 +321,13 @@ class Status extends ImmutablePureComponent {
     this.props.dispatch(openModal('EMBED', { url: status.get('url') }));
   }
 
-  handleUnmuteClick = account => {
-    this.props.dispatch(unmuteAccount(account.get('id')));
+  onModalReblog (status) {
+    if (status.get('reblogged')) {
+      dispatch(unreblog(status));
+    } else {
+      dispatch(reblog(status));
+    }
   }
-
-  handleUnblockClick = account => {
-    this.props.dispatch(unblockAccount(account.get('id')));
-  }
-
-  handleBlockDomainClick = domain => {
-    this.props.dispatch(openModal('CONFIRM', {
-      message: <FormattedMessage id='confirmations.domain_block.message' defaultMessage='Are you really, really sure you want to block the entire {domain}? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.' values={{ domain: <strong>{domain}</strong> }} />,
-      confirm: this.props.intl.formatMessage(messages.blockDomainConfirm),
-      onConfirm: () => this.props.dispatch(blockDomain(domain)),
-    }));
-  }
-
-  handleUnblockDomainClick = domain => {
-    this.props.dispatch(unblockDomain(domain));
-  }
-
 
   handleHotkeyMoveUp = () => {
     this.handleMoveUp(this.props.status.get('id'));
@@ -522,7 +488,6 @@ class Status extends ImmutablePureComponent {
       openProfile: this.handleHotkeyOpenProfile,
       toggleHidden: this.handleHotkeyToggleHidden,
       toggleSensitive: this.handleHotkeyToggleSensitive,
-      openMedia: this.handleHotkeyOpenMedia,
     };
 
     return (
@@ -556,20 +521,16 @@ class Status extends ImmutablePureComponent {
                   onReply={this.handleReplyClick}
                   onFavourite={this.handleFavouriteClick}
                   onReblog={this.handleReblogClick}
-                  onBookmark={this.handleBookmarkClick}
                   onDelete={this.handleDeleteClick}
                   onDirect={this.handleDirectClick}
                   onMention={this.handleMentionClick}
                   onMute={this.handleMuteClick}
-                  onUnmute={this.handleUnmuteClick}
                   onMuteConversation={this.handleConversationMuteClick}
                   onBlock={this.handleBlockClick}
-                  onUnblock={this.handleUnblockClick}
-                  onBlockDomain={this.handleBlockDomainClick}
-                  onUnblockDomain={this.handleUnblockDomainClick}
                   onReport={this.handleReport}
                   onPin={this.handlePin}
                   onEmbed={this.handleEmbed}
+                  onGoal={this.handleGoalClick}
                 />
               </div>
             </HotKeys>

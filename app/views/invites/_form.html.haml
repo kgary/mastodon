@@ -7,8 +7,13 @@
     .fields-row__column.fields-row__column-6.fields-group
       = f.input :expires_in, wrapper: :with_label, collection: [30.minutes, 1.hour, 6.hours, 12.hours, 1.day, 1.week].map(&:to_i), label_method: lambda { |i| I18n.t("invites.expires_in.#{i}") }, prompt: I18n.t('invites.expires_in_prompt')
 
-  .fields-group
-    = f.input :autofollow, wrapper: :with_label
-
+  .field-group
+    = f.input :comment, wrapper: :with_label, collection: Admin::Healgroup.all.map(&:name), label: 'Select group:', include_blank: false
+    - if @current_account.user.admin
+      = f.input :role, wrapper: :with_label, collection: %w(User Moderator Admin), label: 'Select role:', include_blank: false
+    - elsif @current_account.user.moderator
+      = f.input :role, wrapper: :with_label, collection: %w(User Moderator), label: 'Select role:', include_blank: false
+    - else
+      = f.input :role, wrapper: :with_label, collection: %w(User), label: 'Select role:', include_blank: false, default: 'User'
   .actions
     = f.button :button, t('invites.generate'), type: :submit

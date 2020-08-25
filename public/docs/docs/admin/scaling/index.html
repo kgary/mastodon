@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>Scaling up your server - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/admin/scaling/">
+
+  
+
+  <meta name="twitter:title" content="Scaling up your server">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/admin/scaling/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="active">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>Scaling up your server</h1>
+
+  
+
+  <div class="e-content">
+    <h2 id="concurrency">Managing concurrency</h2>
+<p>Mastodon has three types of processes:</p>
+<ul>
+<li>Web (Puma)</li>
+<li>Streaming API</li>
+<li>Background processing (Sidekiq)</li>
+</ul>
+<h3 id="web">Web (Puma)</h3>
+<p>The web process serves short-lived HTTP requests for most of the application. The following environment variables control it:</p>
+<ul>
+<li><code>WEB_CONCURRENCY</code> controls the number of worker processes</li>
+<li><code>MAX_THREADS</code> controls the number of threads per process</li>
+</ul>
+<p>Threads share the memory of their parent process. Different processes allocate their own memory, though they share some memory via copy-on-write. A larger number of threads maxes out your CPU first, a larger number of processes maxes out your RAM first.</p>
+<p>These values affect how many HTTP requests can be served at the same time.</p>
+<p>In terms of throughput, more processes are better than more threads.</p>
+<h3 id="streaming">Streaming API</h3>
+<p>The streaming API handles long-lived HTTP and WebSockets connections, through which clients receive real-time updates. The following environment variables control it:</p>
+<ul>
+<li><code>STREAMING_CLUSTER_NUM</code> controls the number of worker processes</li>
+<li><code>STREAMING_API_BASE_URL</code> controls the base URL of the streaming API</li>
+</ul>
+<p>One process can handle a reasonably high number of connections. The streaming API can be hosted on a different subdomain if you want to e.g. avoid the overhead of nginx proxying the connections.</p>
+<h3 id="sidekiq">Background processing (Sidekiq)</h3>
+<p>Many tasks in Mastodon are delegated to background processing to ensure the HTTP requests are fast, and to prevent HTTP request aborts from affecting the execution of those tasks. Sidekiq is a single process, with a configurable number of threads.</p>
+<h4 id="sidekiq-threads">Number of threads</h4>
+<p>While the amount of threads in the web process affects the responsiveness of the Mastodon instance to the end-user, the amount of threads allocated to background processing affects how quickly posts can be delivered from the author to anyone else, how soon e-mails are sent out, etc.</p>
+<p>The amount of threads is not controlled by an environment variable in this case, but a command line argument in the invocation of Sidekiq, e.g.:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bundle <span style="color:#8be9fd;font-style:italic">exec</span> sidekiq -c <span style="color:#bd93f9">15</span>
+</code></pre></div><p>Would start the sidekiq process with 15 threads. Please mind that each threads needs to be able to connect to the database, which means that the database pool needs to be large enough to support all the threads. The database pool size is controlled with the <code>DB_POOL</code> environment variable and must be at least the same as the number of threads.</p>
+<h4 id="sidekiq-queues">Queues</h4>
+<p>Sidekiq uses different queues for tasks of varying importance, where importance is defined by how much it would impact the user experience of your server’s local users if the queue wasn’t working, in order of descending importance:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Queue</th>
+<th align="left">Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>default</code></td>
+<td align="left">All tasks that affect local users</td>
+</tr>
+<tr>
+<td align="left"><code>push</code></td>
+<td align="left">Delivery of payloads to other servers</td>
+</tr>
+<tr>
+<td align="left"><code>mailers</code></td>
+<td align="left">Delivery of e-mails</td>
+</tr>
+<tr>
+<td align="left"><code>pull</code></td>
+<td align="left">Fetching information from other servers</td>
+</tr>
+</tbody>
+</table>
+<p>The default queues and their priorities are stored in <code>config/sidekiq.yml</code>, but can be overridden by the command-line invocation of Sidekiq, e.g.:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bundle <span style="color:#8be9fd;font-style:italic">exec</span> sidekiq -q default
+</code></pre></div><p>To run just the <code>default</code> queue.</p>
+<p>The way Sidekiq works with queues, it first checks for tasks from the first queue, and if there are none, checks the next queue. This means, if the first queue is overfilled, the other queues will lag behind.</p>
+<p>As a solution, it is possible to start different Sidekiq processes for the queues to ensure truly parallel execution, by e.g. creating multiple systemd services for Sidekiq with different arguments.</p>
+<h2 id="pgbouncer">Transaction pooling with pgBouncer</h2>
+<h3 id="pgbouncer-why">Why you might need PgBouncer</h3>
+<p>If you start running out of available Postgres connections (the default is 100) then you may find PgBouncer to be a good solution. This document describes some common gotchas as well as good configuration defaults for Mastodon.</p>
+<p>Note that you can check “PgHero” in the administration view to see how many Postgres connections are currently being used. Typically Mastodon uses as many connections as there are threads both in Puma, Sidekiq and the streaming API combined.</p>
+<h3 id="pgbouncer-install">Installing PgBouncer</h3>
+<p>On Debian and Ubuntu:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install pgbouncer
+</code></pre></div><h3 id="pgbouncer-config">Configuring PgBouncer</h3>
+<h4 id="pgbouncer-password">Setting a password</h4>
+<p>First off, if your <code>mastodon</code> user in Postgres is set up wthout a password, you will need to set a password.</p>
+<p>Here’s how you might reset the password:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">psql -p <span style="color:#bd93f9">5432</span> -U mastodon mastodon_production -w
+</code></pre></div><p>Then (obviously, use a different password than the word “password”):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">USER</span> mastodon <span style="color:#ff79c6">WITH</span> PASSWORD <span style="color:#f1fa8c">&#39;password&#39;</span>;
+</code></pre></div><p>Then <code>\q</code> to quit.</p>
+<h4 id="pgbouncer-userlist">Configuring userlist.txt</h4>
+<p>Edit <code>/etc/pgbouncer/userlist.txt</code></p>
+<p>As long as you specify a user/password in pgbouncer.ini later, the values in userlist.txt do <em>not</em> have to correspond to real PostgreSQL roles. You can arbitrarily define users and passwords, but you can reuse the “real” credentials for simplicity’s sake. Add the <code>mastodon</code> user to the <code>userlist.txt</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#34;mastodon&#34; &#34;md5d75bb2be2d7086c6148944261a00f605&#34;
+</code></pre></div><p>Here we’re using the md5 scheme, where the md5 password is just the md5sum of <code>password + username</code> with the string <code>md5</code> prepended. For instance, to derive the hash for user <code>mastodon</code> with password <code>password</code>, you can do:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#6272a4"># ubuntu, debian, etc.</span>
+<span style="color:#8be9fd;font-style:italic">echo</span> -n <span style="color:#f1fa8c">&#34;passwordmastodon&#34;</span> | md5sum
+<span style="color:#6272a4"># macOS, openBSD, etc.</span>
+md5 -s <span style="color:#f1fa8c">&#34;passwordmastodon&#34;</span>
+</code></pre></div><p>Then just add <code>md5</code> to the beginning of that.</p>
+<p>You’ll also want to create a <code>pgbouncer</code> admin user to log in to the PgBouncer admin database. So here’s a sample <code>userlist.txt</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#34;mastodon&#34; &#34;md5d75bb2be2d7086c6148944261a00f605&#34;
+&#34;pgbouncer&#34; &#34;md5a45753afaca0db833a6f7c7b2864b9d9&#34;
+</code></pre></div><p>In both cases the password is just <code>password</code>.</p>
+<h4 id="pgbouncer-ini">Configuring pgbouncer.ini</h4>
+<p>Edit <code>/etc/pgbouncer/pgbouncer.ini</code></p>
+<p>Add a line under <code>[databases]</code> listing the Postgres databases you want to connect to. Here we’ll just have PgBouncer use the same username/password and database name to connect to the underlying Postgres database:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[databases]
+mastodon_production = host=127.0.0.1 port=5432 dbname=mastodon_production user=mastodon password=password
+</code></pre></div><p>The <code>listen_addr</code> and <code>listen_port</code> tells PgBouncer which address/port to accept connections. The defaults are fine:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">listen_addr = 127.0.0.1
+listen_port = 6432
+</code></pre></div><p>Put <code>md5</code> as the <code>auth_type</code> (assuming you’re using the md5 format in <code>userlist.txt</code>):</p>
+<p>Make sure the <code>pgbouncer</code> user is an admin:</p>
+<p><strong>This next part is very important!</strong> The default pooling mode is session-based, but for Mastodon we want transaction-based. In other words, a Postgres connection is created when a transaction is created and dropped when the transaction is done. So you’ll want to change the <code>pool_mode</code> from <code>session</code> to <code>transaction</code>:</p>
+<p>Next up, <code>max_client_conn</code> defines how many connections PgBouncer itself will accept, and <code>default_pool_size</code> puts a limit on how many Postgres connections will be opened under the hood. (In PgHero the number of connections reported will correspond to <code>default_pool_size</code> because it has no knowledge of PgBouncer.)</p>
+<p>The defaults are fine to start, and you can always increase them later:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">max_client_conn = 100
+default_pool_size = 20
+</code></pre></div><p>Don’t forget to reload or restart pgbouncer after making your changes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl reload pgbouncer
+</code></pre></div><h4 id="pgbouncer-debug">Debugging that it all works</h4>
+<p>You should be able to connect to PgBouncer just like you would with Postgres:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">psql -p <span style="color:#bd93f9">6432</span> -U mastodon mastodon_production
+</code></pre></div><p>And then use your password to log in.</p>
+<p>You can also check the PgBouncer logs like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tail -f /var/log/postgresql/pgbouncer.log
+</code></pre></div><h4 id="pgbouncer-mastodon">Configuring Mastodon to talk to PgBouncer</h4>
+<p>In your <code>.env.production</code> file, first off make sure that this is set:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">PREPARED_STATEMENTS</span><span style="color:#ff79c6">=</span><span style="color:#8be9fd;font-style:italic">false</span>
+</code></pre></div><p>Since we’re using transaction-based pooling, we can’t use prepared statements.</p>
+<p>Next up, configure Mastodon to use port 6432 (PgBouncer) instead of 5432 (Postgres) and you should be good to go:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">DB_HOST</span><span style="color:#ff79c6">=</span>localhost
+<span style="color:#8be9fd;font-style:italic">DB_USER</span><span style="color:#ff79c6">=</span>mastodon
+<span style="color:#8be9fd;font-style:italic">DB_NAME</span><span style="color:#ff79c6">=</span>mastodon_production
+<span style="color:#8be9fd;font-style:italic">DB_PASS</span><span style="color:#ff79c6">=</span>password
+<span style="color:#8be9fd;font-style:italic">DB_PORT</span><span style="color:#ff79c6">=</span><span style="color:#bd93f9">6432</span>
+</code></pre></div><div class="hint hint-warning">
+  <div class="hint-icon"><i class="fa fa-exclamation-circle"></i></div>
+
+  You cannot use pgBouncer to perform <code>db:migrate</code> tasks. But this is easy to work around. If your postgres and pgbouncer are on the same host, it can be as simple as defining <code>DB_PORT=5432</code> together with <code>RAILS_ENV=production</code> when calling the task, for example: <code>RAILS_ENV=production DB_PORT=5432 bundle exec rails db:migrate</code> (you can specify <code>DB_HOST</code> too if it’s different, etc)
+</div>
+
+<h4 id="pgbouncer-admin">Administering PgBouncer</h4>
+<p>The easiest way to reboot is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl restart pgbouncer
+</code></pre></div><p>But if you’ve set up a PgBouncer admin user, you can also connect as the admin:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">psql -p <span style="color:#bd93f9">6432</span> -U pgbouncer pgbouncer
+</code></pre></div><p>And then do:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">RELOAD;
+</code></pre></div><p>Then use <code>\q</code> to quit.</p>
+<h2 id="redis">Separate Redis for cache</h2>
+<p>Redis is used widely throughout the application, but some uses are more important than others. Home feeds, list feeds, and Sidekiq queues as well as the streaming API are backed by Redis and that’s important data you wouldn’t want to lose (even though the loss can be survived, unlike the loss of the PostgreSQL database - never lose that!). However, Redis is also used for volatile cache. If you are at a stage of scaling up where you are worried if your Redis can handle everything, you can use a different Redis database for the cache. In the environment, you can specify <code>CACHE_REDIS_URL</code> or individual parts like <code>CACHE_REDIS_HOST</code>, <code>CACHE_REDIS_PORT</code> etc. Unspecified parts fallback to the same values as without the cache prefix.</p>
+<p>As far as configuring the Redis database goes, basically you can get rid of background saving to disk, since it doesn’t matter if the data gets lost on restart and you can save some disk I/O on that. You can also add a maximum memory limit and a key eviction policy, for that, see this guide: <a href="https://redis.io/topics/lru-cache">Using Redis as an LRU cache</a></p>
+<h2 id="read-replicas">Read-replicas</h2>
+<p>To reduce the load on your Postgresql server, you may wish to setup hot streaming replication (read replica). <a href="https://cloud.google.com/community/tutorials/setting-up-postgres-hot-standby">See this guide for an example</a>. You can make use of the replica in Mastodon in these ways:</p>
+<ul>
+<li>The streaming API server does not issue writes at all, so you can connect it straight to the replica. But it’s not querying the database very often anyway so the impact of this is little.</li>
+<li>Use the Makara driver in the web and sidekiq processes, so that writes go to the master database, while reads go to the replica. Let’s talk about that.</li>
+</ul>
+<p>You will have to edit the <code>config/database.yml</code> file and replace the <code>production</code> section as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ff79c6">production</span>:
+  <span style="color:#ff79c6">&lt;&lt;</span>: <span style="color:#ff79c6">*default</span>
+  <span style="color:#ff79c6">adapter</span>: postgresql_makara
+  <span style="color:#ff79c6">prepared_statements</span>: <span style="color:#ff79c6">false</span>
+  <span style="color:#ff79c6">makara</span>:
+    <span style="color:#ff79c6">id</span>: postgres
+    <span style="color:#ff79c6">sticky</span>: <span style="color:#ff79c6">true</span>
+    <span style="color:#ff79c6">connections</span>:
+      - <span style="color:#ff79c6">role</span>: master
+        <span style="color:#ff79c6">blacklist_duration</span>: <span style="color:#bd93f9">0</span>
+        <span style="color:#ff79c6">url</span>: postgresql://db_user:db_password@db_host:db_port/db_name
+      - <span style="color:#ff79c6">role</span>: slave
+        <span style="color:#ff79c6">url</span>: postgresql://db_user:db_password@db_host:db_port/db_name
+</code></pre></div><p>Make sure the URLs point to wherever your PostgreSQL servers are. You can add multiple replicas. You could have a locally installed pgBouncer with configuration to connect to two different servers based on database name, e.g. “mastodon” going to master, “mastodon_replica” going to the replica, so in the file above both URLs would point to the local pgBouncer with the same user, password, host and port, but different database name. There are many possibilities how this could be setup! For more information on Makara, <a href="https://github.com/taskrabbit/makara#databaseyml">see their documentation</a>.</p>
+<div class="hint hint-warning">
+  <div class="hint-icon"><i class="fa fa-exclamation-circle"></i></div>
+
+  Sidekiq cannot reliably use read-replicas because even the tiniest replication lag leads to failing jobs due to queued up records not being found.
+</div>
+
+
+
+    <p style="color: #687590;">
+      Last updated January 1, 0001 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/admin/scaling.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/admin/scaling.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

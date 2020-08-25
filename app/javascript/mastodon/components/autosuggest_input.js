@@ -194,7 +194,6 @@ export default class AutosuggestInput extends ImmutablePureComponent {
     if (isRtl(value)) {
       style.direction = 'rtl';
     }
-
     return (
       <div className='autosuggest-input'>
         <label>
@@ -220,9 +219,9 @@ export default class AutosuggestInput extends ImmutablePureComponent {
           />
         </label>
 
-        <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
+        {suggestions !== null && <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
           {suggestions.map(this.renderSuggestion)}
-        </div>
+        </div>}
       </div>
     );
   }

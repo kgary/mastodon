@@ -37,10 +37,13 @@ class Poll extends ImmutablePureComponent {
     expired: null,
   };
 
+  static defaultProps = {
+    disabled: false,
+  };
+
   static getDerivedStateFromProps (props, state) {
     const { poll, intl } = props;
-    const expires_at = poll.get('expires_at');
-    const expired = poll.get('expired') || expires_at !== null && (new Date(expires_at)).getTime() < intl.now();
+    const expired = poll.get('expired') || (new Date(poll.get('expires_at'))).getTime() < intl.now();
     return (expired === state.expired) ? null : { expired };
   }
 
@@ -56,6 +59,15 @@ class Poll extends ImmutablePureComponent {
     clearTimeout(this._timer);
   }
 
+  checkEntries() {
+    try {
+      return Object.entries(this.state.selected).every(item => !item);
+    } catch (e) {
+      console.log(e + ' no selected entries, returning false');
+      return false;
+    }
+  }
+
   _setupTimer () {
     const { poll, intl } = this.props;
     clearTimeout(this._timer);
@@ -67,7 +79,9 @@ class Poll extends ImmutablePureComponent {
     }
   }
 
-  _toggleOption = value => {
+  handleOptionChange = e => {
+    const { target: { value } } = e;
+
     if (this.props.poll.get('multiple')) {
       const tmp = { ...this.state.selected };
       if (tmp[value]) {
@@ -81,19 +95,7 @@ class Poll extends ImmutablePureComponent {
       tmp[value] = true;
       this.setState({ selected: tmp });
     }
-  }
-
-  handleOptionChange = ({ target: { value } }) => {
-    this._toggleOption(value);
   };
-
-  handleOptionKeyPress = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      this._toggleOption(e.target.getAttribute('data-index'));
-      e.stopPropagation();
-      e.preventDefault();
-    }
-  }
 
   handleVote = () => {
     if (this.props.disabled) {
@@ -145,17 +147,7 @@ class Poll extends ImmutablePureComponent {
             disabled={disabled}
           />
 
-          {!showResults && (
-            <span
-              className={classNames('poll__input', { checkbox: poll.get('multiple'), active })}
-              tabIndex='0'
-              role={poll.get('multiple') ? 'checkbox' : 'radio'}
-              onKeyPress={this.handleOptionKeyPress}
-              aria-checked={active}
-              aria-label={option.get('title')}
-              data-index={optionIndex}
-            />
-          )}
+          {!showResults && <span className={classNames('poll__input', { checkbox: poll.get('multiple'), active })} />}
           {showResults && <span className='poll__number'>
             {!!voted && <Icon id='check' className='poll__vote__mark' title={intl.formatMessage(messages.voted)} />}
             {Math.round(percent)}%
@@ -177,7 +169,7 @@ class Poll extends ImmutablePureComponent {
 
     const timeRemaining = expired ? intl.formatMessage(messages.closed) : <RelativeTimestamp timestamp={poll.get('expires_at')} futureDate />;
     const showResults   = poll.get('voted') || expired;
-    const disabled      = this.props.disabled || Object.entries(this.state.selected).every(item => !item);
+    const disabled      = this.props.disabled || this.checkEntries();
 
     let votesCount = null;
 

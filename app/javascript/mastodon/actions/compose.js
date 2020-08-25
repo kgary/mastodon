@@ -42,6 +42,8 @@ export const COMPOSE_SENSITIVITY_CHANGE = 'COMPOSE_SENSITIVITY_CHANGE';
 export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE';
 export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE';
 export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
+export const COMPOSE_FUTURE_SELF_CHANGE  = 'COMPOSE_FUTURE_SELF_CHANGE';
+export const COMPOSE_GOAL  = 'COMPOSE_GOAL';
 export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
 export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
 
@@ -89,6 +91,7 @@ export function replyCompose(status, routerHistory) {
   };
 };
 
+
 export function cancelReplyCompose() {
   return {
     type: COMPOSE_REPLY_CANCEL,
@@ -133,7 +136,7 @@ export function submitCompose(routerHistory) {
     }
 
     dispatch(submitComposeRequest());
-
+    // this is where we build and sent the post to post a status
     api(getState).post('/api/v1/statuses', {
       status,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
@@ -142,6 +145,8 @@ export function submitCompose(routerHistory) {
       spoiler_text: getState().getIn(['compose', 'spoiler']) ? getState().getIn(['compose', 'spoiler_text'], '') : '',
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
+      futureSelf: getState().getIn(['compose', 'futureSelf']),
+      goal: getState().getIn(['compose', 'goal']),
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
@@ -205,11 +210,10 @@ export function uploadCompose(files) {
   return function (dispatch, getState) {
     const uploadLimit = 4;
     const media  = getState().getIn(['compose', 'media_attachments']);
-    const pending  = getState().getIn(['compose', 'pending_media_attachments']);
     const progress = new Array(files.length).fill(0);
     let total = Array.from(files).reduce((a, v) => a + v.size, 0);
 
-    if (files.length + media.size + pending > uploadLimit) {
+    if (files.length + media.size > uploadLimit) {
       dispatch(showAlert(undefined, messages.uploadErrorLimit));
       return;
     }
@@ -523,6 +527,24 @@ export function changeComposeVisibility(value) {
   return {
     type: COMPOSE_VISIBILITY_CHANGE,
     value,
+  };
+};
+
+export function changeComposeFutureSelf(value) {
+  return {
+    type: COMPOSE_FUTURE_SELF_CHANGE,
+    value,
+  };
+};
+
+export function goalCompose(status, routerHistory) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: COMPOSE_GOAL,
+      status: status,
+    });
+
+    ensureComposeIsVisible(getState, routerHistory);
   };
 };
 

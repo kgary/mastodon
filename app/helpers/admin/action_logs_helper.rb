@@ -35,6 +35,7 @@ module Admin::ActionLogsHelper
   end
 
   def icon_for_log(log)
+    p log.target_type
     case log.target_type
     when 'Account', 'User'
       'user'
@@ -44,14 +45,14 @@ module Admin::ActionLogsHelper
       'flag'
     when 'DomainBlock'
       'lock'
-    when 'DomainAllow'
-      'plus-circle'
     when 'EmailDomainBlock'
       'envelope'
     when 'Status'
       'pencil'
     when 'AccountWarning'
       'warning'
+    when 'Admin::Healgroup'
+      'hand-spock-o'
     end
   end
 
@@ -88,7 +89,7 @@ module Admin::ActionLogsHelper
       record.shortcode
     when 'Report'
       link_to "##{record.id}", admin_report_path(record)
-    when 'DomainBlock', 'DomainAllow', 'EmailDomainBlock'
+    when 'DomainBlock', 'EmailDomainBlock'
       link_to record.domain, "https://#{record.domain}"
     when 'Status'
       link_to record.account.acct, ActivityPub::TagManager.instance.url_for(record)
@@ -101,7 +102,7 @@ module Admin::ActionLogsHelper
     case type
     when 'CustomEmoji'
       attributes['shortcode']
-    when 'DomainBlock', 'DomainAllow', 'EmailDomainBlock'
+    when 'DomainBlock', 'EmailDomainBlock'
       link_to attributes['domain'], "https://#{attributes['domain']}"
     when 'Status'
       tmp_status = Status.new(attributes.except('reblogs_count', 'favourites_count'))

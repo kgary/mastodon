@@ -9,7 +9,7 @@ const APPROX_HASHTAG_RE = /(?:^|[^\/\)\w])#(\w*[a-zA-Z·]\w*)/i;
 
 const mapStateToProps = state => ({
   needsLockWarning: state.getIn(['compose', 'privacy']) === 'private' && !state.getIn(['accounts', me, 'locked']),
-  hashtagWarning: state.getIn(['compose', 'privacy']) !== 'public' && APPROX_HASHTAG_RE.test(state.getIn(['compose', 'text'])),
+  hashtagWarning: (state.getIn(['compose', 'privacy']) !== 'private' && state.getIn(['compose', 'privacy']) !== 'public') && APPROX_HASHTAG_RE.test(state.getIn(['compose', 'text'])),
   directMessageWarning: state.getIn(['compose', 'privacy']) === 'direct',
 });
 
@@ -19,7 +19,7 @@ const WarningWrapper = ({ needsLockWarning, hashtagWarning, directMessageWarning
   }
 
   if (hashtagWarning) {
-    return <Warning message={<FormattedMessage id='compose_form.hashtag_warning' defaultMessage="This toot won't be listed under any hashtag as it is unlisted. Only public toots can be searched by hashtag." />} />;
+    return <Warning message={<FormattedMessage id='compose_form.hashtag_warning' defaultMessage="This post won't be listed under any hashtag as it is unlisted. Only public toots can be searched by hashtag." />} />;
   }
 
   if (directMessageWarning) {

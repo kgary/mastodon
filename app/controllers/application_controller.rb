@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token, only: :raise_not_found
 
+  after_action :track_action
+
   def raise_not_found
     raise ActionController::RoutingError, "No route matches #{params[:unmatched_route]}"
   end
@@ -136,6 +138,77 @@ class ApplicationController < ActionController::Base
   end
 
   def respond_with_error(code)
-    render "errors/#{code}", layout: 'error', status: code, formats: [:html]
+    respond_to do |format|
+      format.any  { head code }
+      format.html { render "errors/#{code}", layout: 'error', status: code }
+    end
+  end
+
+  # A bridges_status is any status that is either a futureself status,
+  # goal status, or a reply/boost/pin/favourite to/on a futureself/goal status
+  #
+  # TODO
+  # Blocks made:
+  # Mutes made:
+  def bridges_status?
+    if request.params[:in_reply_to_id].present?
+      @parent_status = Status.find(request.params[:in_reply_to_id])
+      return @parent_status.goal || @parent_status.futureself || @parent_status.bridges_tag
+    end
+    if %w(favourites reblogs pins).any? { |substr| request.params[:controller].include? substr } && request.params[:status_id].present?
+      @parent_status = Status.find(request.params[:status_id])
+      return @parent_status.goal || @parent_status.futureself || @parent_status.bridges_tag
+    end
+    if (request.params[:controller].include? 'statuses') && %w(context show).any? { |substr| request.params[:action].include? substr} && request.params[:id].present?
+      @parent_status = Status.find(request.params[:id])
+      return @parent_status.goal || @parent_status.futureself || @parent_status.bridges_tag
+    end
+    return true if request.parameters[:futureSelf] || request.parameters[:goal]
+    return bridges_hashtag?
+    #if (request.params[:controller].include? 'statuses') && %w(create update).any? { |substr| request.params[:action].include? substr}
+  end
+
+  def bridges_hashtag?
+    return false if !(request.params[:action].eql? 'create') ||
+                    request.parameters[:futureSelf] ||
+                    request.parameters[:goal] ||
+                    !(controller_name.classify.to_s.include? 'Status')
+    %w(#SMART #IfThen #BOLD #Coping).any? { |substr| request.parameters[:status].downcase.include? substr.downcase }
+  end
+
+  def bridges_type?
+    pp @status
+    if request.parameters[:futureSelf]
+      'futureSelf'
+    elsif request.parameters[:goal]
+      'goal'
+    elsif bridges_hashtag? && request.parameters[:in_reply_to_id].nil?
+      %w(#SMART #IfThen #BOLD #Coping).any? do |substr|
+        return substr if request.parameters[:status].downcase.include? substr.downcase
+      end
+    elsif @parent_status.present?
+      type = (controller_name.classify.to_s.eql? 'Status') ? 'Reply' : controller_name.classify.to_s
+      if @parent_status.goal
+        return "goal #{type}"
+      elsif @parent_status.futureself
+        return "futureSelf #{type}"
+      elsif @parent_status.bridges_tag
+        return "bridgesTag #{type}"
+      else
+        'none'
+      end
+    else
+      controller_name.classify.to_s
+    end
+  end
+
+  def track_action
+    pp request.params
+    pp controller_name.classify.to_s
+    return if %w(Home Notification Filter List Trend CustomEmoji Relationship IdentityProof FollowRequest).any? { |name| controller_name.classify.to_s.downcase.include? name.downcase }
+    @properties = request.path_parameters
+    @properties['bridges'] = bridges_status?
+    @properties['bridges_type'] = @properties['bridges'] ? bridges_type? : 'none'
+    ahoy.track controller_name.classify.to_s, @properties
   end
 end

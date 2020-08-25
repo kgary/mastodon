@@ -57,10 +57,6 @@ class KeyboardShortcuts extends ImmutablePureComponent {
                 <td><FormattedMessage id='keyboard_shortcuts.enter' defaultMessage='to open status' /></td>
               </tr>
               <tr>
-                <td><kbd>e</kbd></td>
-                <td><FormattedMessage id='keyboard_shortcuts.open_media' defaultMessage='to open media' /></td>
-              </tr>
-              <tr>
                 <td><kbd>x</kbd></td>
                 <td><FormattedMessage id='keyboard_shortcuts.toggle_hidden' defaultMessage='to show/hide text behind CW' /></td>
               </tr>
@@ -111,10 +107,6 @@ class KeyboardShortcuts extends ImmutablePureComponent {
               <tr>
                 <td><kbd>g</kbd>+<kbd>l</kbd></td>
                 <td><FormattedMessage id='keyboard_shortcuts.local' defaultMessage='to open local timeline' /></td>
-              </tr>
-              <tr>
-                <td><kbd>g</kbd>+<kbd>t</kbd></td>
-                <td><FormattedMessage id='keyboard_shortcuts.federated' defaultMessage='to open federated timeline' /></td>
               </tr>
               <tr>
                 <td><kbd>g</kbd>+<kbd>d</kbd></td>

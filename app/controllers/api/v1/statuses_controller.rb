@@ -7,6 +7,7 @@ class Api::V1::StatusesController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :destroy]
   before_action :require_user!, except:  [:show, :context]
   before_action :set_status, only:       [:show, :context]
+  before_action :bridges_hashtag?, only: [:create]
 
   respond_to :json
 
@@ -37,6 +38,9 @@ class Api::V1::StatusesController < Api::BaseController
     @status = PostStatusService.new.call(current_user.account,
                                          text: status_params[:status],
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
+                                         futureself: status_params[:futureSelf] || false, # this passes the endpoint property to the service
+                                         goal: status_params[:goal] || false, # this passes the endpoint property to the service
+                                         bridges_tag: @bridges_tag,
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],
@@ -76,6 +80,8 @@ class Api::V1::StatusesController < Api::BaseController
       :spoiler_text,
       :visibility,
       :scheduled_at,
+      :futureSelf, # this adds futureself as a param in the payload
+      :goal, # this adds goal as a param in the payload
       media_ids: [],
       poll: [
         :multiple,
@@ -88,5 +94,29 @@ class Api::V1::StatusesController < Api::BaseController
 
   def pagination_params(core_params)
     params.slice(:limit).permit(:limit).merge(core_params)
+  end
+
+  ## A bridges_status is any status that is either a futureself status,
+  ## goal status, or a reply to a futureself/goal status
+  #def bridges_status?
+  #  if request.params[:in_reply_to_id].present?
+  #    @parent_status = Status.find(request.params[:in_reply_to_id])
+  #    return @parent_status.goal || @parent_status.futureself
+  #  end
+  #  request.parameters[:futureSelf] || request.parameters[:goal]
+  #end
+
+  protected
+
+  #def track_action
+  #  @properties = request.path_parameters
+  #  @properties["bridges"] = bridges_status?
+  #  ahoy.track controller_name.classify.to_s, @properties
+  #end
+  #
+  def bridges_hashtag?
+    @bridges_tag = false
+    return if status_params[:futureSelf] || status_params[:goal]
+    @bridges_tag = %w(#SMART #IfThen #BOLD #Coping).any? { |substr| status_params[:status].downcase.include? substr.downcase }
   end
 end

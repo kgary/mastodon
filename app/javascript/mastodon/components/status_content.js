@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import PollContainer from 'mastodon/containers/poll_container';
 import Icon from 'mastodon/components/icon';
 import { autoPlayGif } from 'mastodon/initial_state';
+import GoalForm from '../features/compose/components/goal_form';
 
 const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
 
@@ -28,6 +29,9 @@ export default class StatusContent extends React.PureComponent {
   state = {
     hidden: true,
     collapsed: null, //  `collapsed: null` indicates that an element doesn't need collapsing, while `true` or `false` indicates that it does (and is/isn't).
+    goal: '',
+    goalImportance: '',
+    goalPlan: '',
   };
 
   _updateStatusLinks () {
@@ -59,7 +63,7 @@ export default class StatusContent extends React.PureComponent {
       }
 
       link.setAttribute('target', '_blank');
-      link.setAttribute('rel', 'noopener noreferrer');
+      link.setAttribute('rel', 'noopener');
     }
 
     if (
@@ -97,12 +101,41 @@ export default class StatusContent extends React.PureComponent {
   componentDidMount () {
     this._updateStatusLinks();
     this._updateStatusEmojis();
+    if(this.props.status.get('goal'))
+      this.parseGoal(this.props.status.get('content'));
   }
 
   componentDidUpdate () {
     this._updateStatusLinks();
     this._updateStatusEmojis();
+    if(this.props.status.get('goal'))
+      this.parseGoal(this.props.status.get('content'));
   }
+
+  /**
+   * 'My Goal is:\n'
+   + this.autosuggestTextarea.textarea.value
+   + '\n\nThe goal is important to me because:'
+   + '\n'+this.state.goalImportance
+   + '\n\nTo achieve this goal I will:'
+   + '\n'+this.state.goalPlan);
+   * @param text
+   */
+  parseGoal = (text) => {
+    try {
+      text = text.slice(3,-4); //remove the <p></p>
+      let goalStrings = text.split(',');
+      // alert(goalStrings);
+      this.setState({ goal: goalStrings[0] });
+      this.setState({ goalImportance: goalStrings[1] });
+      this.setState({ goalPlan: goalStrings[2] });
+    } catch (e) {
+      this.setState({ goal: 'oops there' });
+      this.setState({ goalImportance: 'was an error' });
+      this.setState({ goalPlan: e });
+    }
+    // alert(this.state.goal)
+}
 
   onMentionClick = (mention, e) => {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
@@ -223,17 +256,19 @@ export default class StatusContent extends React.PureComponent {
 
           {mentionsPlaceholder}
 
-          <div tabIndex={!hidden ? 0 : null} className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''}`} style={directionStyle} dangerouslySetInnerHTML={content} />
+          {!status.get('goal') && <div tabIndex={!hidden ? 0 : null} className={`status__content__text ${!hidden ? 'status__content__text--visible' : ''}`} style={directionStyle} dangerouslySetInnerHTML={content} />}
 
           {!hidden && !!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {status.get('goal') && <GoalForm display goal={this.state.goal} goalImportance={this.state.goalImportance} goalPlan={this.state.goalPlan}  />}
         </div>
       );
     } else if (this.props.onClick) {
       const output = [
         <div className={classNames} ref={this.setRef} tabIndex='0' style={directionStyle} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp} key='status-content'>
-          <div className='status__content__text status__content__text--visible' style={directionStyle} dangerouslySetInnerHTML={content} />
+          {!status.get('goal') && <div className='status__content__text status__content__text--visible' style={directionStyle} dangerouslySetInnerHTML={content} />}
 
           {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {status.get('goal') && <GoalForm display goal={this.state.goal} goalImportance={this.state.goalImportance} goalPlan={this.state.goalPlan}  />}
         </div>,
       ];
 
@@ -245,9 +280,10 @@ export default class StatusContent extends React.PureComponent {
     } else {
       return (
         <div className={classNames} ref={this.setRef} tabIndex='0' style={directionStyle}>
-          <div className='status__content__text status__content__text--visible' style={directionStyle} dangerouslySetInnerHTML={content} />
+          {!status.get('goal') && <div className='status__content__text status__content__text--visible' style={directionStyle} dangerouslySetInnerHTML={content} />}
 
           {!!status.get('poll') && <PollContainer pollId={status.get('poll')} />}
+          {status.get('goal') && <GoalForm display goal={this.state.goal} goalImportance={this.state.goalImportance} goalPlan={this.state.goalPlan}  />}
         </div>
       );
     }

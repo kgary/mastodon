@@ -148,6 +148,8 @@ export function deleteStatus(id, routerHistory, withRedraft = false) {
       status = status.set('poll', getState().getIn(['polls', status.get('poll')]));
     }
 
+    // TODO check if goal and re-build status
+
     dispatch(deleteStatusRequest(id));
 
     api(getState).delete(`/api/v1/statuses/${id}`).then(response => {

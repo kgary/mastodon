@@ -29,7 +29,7 @@
               %span.counter-label= t('accounts.followers', count: account.followers_count)
         .spacer
         .public-account-header__tabs__tabs__buttons
-          = account_action_button(account)
+          -#= account_action_button(account)
 
     .public-account-header__extra
       = render 'accounts/bio', account: account

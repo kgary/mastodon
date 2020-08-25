@@ -1,0 +1,3550 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
+
+<link rel='stylesheet' href='http://docs.joinmastodon.org/style.min.da6b681cd9608c99ab8f7bd6902f5610646e9db147dd3a59bde4b1d9194736cd.css'>
+
+
+<script src='http://docs.joinmastodon.org/main.min.db37c27117ff8400e5e30549f6806d2bc825668b596d81316c6148417f59bc72.js' async></script>
+
+
+  <title>statuses - Mastodon documentation</title>
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://docs.joinmastodon.org/docs/methods/statuses/">
+
+  
+    <meta name="description" content="Publish, interact, and view information about statuses.">
+    <meta property="og:description" content="Publish, interact, and view information about statuses.">
+    <meta name="twitter:description" content="Publish, interact, and view information about statuses.">
+  
+
+  <meta name="twitter:title" content="statuses">
+  <meta name="twitter:site" content="@MastodonProject">
+
+  <link rel="canonical" href="http://docs.joinmastodon.org/docs/methods/statuses/">
+</head>
+
+<body>
+  <div class="container sidebar-layout">
+    <nav class="sidebar"><a class="brand" href="/">
+  <img class="link-logo" src="/brand.svg" alt="Mastodon" />
+</a>
+
+<ul>
+  
+  
+    <li>
+      
+        <a href="/" class="">What is Mastodon?</a>
+      
+
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Using Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/user/signup/" class="">Signing up for an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/profile/" class="">Setting up your profile</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/posting/" class="">Posting toots</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/network/" class="">Using the network features</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moderating/" class="">Dealing with unwanted content</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/discoverability/" class="">Promoting yourself and others</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/preferences/" class="">Set your preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/contacts/" class="">More settings</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/external/" class="">Using Mastodon externally</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/moving/" class="">Moving or leaving accounts</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/user/run-your-own/" class="">Running your own server</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Running Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/admin/prerequisites/" class="">Preparing your machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/install/" class="">Installing from source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/config/" class="">Configuring your environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/optional/" class="">Installing optional features</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/admin/optional/elasticsearch/" class="">Full-text search</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/tor/" class="">Hidden services</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/admin/optional/sso/" class="">Single Sign On</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/setup/" class="">Setting up your new instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/tootctl/" class="">Using the admin CLI</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/upgrading/" class="">Upgrading to a new release</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/backups/" class="">Backing up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/migrating/" class="">Migrating to a new machine</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/scaling/" class="">Scaling up your server</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/moderation/" class="">Moderation actions</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/admin/troubleshooting/" class="">Troubleshooting errors</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Developing Mastodon apps</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/client/intro/" class="">Getting started with the API</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/public/" class="">Playing with public data</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/token/" class="">Obtaining client app access</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/authorized/" class="">Logging in with an account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/guidelines/" class="">Guidelines and best practices</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/client/libraries/" class="">Libraries and implementations</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Contributing to Mastodon</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/dev/overview/" class="">Technical overview</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/setup/" class="">Setting up a dev environment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/code/" class="">Code structure</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/routes/" class="">Routes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/dev/disclosure/" class="">Bug bounties and responsible disclosure</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">Spec compliance</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/spec/activitypub/" class="">ActivityPub</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/webfinger/" class="">WebFinger</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/security/" class="">Security</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/microformats/" class="">Microformats</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/spec/oauth/" class="">OAuth</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">REST API</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/api/oauth-scopes/" class="">OAuth Scopes</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/api/rate-limits/" class="">Rate limits</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Methods</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/methods/apps/" class="">apps</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/apps/oauth/" class="">oauth</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/accounts/" class="">accounts</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/bookmarks/" class="">bookmarks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/favourites/" class="">favourites</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/mutes/" class="">mutes</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/blocks/" class="">blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/domain_blocks/" class="">domain_blocks</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/filters/" class="">filters</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/reports/" class="">reports</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/follow_requests/" class="">follow_requests</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/endorsements/" class="">endorsements</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/featured_tags/" class="">featured_tags</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/preferences/" class="">preferences</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/accounts/suggestions/" class="">suggestions</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/statuses/" class="active">statuses</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/media/" class="">media</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/polls/" class="">polls</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/statuses/scheduled_statuses/" class="">scheduled_statuses</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/timelines/" class="">timelines</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/conversations/" class="">conversations</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/lists/" class="">lists</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/markers/" class="">markers</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/timelines/streaming/" class="">streaming</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/notifications/" class="">notifications</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/notifications/push/" class="">push</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/search/" class="">search</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/instance/" class="">instance</a>
+
+              
+                <ul class="sub-menu">
+                  
+                    <li>
+                      <a href="/docs/methods/instance/trends/" class="">trends</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/directory/" class="">directory</a>
+                    </li>
+                  
+                    <li>
+                      <a href="/docs/methods/instance/custom_emojis/" class="">custom_emojis</a>
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/admin/" class="">admin</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/proofs/" class="">proofs</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/methods/oembed/" class="">oembed</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+    <li>
+      
+        <span class="sub-title">API Entities</span>
+      
+
+      
+        <ul class="sub-menu">
+          
+            <li>
+              <a href="/docs/entities/account/" class="">Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/activity/" class="">Activity</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-account/" class="">Admin::Account</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/admin-report/" class="">Admin::Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/application/" class="">Application</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/attachment/" class="">Attachment</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/card/" class="">Card</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/context/" class="">Context</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/conversation/" class="">Conversation</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/emoji/" class="">Emoji</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/error/" class="">Error</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/featuredtag/" class="">FeaturedTag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/field/" class="">Field</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/filter/" class="">Filter</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/history/" class="">History</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/identityproof/" class="">IdentityProof</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/instance/" class="">Instance</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/list/" class="">List</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/marker/" class="">Marker</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/mention/" class="">Mention</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/notification/" class="">Notification</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/poll/" class="">Poll</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/preferences/" class="">Preferences</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/push-subscription/" class="">PushSubscription</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/relationship/" class="">Relationship</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/report/" class="">Report</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/results/" class="">Results</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/scheduledstatus/" class="">ScheduledStatus</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/source/" class="">Source</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/status/" class="">Status</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/tag/" class="">Tag</a>
+
+              
+            </li>
+          
+            <li>
+              <a href="/docs/entities/token/" class="">Token</a>
+
+              
+            </li>
+          
+        </ul>
+      
+    </li>
+  
+</ul>
+</nav>
+    <main>
+  <h1>statuses</h1>
+
+  
+    <p>Publish, interact, and view information about statuses.</p>
+  
+
+  <div class="e-content">
+    <p><div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Publish new status</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses</span>
+  </div>
+
+<div>
+</p>
+<p>Post a new status.</p>
+<p><strong>Returns:</strong> Status. When <code>scheduled_at</code> is present, ScheduledStatus is returned instead.<br>
+<strong>OAuth:</strong> User + <code>write:statuses</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+<li>2.7.0 - <code>scheduled_at</code> added</li>
+<li>2.8.0 - <code>poll</code> added</li>
+<li>v0.3-beta - <code>futureself</code> <code>goal</code> added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Idempotency-Key</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Prevent duplicate submissions of the same status. Idempotency keys are stored for up to 1 hour, and can be any arbitrary string. Consider using a hash or UUID generated client-side.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Form Data Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>status</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Text content of the status. If <code>media_ids</code> is provided, this becomes optional. Attaching a <code>poll</code> is optional while <code>status</code> is provided.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>media_ids[]</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>array</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Array of Attachment ids to be attached as media. If provided, <code>status</code> becomes optional, and <code>poll</code> cannot be used.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>poll[options][]</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>array</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Array of possible answers. If provided, <code>media_ids</code> cannot be used, and <code>poll[expires_in]</code> must be provided.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>poll[expires_in]</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>number</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Duration the poll should be open, in seconds. If provided, <code>media_ids</code> cannot be used, and <code>poll[options]</code> must be provided.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>poll[multiple]</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>boolean</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Allow multiple choices?
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>poll[hide_totals]</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>boolean</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Hide vote counts until the poll ends?
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>in_reply_to_id</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+ID of the status being replied to, if status is a reply
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>sensitive</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>boolean</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Mark status and attached media as sensitive?
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>spoiler_text</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Text to be shown as a warning or subject before the actual content. Statuses are generally collapsed behind this field.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>visibility</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Visibility of the posted status. Enumerable oneOf public, unlisted, private, direct.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>scheduled_at</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+ISO 8601 Datetime at which to schedule a status. Providing this paramter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>language</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+ISO 639 language code for this status.
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>futureself</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>boolean</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+<code>Bridges Customization</code> Mark status as a bridges futureself post
+  </div>
+</div>
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>goal</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>boolean</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+<code>Bridges Customization</code> Mark status as a bridges goal post
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status will be posted with chosen parameters. If scheduled_at is provided, then a ScheduledStatus will be returned instead.
+</div>
+</p>
+<p><div class="tabs">
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">status</h5>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103254962155278888&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-05T11:34:47.196Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;content&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;p&gt;test content&lt;/p&gt;&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;application&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test app&#34;</span>,
+    <span style="color:#f1fa8c">&#34;website&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+  },
+  ...
+}
+</code></pre></div></div>
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">scheduled_at ScheduledStatus</h5>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;3221&#34;</span>,
+  <span style="color:#f1fa8c">&#34;scheduled_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-05T12:33:01.000Z&#34;</span>,
+  <span style="color:#f1fa8c">&#34;params&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test content&#34;</span>,
+    <span style="color:#f1fa8c">&#34;media_ids&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;sensitive&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;spoiler_text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;visibility&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;scheduled_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;poll&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;idempotency&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+    <span style="color:#f1fa8c">&#34;application_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">596551</span>
+  },
+  <span style="color:#f1fa8c">&#34;media_attachments&#34;</span><span style="color:#ff79c6">:</span> []
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>get</span>
+    </div>
+
+    <span class="api-method-title">View specific status</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id</span>
+  </div>
+
+<div>
+</p>
+<p>View information about a status.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> Public for public statuses, user token + <code>read:statuses</code> for private statuses<br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+<li>2.7.0 - public statuses no longer require token</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;1&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2016-03-16T14:44:31.580Z&#34;</span>,
+  <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;sensitive&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;spoiler_text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&#34;</span>,
+  <span style="color:#f1fa8c">&#34;visibility&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;public&#34;</span>,
+  <span style="color:#f1fa8c">&#34;language&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;en&#34;</span>,
+  <span style="color:#f1fa8c">&#34;uri&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/Gargron/statuses/1&#34;</span>,
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/@Gargron/1&#34;</span>,
+  <span style="color:#f1fa8c">&#34;replies_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">7</span>,
+  <span style="color:#f1fa8c">&#34;reblogs_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">98</span>,
+  <span style="color:#f1fa8c">&#34;favourites_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">112</span>,
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;content&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;p&gt;Hello world&lt;/p&gt;&#34;</span>,
+  <span style="color:#f1fa8c">&#34;reblog&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;application&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;account&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;1&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Gargron&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Gargron&#34;</span>,
+    <span style="color:#f1fa8c">&#34;display_name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Eugen&#34;</span>,
+    <span style="color:#f1fa8c">&#34;locked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;bot&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2016-03-16T14:34:26.392Z&#34;</span>,
+    <span style="color:#f1fa8c">&#34;note&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;p&gt;Developer of Mastodon and administrator of mastodon.social. I post service announcements, development updates, and personal stuff.&lt;/p&gt;&#34;</span>,
+    <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/@Gargron&#34;</span>,
+    <span style="color:#f1fa8c">&#34;avatar&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg&#34;</span>,
+    <span style="color:#f1fa8c">&#34;avatar_static&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg&#34;</span>,
+    <span style="color:#f1fa8c">&#34;header&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png&#34;</span>,
+    <span style="color:#f1fa8c">&#34;header_static&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png&#34;</span>,
+    <span style="color:#f1fa8c">&#34;followers_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">320472</span>,
+    <span style="color:#f1fa8c">&#34;following_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">453</span>,
+    <span style="color:#f1fa8c">&#34;futureself&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;goal&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;statuses_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">61163</span>,
+    <span style="color:#f1fa8c">&#34;last_status_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-05T03:03:02.595Z&#34;</span>,
+    <span style="color:#f1fa8c">&#34;emojis&#34;</span><span style="color:#ff79c6">:</span> [],
+    <span style="color:#f1fa8c">&#34;fields&#34;</span><span style="color:#ff79c6">:</span> [
+      {
+        <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Patreon&#34;</span>,
+        <span style="color:#f1fa8c">&#34;value&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;a href=\&#34;https://www.patreon.com/mastodon\&#34; rel=\&#34;me nofollow noopener noreferrer\&#34; target=\&#34;_blank\&#34;&gt;&lt;span class=\&#34;invisible\&#34;&gt;https://www.&lt;/span&gt;&lt;span class=\&#34;\&#34;&gt;patreon.com/mastodon&lt;/span&gt;&lt;span class=\&#34;invisible\&#34;&gt;&lt;/span&gt;&lt;/a&gt;&#34;</span>,
+        <span style="color:#f1fa8c">&#34;verified_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+      },
+      {
+        <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Homepage&#34;</span>,
+        <span style="color:#f1fa8c">&#34;value&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;a href=\&#34;https://zeonfederated.com\&#34; rel=\&#34;me nofollow noopener noreferrer\&#34; target=\&#34;_blank\&#34;&gt;&lt;span class=\&#34;invisible\&#34;&gt;https://&lt;/span&gt;&lt;span class=\&#34;\&#34;&gt;zeonfederated.com&lt;/span&gt;&lt;span class=\&#34;invisible\&#34;&gt;&lt;/span&gt;&lt;/a&gt;&#34;</span>,
+        <span style="color:#f1fa8c">&#34;verified_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-07-15T18:29:57.191+00:00&#34;</span>
+      }
+    ]
+  },
+  <span style="color:#f1fa8c">&#34;media_attachments&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;mentions&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;tags&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;emojis&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;card&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;poll&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>instance is in whitelist mode
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;This API requires an authenticated user&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private.
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>delete</span>
+    </div>
+
+    <span class="api-method-title">Delete status</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id</span>
+  </div>
+
+<div>
+</p>
+<p>Delete one of your own statuses.</p>
+<p><strong>Returns:</strong> Status with source <code>text</code> and <code>media_attachments</code> or <code>poll</code><br>
+<strong>OAuth:</strong> User token + <code>write:statuses</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+<li>2.9.0 - return source properties, for use with delete and redraft</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database. Must be owned by authenticated account.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Note the special properties <code>text</code> and <code>media_attachments</code> or <code>poll</code> which may be used to repost the status, e.g. in case of delete-and-redraft functionality. With POST /api/v1/statuses, use <code>text</code> as the value for <code>status</code> parameter, <code>media_attachments[n][&quot;id&quot;]</code> for the <code>media_ids</code> array parameter, and <code>poll</code> properties with the corresponding parameters (e.g. <code>poll[multiple]</code> and <code>poll[options]</code>, with a new <code>poll[expires_in]</code> and <code>poll[hide_totals]</code> per user input.
+</div>
+</p>
+<p><div class="tabs">
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">with media</h5>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103254193998341330&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-05T08:19:26.052Z&#34;</span>,
+  <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;sensitive&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;spoiler_text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&#34;</span>,
+  <span style="color:#f1fa8c">&#34;visibility&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;public&#34;</span>,
+  <span style="color:#f1fa8c">&#34;language&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;en&#34;</span>,
+  <span style="color:#f1fa8c">&#34;uri&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/trwnh/statuses/103254193998341330&#34;</span>,
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/@trwnh/103254193998341330&#34;</span>,
+  <span style="color:#f1fa8c">&#34;replies_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+  <span style="color:#f1fa8c">&#34;reblogs_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+  <span style="color:#f1fa8c">&#34;favourites_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test&#34;</span>,
+  <span style="color:#f1fa8c">&#34;reblog&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;application&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Web&#34;</span>,
+    <span style="color:#f1fa8c">&#34;website&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+  },
+  <span style="color:#f1fa8c">&#34;account&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;14715&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    <span style="color:#f1fa8c">&#34;display_name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;infinite love ⴳ&#34;</span>,
+    ...
+  },
+  <span style="color:#f1fa8c">&#34;media_attachments&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;22345792&#34;</span>,
+      <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;image&#34;</span>,
+      <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/media_attachments/files/022/345/792/original/57859aede991da25.jpeg&#34;</span>,
+      <span style="color:#f1fa8c">&#34;preview_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/media_attachments/files/022/345/792/small/57859aede991da25.jpeg&#34;</span>,
+      <span style="color:#f1fa8c">&#34;remote_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+      <span style="color:#f1fa8c">&#34;text_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/media/2N4uvkuUtPVrkZGysms&#34;</span>,
+      <span style="color:#f1fa8c">&#34;meta&#34;</span><span style="color:#ff79c6">:</span> {
+        <span style="color:#f1fa8c">&#34;original&#34;</span><span style="color:#ff79c6">:</span> {
+          <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">640</span>,
+          <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">480</span>,
+          <span style="color:#f1fa8c">&#34;size&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;640x480&#34;</span>,
+          <span style="color:#f1fa8c">&#34;aspect&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1.3333333333333333</span>
+        },
+        <span style="color:#f1fa8c">&#34;small&#34;</span><span style="color:#ff79c6">:</span> {
+          <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">461</span>,
+          <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">346</span>,
+          <span style="color:#f1fa8c">&#34;size&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;461x346&#34;</span>,
+          <span style="color:#f1fa8c">&#34;aspect&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1.3323699421965318</span>
+        },
+        <span style="color:#f1fa8c">&#34;focus&#34;</span><span style="color:#ff79c6">:</span> {
+          <span style="color:#f1fa8c">&#34;x&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">0.27</span>,
+          <span style="color:#f1fa8c">&#34;y&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0.51</span>
+        }
+      },
+      <span style="color:#f1fa8c">&#34;description&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test media description&#34;</span>,
+      <span style="color:#f1fa8c">&#34;blurhash&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}&#34;</span>
+    }
+  ],
+  <span style="color:#f1fa8c">&#34;mentions&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;tags&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;emojis&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;card&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;poll&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+}
+</code></pre></div></div>
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">with poll</h5>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103254222827484720&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-05T08:26:45.958Z&#34;</span>,
+  <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;sensitive&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;spoiler_text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&#34;</span>,
+  <span style="color:#f1fa8c">&#34;visibility&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;public&#34;</span>,
+  <span style="color:#f1fa8c">&#34;language&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;en&#34;</span>,
+  <span style="color:#f1fa8c">&#34;uri&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/users/trwnh/statuses/103254222827484720&#34;</span>,
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://mastodon.social/@trwnh/103254222827484720&#34;</span>,
+  <span style="color:#f1fa8c">&#34;replies_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+  <span style="color:#f1fa8c">&#34;reblogs_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+  <span style="color:#f1fa8c">&#34;favourites_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;text&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test&#34;</span>,
+  <span style="color:#f1fa8c">&#34;reblog&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;application&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Web&#34;</span>,
+    <span style="color:#f1fa8c">&#34;website&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>
+  },
+  <span style="color:#f1fa8c">&#34;account&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;14715&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    <span style="color:#f1fa8c">&#34;display_name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;infinite love ⴳ&#34;</span>,
+    ...
+  },
+  <span style="color:#f1fa8c">&#34;media_attachments&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;mentions&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;tags&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;emojis&#34;</span><span style="color:#ff79c6">:</span> [],
+  <span style="color:#f1fa8c">&#34;card&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  <span style="color:#f1fa8c">&#34;poll&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;34858&#34;</span>,
+    <span style="color:#f1fa8c">&#34;expires_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-06T08:26:45.945Z&#34;</span>,
+    <span style="color:#f1fa8c">&#34;expired&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;multiple&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;votes_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>,
+    <span style="color:#f1fa8c">&#34;voters_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>,
+    <span style="color:#f1fa8c">&#34;voted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+    <span style="color:#f1fa8c">&#34;own_votes&#34;</span><span style="color:#ff79c6">:</span> [],
+    <span style="color:#f1fa8c">&#34;options&#34;</span><span style="color:#ff79c6">:</span> [
+      {
+        <span style="color:#f1fa8c">&#34;title&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test 1&#34;</span>,
+        <span style="color:#f1fa8c">&#34;votes_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">1</span>
+      },
+      {
+        <span style="color:#f1fa8c">&#34;title&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;test 2&#34;</span>,
+        <span style="color:#f1fa8c">&#34;votes_count&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>
+      }
+    ],
+    <span style="color:#f1fa8c">&#34;emojis&#34;</span><span style="color:#ff79c6">:</span> []
+  }
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status already deleted, does not exist, or is not owned by you
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>get</span>
+    </div>
+
+    <span class="api-method-title">Parent and child statuses</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/context</span>
+  </div>
+
+<div>
+</p>
+<p>View statuses above and below this status in the thread.</p>
+<p><strong>Returns:</strong> Context<br>
+<strong>OAuth:</strong> Public for public statuses. User token + <code>read:statuses</code> for private statuses.<br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;ancestors&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103188938570975982&#34;</span>,
+      <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-11-23T19:44:00.124Z&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+      ...
+    },
+    {
+      <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103188971072973252&#34;</span>,
+      <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-11-23T19:52:23.398Z&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103188938570975982&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;634458&#34;</span>,
+      ...
+    },
+    {
+      <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103188982235527758&#34;</span>,
+      <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-11-23T19:55:08.208Z&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103188971072973252&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;14715&#34;</span>,
+      ...
+    }
+  ],
+  <span style="color:#f1fa8c">&#34;descendants&#34;</span><span style="color:#ff79c6">:</span> [
+    {
+      <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103189026958574542&#34;</span>,
+      <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-11-23T20:06:36.011Z&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103189005915505698&#34;</span>,
+      <span style="color:#f1fa8c">&#34;in_reply_to_account_id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;634458&#34;</span>,
+      ...
+    }
+  ]
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>get</span>
+    </div>
+
+    <span class="api-method-title">Boosted by</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/reblogged_by</span>
+  </div>
+
+<div>
+</p>
+<p>View who boosted a given status.</p>
+<p><strong>Returns:</strong> Array of Account<br>
+<strong>OAuth:</strong> Public
+Version history:</p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[
+  {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;711345&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Norman_Doors&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Norman_Doors@witches.live&#34;</span>,
+    ...
+  },
+  ...
+]
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private.
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>get</span>
+    </div>
+
+    <span class="api-method-title">Favourited by</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/favourited_by</span>
+  </div>
+
+<div>
+</p>
+<p>View who favourited a given status.</p>
+<p><strong>Returns:</strong> Array of Account<br>
+<strong>OAuth:</strong> Public<br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[
+  {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;828600&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fructose_dealer&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;fructose_dealer@radical.town&#34;</span>,
+    ...
+  },
+  ...
+]
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Favourite</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/favourite</span>
+  </div>
+
+<div>
+</p>
+<p>Add a status to your favourites list.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:favourites</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status favourited or was already favourited
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Undo favourite</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/unfavourite</span>
+  </div>
+
+<div>
+</p>
+<p>Remove a status from your favourites list.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:favourites</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status unfavourited or was already not favourited
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Boost</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/reblog</span>
+  </div>
+
+<div>
+</p>
+<p>Reshare a status.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:statuses</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+<li>2.8.0 - add visibility parameter</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Form Data Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>visibility</div>
+    <div class="api-method-parameter-optional">optional</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+any visibility except limited or direct (i.e. public, unlisted, private). Defaults to public. Currently unused in UI.
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status has been reblogged. Note that the top-level id has changed. The id of the boosted status is now inside the <code>reblog</code> property. The top-level id is the id of the reblog itself. Also note that reblogs cannot be pinned.
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;103254401326800919&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2019-12-05T09:12:09.625Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;reblog&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+    <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+    ...
+    <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+    <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+    ...
+  },
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Undo boost</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/unreblog</span>
+  </div>
+
+<div>
+</p>
+<p>Undo a reshare of a status.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:statuses</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status no longer reblogged
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status deleted, does not exist, or no reblog exists
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+ <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span>  <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Bookmark</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/bookmark</span>
+  </div>
+
+<div>
+</p>
+<p>Privately bookmark a status.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:bookmarks</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>3.1.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+ID of the status in the database
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status bookmarked
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Undo bookmark</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/unbookmark</span>
+  </div>
+
+<div>
+</p>
+<p>Remove a status from your private bookmarks.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:bookmarks</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>3.1.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+ID of the status in the database
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, is private, or was already not bookmarked
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Mute conversation</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/mute</span>
+  </div>
+
+<div>
+</p>
+<p>Do not receive notifications for the thread that this status is part of. Must be a thread in which you are a participant.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:mutes</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>1.4.2 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status&rsquo;s conversation muted, or was already muted
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Unmute conversation</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/unmute</span>
+  </div>
+
+<div>
+</p>
+<p>Start receiving notifications again for the thread that this status is part of.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:mutes</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>1.4.2 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status&rsquo;s conversation unmuted, or was already unmuted
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Pin to profile</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/pin</span>
+  </div>
+
+<div>
+</p>
+<p>Feature one of your own public statuses at the top of your profile.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:accounts</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>1.6.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database. The status should be public and authored by the authorized account.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status pinned. Note the status is not a reblog and its authoring account is your own.
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;reblog&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;account&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;14715&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    ...
+  },
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or you are not authorized to see it.
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    422: Unprocessable Entity
+  </h5>
+
+<div>
+</p>
+<p>Status is not owned by you, or is not public. You cannot pin one of your private statuses because private statuses cannot be fetched from remote sites, and must be delivered.
+</div>
+</p>
+<p><div class="tabs">
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">Not yours</h5>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Validation failed: Someone else&#39;s toot cannot be pinned&#34;</span>
+}
+</code></pre></div></div>
+
+<div class="tabs-pane">
+  <h5 class="tabs-pane-title">Private</h5>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Validation failed: Non-public toot cannot be pinned&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>post</span>
+    </div>
+
+    <span class="api-method-title">Unpin to profile</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/unpin</span>
+  </div>
+
+<div>
+</p>
+<p>Unfeature a status from the top of your profile.</p>
+<p><strong>Returns:</strong> Status<br>
+<strong>OAuth:</strong> User token + <code>write:accounts</code><br>
+<strong>Version history:</strong></p>
+<ul>
+<li>1.6.0 - added</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Local ID of a status in the database.
+  </div>
+</div>
+
+</div>
+
+<h5 class="api-method-parameters-type">Headers</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>Authorization</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+Bearer &lt;user token&gt;
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+</p>
+<p>Status unpinned, or was already not pinned
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;99734435964706331&#34;</span>,
+  <span style="color:#f1fa8c">&#34;created_at&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;2018-03-23T17:38:40.700Z&#34;</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;favourited&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;reblogged&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;muted&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;bookmarked&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  <span style="color:#f1fa8c">&#34;pinned&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">false</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;reblog&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">null</span>,
+  ...
+  <span style="color:#f1fa8c">&#34;account&#34;</span><span style="color:#ff79c6">:</span> {
+    <span style="color:#f1fa8c">&#34;id&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;14715&#34;</span>,
+    <span style="color:#f1fa8c">&#34;username&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    <span style="color:#f1fa8c">&#34;acct&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;trwnh&#34;</span>,
+    ...
+  },
+  ...
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    401: Unauthorized
+  </h5>
+
+<div>
+</p>
+<p>Invalid or missing Authorization header
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;The access token is invalid&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+</p>
+<h2 id="deprecated-methods">Deprecated methods</h2>
+<p><div>
+  <h2 class="api-method">
+    <div class="api-method-method">
+      <span>get</span>
+    </div>
+
+    <span class="api-method-title">Preview card</span>
+  </h2>
+
+  <div class="api-method-url">
+    <span class="api-method-host">https://mastodon.example</span><span class="api-method-path">/api/v1/statuses/:id/card</span>
+  </div>
+
+<div>
+</p>
+<p><strong>Returns:</strong> Card<br>
+<strong>OAuth:</strong> Public<br>
+<strong>Version history:</strong></p>
+<ul>
+<li>0.0.0 - added</li>
+<li>2.6.0 - deprecated in favor of card property inlined on Status entity</li>
+<li>3.0.0 - removed</li>
+</ul>
+<p></div>
+
+<div class="tabs">
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Request</h4>
+
+<h5 class="api-method-parameters-type">Path Parameters</h5>
+<div class="api-method-parameters-list">
+
+<div class="api-method-parameter">
+  <div class="api-method-parameter-cell api-method-parameter-name">
+    <div>:id</div>
+    <div class="api-method-parameter-required">required</div>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-type">
+    <code>string</code>
+  </div>
+
+  <div class="api-method-parameter-cell api-method-parameter-description">
+
+ID of the status in the database
+  </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="tab-pane">
+  <h4 class="tab-pane-title">Response</h4>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator"></span>
+    200: Success
+  </h5>
+
+<div>
+
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://www.youtube.com/watch?v=OMv_EPMED8Y&#34;</span>,
+  <span style="color:#f1fa8c">&#34;title&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;♪ Brand New Friend (Christmas Song!)&#34;</span>,
+  <span style="color:#f1fa8c">&#34;description&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&#34;</span>,
+  <span style="color:#f1fa8c">&#34;type&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;video&#34;</span>,
+  <span style="color:#f1fa8c">&#34;author_name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;YOGSCAST Lewis &amp; Simon&#34;</span>,
+  <span style="color:#f1fa8c">&#34;author_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://www.youtube.com/user/BlueXephos&#34;</span>,
+  <span style="color:#f1fa8c">&#34;provider_name&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;YouTube&#34;</span>,
+  <span style="color:#f1fa8c">&#34;provider_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://www.youtube.com/&#34;</span>,
+  <span style="color:#f1fa8c">&#34;html&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&lt;iframe width=\&#34;480\&#34; height=\&#34;270\&#34; src=\&#34;https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\&#34; frameborder=\&#34;0\&#34; allowfullscreen=\&#34;\&#34;&gt;&lt;/iframe&gt;&#34;</span>,
+  <span style="color:#f1fa8c">&#34;width&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">480</span>,
+  <span style="color:#f1fa8c">&#34;height&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#bd93f9">270</span>,
+  <span style="color:#f1fa8c">&#34;image&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg&#34;</span>,
+  <span style="color:#f1fa8c">&#34;embed_url&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;&#34;</span>
+}
+</code></pre></div><p></div>
+
+<div class="api-method-response-example">
+  <h5>
+    <span class="api-method-response-example-indicator api-method-response-example-indicator-error"></span>
+    404: Not Found
+  </h5>
+
+<div>
+</p>
+<p>Status does not exist, is deleted, or is private
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{
+  <span style="color:#f1fa8c">&#34;error&#34;</span><span style="color:#ff79c6">:</span> <span style="color:#f1fa8c">&#34;Record not found&#34;</span>
+}
+</code></pre></div><p></div>
+
+</div>
+
+</div>
+
+</div>
+</p>
+
+
+    <p style="color: #687590;">
+      Last updated January 1, 0001 · <a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/methods/statuses.md' style="color: #687590;">Improve this page</a>
+
+      
+    </p>
+
+  </div>
+</main>
+  </div>
+
+  <footer class="footer container">
+  <a href="https://designbyhumans.com/shop/mastodon" class="panel" style="background-image: url(/shirt.png)">
+    <div class="overlay">
+      <h5>Merch</h5>
+      <p>T-shirts and stickers</p>
+    </div>
+  </a>
+
+  <p class="legal legal--right">
+    <a href='https://joinmastodon.org'>Join Mastodon</a> · <a href='https://blog.joinmastodon.org'>Blog</a> · <a href='https://mastodon.social/@Mastodon' target='_blank'><i class='fab fa-mastodon'></i></a> · <a href='https://twitter.com/MastodonProject' rel='nofollow' target='_blank'><i class='fab fa-twitter'></i></a>
+  </p>
+
+  <p class="legal"><a href='https://github.com/tootsuite/documentation/tree/master/content/en/docs/methods/statuses.md'>View source</a> · <a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a> · <a href='https://joinmastodon.org/imprint'>Imprint</a></p>
+</footer>
+
+</body>
+
+</html>

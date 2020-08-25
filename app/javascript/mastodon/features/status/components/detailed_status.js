@@ -14,6 +14,7 @@ import Audio from '../../audio';
 import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
+import IconButton from "../../../components/icon_button";
 
 export default class DetailedStatus extends ImmutablePureComponent {
 
@@ -156,7 +157,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     }
 
     if (status.get('application')) {
-      applicationLink = <span> · <a className='detailed-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener noreferrer'>{status.getIn(['application', 'name'])}</a></span>;
+      applicationLink = <span> · <a className='detailed-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener'>{status.getIn(['application', 'name'])}</a></span>;
     }
 
     if (status.get('visibility') === 'direct') {
@@ -207,6 +208,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
+
     return (
       <div style={outerStyle}>
         <div ref={this.setRef} className={classNames('detailed-status', { compact })}>
@@ -220,7 +222,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
           {media}
 
           <div className='detailed-status__meta'>
-            <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
+            <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener'>
               <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
             </a>{applicationLink} · {reblogLink} · {favouriteLink}
           </div>

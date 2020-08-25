@@ -64,6 +64,7 @@ class Status extends ImmutablePureComponent {
     otherAccounts: ImmutablePropTypes.list,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
+    onGoal: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
     onDelete: PropTypes.func,
@@ -214,26 +215,14 @@ class Status extends ImmutablePureComponent {
     this.props.onOpenVideo(media, startTime);
   }
 
-  handleHotkeyOpenMedia = e => {
-    const { onOpenMedia, onOpenVideo } = this.props;
-    const status = this._properStatus();
-
-    e.preventDefault();
-
-    if (status.get('media_attachments').size > 0) {
-      if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
-        // TODO: toggle play/paused?
-      } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-        onOpenVideo(status.getIn(['media_attachments', 0]), 0);
-      } else {
-        onOpenMedia(status.get('media_attachments'), 0);
-      }
-    }
-  }
-
   handleHotkeyReply = e => {
     e.preventDefault();
     this.props.onReply(this._properStatus(), this.context.router.history);
+  }
+
+  handleHotkeyGoal = e => {
+    e.preventDefault();
+    this.props.onGoal(this._properStatus(), this.context.router.history);
   }
 
   handleHotkeyFavourite = () => {
@@ -301,6 +290,7 @@ class Status extends ImmutablePureComponent {
 
     const handlers = this.props.muted ? {} : {
       reply: this.handleHotkeyReply,
+      goal: this.handleHotkeyGoal,
       favourite: this.handleHotkeyFavourite,
       boost: this.handleHotkeyBoost,
       mention: this.handleHotkeyMention,
@@ -310,7 +300,6 @@ class Status extends ImmutablePureComponent {
       moveDown: this.handleHotkeyMoveDown,
       toggleHidden: this.handleHotkeyToggleHidden,
       toggleSensitive: this.handleHotkeyToggleSensitive,
-      openMedia: this.handleHotkeyOpenMedia,
     };
 
     if (hidden) {
@@ -455,9 +444,9 @@ class Status extends ImmutablePureComponent {
           <div className={classNames('status', `status-${status.get('visibility')}`, { 'status-reply': !!status.get('in_reply_to_id'), muted: this.props.muted, read: unread === false })} data-id={status.get('id')}>
             <div className='status__expand' onClick={this.handleExpandClick} role='presentation' />
             <div className='status__info'>
-              <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener noreferrer'><RelativeTimestamp timestamp={status.get('created_at')} /></a>
+              <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'><RelativeTimestamp timestamp={status.get('created_at')} /></a>
 
-              <a onClick={this.handleAccountClick} data-id={status.getIn(['account', 'id'])} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name' target='_blank' rel='noopener noreferrer'>
+              <a onClick={this.handleAccountClick} target='_blank' data-id={status.getIn(['account', 'id'])} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name'>
                 <div className='status__avatar'>
                   {statusAvatar}
                 </div>
@@ -475,7 +464,6 @@ class Status extends ImmutablePureComponent {
                 <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
               </button>
             )}
-
             <StatusActionBar status={status} account={account} {...other} />
           </div>
         </div>
